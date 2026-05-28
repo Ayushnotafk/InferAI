@@ -1,0 +1,54 @@
+# Python environment
+.venv/
+venv/
+.env
+.env.*
+.python-version
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Logs
+*.log
+streamlit_run.log
+test_help.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Streamlit local config
+.streamlit/
+
+# Generated dataset and artifacts
+dataset/raw/
+dataset/processed/
+models/evaluation/
+
+# Model artifacts (if you want to avoid committing large files)
+models/*.pkl
+models/*.npy
