@@ -1,87 +1,83 @@
-# InferAI Deployment Guide
+## InferAI Deployment Guide
 
-## क्या deploy करना है?
+This document explains how to run and deploy the InferAI project. There are two primary components:
 
-इस प्रोजेक्ट में दो मुख्य हिस्से हैं:
+1. `api/app.py` — FastAPI backend that exposes a POST `/analyze` endpoint.
+2. `frontend/app.py` — Streamlit frontend UI that calls the backend API.
 
-1. `api/app.py` — FastAPI backend जो `/analyze` endpoint चलाता है।
-2. `frontend/app.py` — Streamlit frontend UI जो backend API से डेटा मांगता है।
-
-> अगर आप केवल backend deploy करना चाहते हैं, तो `InferAI/` root से deploy करें क्योंकि `vercel.json` भी root में configured है।
+If you only want to deploy the backend, deploying from the repository root is sufficient (a `vercel.json` is included for Vercel deployments).
 
 ---
 
-## कौन सा फोल्डर उपयोग करें?
+## Folders of interest
 
-- `InferAI/` — मुख्य repository root
-- `InferAI/api/` — backend service फ़ोल्डर
-- `InferAI/frontend/` — local Streamlit UI फ़ोल्डर
-- `InferAI/web_frontend/` — optional static web UI फ़ोल्डर (यदि आप HTML/JS based frontend deploy करना चाहें)
+- `InferAI/` — repository root
+- `InferAI/api/` — backend service
+- `InferAI/frontend/` — Streamlit UI (local interactive frontend)
+- `InferAI/web_frontend/` — optional static web UI (HTML/JS)
 
-## कisko कहाँ deploy करें?
+## What to deploy where
 
-- `api/app.py` को deploy करें: Vercel या कोई Python-compatible cloud host
-- `frontend/app.py` को deploy करें: local machine, Streamlit Cloud, या किसी VM/container पर
-- `web_frontend/` को deploy करें: static site host जैसे Vercel, Netlify, या GitHub Pages
-- ML मॉडल फाइलें (`models/infer_model.pkl`, `models/label_encoder.pkl`, `models/shap_background.npy`) backend के साथ ही रहनी चाहिए क्योंकि backend उन्हें runtime पर लोड करता है
+- Deploy `api/app.py` on a Python-capable host (Vercel, AWS, Azure, etc.).
+- Run `frontend/app.py` locally, or deploy it on Streamlit Cloud / a VM / container.
+- Deploy `web_frontend/` (static files) to any static host (Vercel, Netlify, GitHub Pages).
+- Keep model files (`models/infer_model.pkl`, `models/label_encoder.pkl`, `models/shap_background.npy`) with the backend; the API loads them at runtime.
 
 ---
 
-## Local Deployment (सबसे आसान)
+## Local deployment (quick)
 
-### 1) Root फ़ोल्डर में जाएँ
+1) Change to the project root:
 
 ```powershell
 cd c:\Users\munta\Desktop\ak-pr\InferAI
 ```
 
-### 2) वर्चुअल एन्वाइरनमेंट बनाएं और सक्रिय करें
+2) Create and activate a virtual environment:
 
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-### 3) dependencies install करें
+3) Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-### 4) Backend API चलाएँ
+4) Start the backend API:
 
 ```powershell
 python -m uvicorn api.app:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### 5) Frontend UI चलाएँ
+5) Start the Streamlit frontend:
 
 ```powershell
 streamlit run frontend/app.py --server.port 8501 --server.headless true
 ```
 
-### यूआरएल्स
+URLs:
 
 - Backend API: `http://127.0.0.1:8000`
-- Swagger Docs: `http://127.0.0.1:8000/docs`
+- Swagger docs: `http://127.0.0.1:8000/docs`
 - Frontend UI: `http://127.0.0.1:8501`
 
 ---
 
-## Deploy on Vercel (API के लिए)
+## Deploying the API to Vercel
 
-इस repository में पहले से `vercel.json` मौजूद है। इसका मतलब है कि backend API Vercel पर deploy किया जा सकता है सीधे `api/app.py` से।
+This repository includes a `vercel.json` that enables deploying the backend directly to Vercel using the `@vercel/python` builder.
 
-### कैसे deploy करें
+Steps to deploy:
 
-1. GitHub पर repo push करें।
-2. Vercel में नया प्रोजेक्ट बनाएँ और इस repo को connect करें।
-3. Vercel auto-detect करेगा कि Python backend है।
-4. deploy पूरा होने पर आपको एक public Vercel URL मिलेगा।
+1. Push your repository to GitHub.
+2. Create a new project in Vercel and connect the GitHub repo.
+3. Vercel will detect the Python API and run the build.
+4. After deployment you will receive a public Vercel URL for your API.
 
-### Vercel config
-
-`vercel.json` में यह बताया गया है:
+Example `vercel.json` used by this repo:
 
 ```json
 {
@@ -101,45 +97,36 @@ streamlit run frontend/app.py --server.port 8501 --server.headless true
 }
 ```
 
-> यह configuration पूरे repo को API सेवा की तरह deploy करती है। इसका अर्थ है कि `api/app.py` root deployment entrypoint है।
+This configuration makes `api/app.py` the entrypoint for the deployment.
 
 ---
 
-## Static Frontend Deploy करने का तरीका
+## Static frontend options
 
-### A) Streamlit Cloud
+A) Streamlit Cloud
 
-यदि आप GUI को cloud में deploy करना चाहते हैं, तो `frontend/app.py` को Streamlit Cloud पर डालें।
+- Deploy `frontend/app.py` to Streamlit Cloud for an interactive GUI.
+- The frontend requires a running backend; set `INFERAI_API_URL` to point to your deployed API.
 
-- `frontend/app.py` रोल करता है Streamlit app
-- backend API को चलाना होगा या Vercel से deploy किया हुआ यूआरएल देना होगा
+B) Static site hosts
 
-यदि backend Vercel पर है तो Streamlit को `INFERAI_API_URL` में उस URL की ज़रूरत होगी।
-
-> हां, Streamlit Cloud पर frontend deploy करने से यह काम करेगा, बशर्ते backend API अलग से चल रही हो।
-
-### B) Vercel Static Frontend
-
-यदि आप स्टैटिक HTML/JS frontend deploy करना चाहें, तो `web_frontend/` folder use कर सकते हैं।
-- `web_frontend/index.html`
-- `web_frontend/app.js`
-- `web_frontend/style.css`
-- `web_frontend/vercel.json`
-
-यह एक अलग प्रोजेक्ट के रूप में deploy होगा, और API URL को अपने backend Vercel endpoint पर point करना होगा।
+- Deploy the contents of `web_frontend/` (HTML/JS/CSS) to Vercel, Netlify, or GitHub Pages.
+- Configure the static frontend to call your deployed backend URL.
 
 ---
 
-## URL सेटिंग
+## Environment variable for API URL
 
-यदि frontend को backend API का custom host चाहिए, तो environment variable सेट करें:
+If your frontend needs to point to a custom backend host, set the environment variable before launching Streamlit:
+
+PowerShell:
 
 ```powershell
 $env:INFERAI_API_URL="http://your-api-host:8000"
 streamlit run frontend/app.py --server.port 8501 --server.headless true
 ```
 
-या Linux/macOS पर:
+Linux / macOS:
 
 ```bash
 INFERAI_API_URL=http://your-api-host:8000 streamlit run frontend/app.py --server.port 8501 --server.headless true
@@ -147,27 +134,21 @@ INFERAI_API_URL=http://your-api-host:8000 streamlit run frontend/app.py --server
 
 ---
 
-## क्या deploy करें?
+## Recommended deployment path
 
-### सबसे आसान deployment path
-
-1. `api/app.py` को Vercel पर deploy करें।
-2. `frontend/app.py` को local machine पर चलाएँ या Streamlit Cloud पर deploy करें।
-3. Frontend को backend API URL से connect करें।
-
-### अगर आप पूरी app को एक साथ deploy करना चाहते हैं
-
-- Backend के लिए Vercel
-- Frontend के लिए Streamlit Cloud या `web_frontend/` से अलग static deployment
+1. Deploy `api/app.py` (backend) to Vercel or another Python host.
+2. Run or deploy `frontend/app.py` (Streamlit) locally or on Streamlit Cloud, pointing it to the backend URL.
+3. Alternatively, deploy a static UI from `web_frontend/` and configure its API base URL.
 
 ---
 
-## Quick Checklist
+## Quick checklist
 
-- [ ] `cd InferAI`
-- [ ] `pip install -r requirements.txt`
-- [ ] `python -m uvicorn api.app:app --reload --host 127.0.0.1 --port 8000`
-- [ ] `streamlit run frontend/app.py --server.port 8501 --server.headless true`
-- [ ] Vercel पर deploy करने के लिए GitHub repo connect करें
-- [ ] अगर static frontend deploy करना है, तो `web_frontend/` use करें
-- [ ] `INFERAI_API_URL` सही backend endpoint पर सेट करें
+- `cd InferAI`
+- `pip install -r requirements.txt`
+- `python -m uvicorn api.app:app --reload --host 127.0.0.1 --port 8000`
+- `streamlit run frontend/app.py --server.port 8501 --server.headless true`
+- Connect repo to Vercel for API deployment
+- If deploying a static frontend, use `web_frontend/`
+- Ensure `INFERAI_API_URL` points to the deployed backend
+
