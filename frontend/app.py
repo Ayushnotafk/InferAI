@@ -20,10 +20,15 @@ import streamlit as st
 from frontend import components as nx
 from frontend.theme import inject_dashboard_theme
 
-DEFAULT_API = (
-    os.environ.get("INFERAI_API_URL")
-    or "http://127.0.0.1:8000"
-)
+from classification.hybrid_reasoning import hybrid_fuse
+from classification.predictor import predict_pramana_detailed
+from confidence_engine.confidence import format_confidence
+from explanation_engine.explainer import generate_explanation
+from explanation_engine.shap_explainer import explain_embedding
+from preprocessing.argument_structure import extract_argument_structure
+from reasoning_strength.composite import composite_reasoning_strength
+
+DEFAULT_API = os.environ.get("INFERAI_API_URL")
 
 ARG_KEY = "infer_argument_text"
 
@@ -48,12 +53,64 @@ DEMO_EXAMPLES = {
 
 
 def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
-    url = base_url.rstrip("/") + "/analyze"
-    payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
-    with httpx.Client(timeout=120.0) as client:
-        r = client.post(url, json=payload)
-        r.raise_for_status()
-        return r.json()
+    if not base_url:
+        # Run locally in-process using imported Python modules!
+        structure = extract_argument_structure(text)
+        claim = structure["claim"]
+        premises = structure["premises"]
+        reasoning_indicators = structure["reasoning_indicators"]
+        highlighted_html = structure["highlighted_html"]
+
+        detail = predict_pramana_detailed(text)
+        ml_label = detail["ml_label"]
+        ml_confidence = float(detail["ml_confidence"])
+        embedding = detail["embedding"]
+        proba = detail["probabilities"]
+        classes = detail["classes"]
+
+        hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=alpha, rule_weight=1.0 - alpha)
+        adjusted_confidence = float(hybrid["adjusted_confidence"])
+
+        strength, strength_debug = composite_reasoning_strength(
+            text,
+            adjusted_confidence,
+            claim,
+            premises,
+        )
+
+        explanation = generate_explanation(hybrid["final_label"], strength_label=strength)
+
+        payload = {
+            "input_text": text,
+            "claim": claim,
+            "evidence": premises,
+            "premises": premises,
+            "reasoning_indicators": reasoning_indicators,
+            "highlighted_html": highlighted_html,
+            "predicted_pramana": ml_label,
+            "hybrid_predicted_pramana": hybrid["final_label"],
+            "confidence": format_confidence(ml_confidence),
+            "adjusted_confidence": format_confidence(adjusted_confidence),
+            "reasoning_strength": strength,
+            "reasoning_strength_debug": strength_debug,
+            "explanation": explanation,
+            "hybrid": hybrid,
+        }
+
+        if include_shap:
+            try:
+                payload["shap"] = explain_embedding(embedding)
+            except FileNotFoundError as exc:
+                payload["shap"] = {"error": str(exc)}
+
+        return payload
+    else:
+        url = base_url.rstrip("/") + "/analyze"
+        payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
+        with httpx.Client(timeout=120.0) as client:
+            r = client.post(url, json=payload)
+            r.raise_for_status()
+            return r.json()
 
 
 def _render_shap_block(sh: dict) -> None:
@@ -292,11 +349,13 @@ def main() -> None:
         help="Calculate and draw top embedding dimension contributions (SHAP values).",
     )
 
+    status_text = "Embedded In-Process Mode" if not DEFAULT_API else "De-coupled REST API Mode"
+    endpoint_text = "Local Python Modules" if not DEFAULT_API else DEFAULT_API
     st.sidebar.markdown(
         f"""
         <div style="margin-top: 2rem; border-top: 1px solid rgba(16, 185, 129, 0.15); padding-top: 1rem; font-size: 0.78rem; color: #64748b;">
-            <strong>System Status:</strong> De-coupled REST API Mode<br/>
-            <strong>Endpoint:</strong> <code>{DEFAULT_API}</code>
+            <strong>System Status:</strong> {status_text}<br/>
+            <strong>Endpoint:</strong> <code>{endpoint_text}</code>
         </div>
         """,
         unsafe_allow_html=True,

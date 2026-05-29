@@ -101,44 +101,50 @@ This configuration makes `api/app.py` the entrypoint for the deployment.
 
 ---
 
-## Static frontend options
+---
 
-A) Streamlit Cloud
+## Static & Interactive Frontend options
 
-- Deploy `frontend/app.py` to Streamlit Cloud for an interactive GUI.
-- The frontend requires a running backend; set `INFERAI_API_URL` to point to your deployed API.
+### A) Streamlit Cloud (Standalone / Embedded Mode) — RECOMMENDED ⭐
+- You can deploy `frontend/app.py` directly to Streamlit Cloud.
+- Since we have embedded the backend logic inside the frontend code:
+  - If the `INFERAI_API_URL` environment variable is **not set**, the app automatically runs in **Embedded In-Process Mode** (using local Python modules directly).
+  - This avoids Vercel limits and requires **no separate backend API deployment**!
+- To deploy:
+  1. Push your repository to GitHub.
+  2. Log in to [Streamlit Community Cloud](https://share.streamlit.io/).
+  3. Create a new app, select your repo, branch `main`, and set the file path to `frontend/app.py`.
+  4. Click **Deploy**. That's it!
 
-B) Static site hosts
+### B) Streamlit Cloud (De-coupled API Mode)
+- If you deploy your backend API separately (e.g. on Render, Koyeb, or a VM), you can point your Streamlit app to it by setting the environment variable in Streamlit Cloud's **Advanced Settings** -> **Secrets**:
+  ```toml
+  INFERAI_API_URL = "https://your-api-host.com"
+  ```
 
+### C) Static Web UI
 - Deploy the contents of `web_frontend/` (HTML/JS/CSS) to Vercel, Netlify, or GitHub Pages.
-- Configure the static frontend to call your deployed backend URL.
+- This static frontend requires a running backend API. Set the API endpoint inside the JS configuration.
 
 ---
 
-## Environment variable for API URL
+## Local execution (Quick Commands)
 
-If your frontend needs to point to a custom backend host, set the environment variable before launching Streamlit:
-
-PowerShell:
-
+Run standalone (frontend + backend in one command):
 ```powershell
-$env:INFERAI_API_URL="http://your-api-host:8000"
-streamlit run frontend/app.py --server.port 8501 --server.headless true
+python -m streamlit run frontend/app.py
 ```
 
-Linux / macOS:
-
-```bash
-INFERAI_API_URL=http://your-api-host:8000 streamlit run frontend/app.py --server.port 8501 --server.headless true
-```
-
----
-
-## Recommended deployment path
-
-1. Deploy `api/app.py` (backend) to Vercel or another Python host.
-2. Run or deploy `frontend/app.py` (Streamlit) locally or on Streamlit Cloud, pointing it to the backend URL.
-3. Alternatively, deploy a static UI from `web_frontend/` and configure its API base URL.
+Run with separate backend server:
+1. Start API:
+   ```powershell
+   python -m uvicorn api.app:app --reload --host 127.0.0.1 --port 8000
+   ```
+2. Start Frontend pointing to the API:
+   ```powershell
+   $env:INFERAI_API_URL="http://127.0.0.1:8000"
+   python -m streamlit run frontend/app.py
+   ```
 
 ---
 
@@ -146,9 +152,6 @@ INFERAI_API_URL=http://your-api-host:8000 streamlit run frontend/app.py --server
 
 - `cd InferAI`
 - `pip install -r requirements.txt`
-- `python -m uvicorn api.app:app --reload --host 127.0.0.1 --port 8000`
-- `streamlit run frontend/app.py --server.port 8501 --server.headless true`
-- Connect repo to Vercel for API deployment
-- If deploying a static frontend, use `web_frontend/`
-- Ensure `INFERAI_API_URL` points to the deployed backend
+- Deploy `frontend/app.py` to Streamlit Cloud for the full diagnostic tool (it will automatically run in-process!).
+
 
