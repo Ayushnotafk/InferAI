@@ -1,0 +1,5 @@
+Split,Count
+Train (80% of merged),648
+Validation (20% random holdout),163
+Held-out test (test_set.csv),200
+Total unique evaluation rows,363

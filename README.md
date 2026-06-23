@@ -31,6 +31,31 @@ Training writes:
 
 The Markdown report is written to `reports/final_evaluation_report.md`.
 
+## Research Evaluation and Validation
+
+InferAI includes a reproducible evaluation suite for thesis / professor review. Run everything after training:
+
+```bash
+python reports/run_all_evaluation_reports.py
+```
+
+Or run individual generators:
+
+| Script | Output | Description |
+|--------|--------|-------------|
+| `reports/generate_dataset_statistics.py` | `reports/dataset_statistics.md`, `reports/csv/*.csv` | Corpus sizes, class/strength distributions, train/val/test split |
+| `reports/generate_lexical_diversity.py` | `reports/lexical_diversity_report.md`, `reports/lexical_diversity_comparison.csv` | TTR, Guiraud's R, MATTR-50 (synthetic vs real-world) |
+| `calculate_kappa.py` | `reports/kappa_report.md`, `reports/kappa_confusion_matrix.png` | Cohen's κ, agreement %, bootstrap 95% CI, per-class rates |
+| `reports/generate_heldout_evaluation.py` | `reports/heldout_evaluation.md` | Per-class P/R/F1, macro/weighted F1, balanced accuracy on `test_set.csv` |
+| `reports/generate_confusion_matrix_analysis.py` | `reports/confusion_matrix_analysis.md` | Automatic confusion-pair interpretation |
+| `reports/generate_calibration_report.py` | `reports/calibration_report.md` | Reliability diagram, ECE, Brier score |
+| `reports/check_data_leakage.py` | `reports/data_leakage_report.md` | Exact + near-duplicate audit (RapidFuzz + embeddings) |
+| `reports/generate_professor_review_response.py` | `reports/professor_review_response.md` | Consolidated response to review concerns |
+
+**Explainability note:** `reports/shap_limitations.md` documents what embedding-level SHAP does and does not explain.
+
+Figures are saved under `reports/figures/`; tabular exports under `reports/csv/`.
+
 ## API
 
 ```bash

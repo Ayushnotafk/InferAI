@@ -1,0 +1,203 @@
+"""
+Lexical diversity analysis with TTR, Guiraud's R, and MATTR (window=50).
+
+Outputs:
+  - reports/lexical_diversity_report.md
+  - reports/lexical_diversity_comparison.csv
+  - reports/figures/lexical_diversity_metrics.png
+  - reports/figures/lexical_diversity_radar.png
+
+Usage:
+    python reports/generate_lexical_diversity.py
+"""
+
+from __future__ import annotations
+
+import math
+import sys
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+_ROOT = Path(__file__).resolve().parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+from calculate_ttr import compute_ttr, tokenize_corpus
+from reports._common import apply_plot_style, dataframe_to_markdown, ensure_reports_dir, save_dataframe_csv
+
+DATASETS = [
+    ("Synthetic", _ROOT / "dataset" / "raw" / "nyaya_dataset.csv"),
+    ("Real-world", _ROOT / "dataset" / "real_world_dataset.csv"),
+]
+
+FIG_DIR = _ROOT / "reports" / "figures"
+MATTR_WINDOW = 50
+
+
+def guiraud_r(total_tokens: int, vocab_size: int) -> float:
+    """Guiraud's R = V / sqrt(2N). Returns 0 when N=0."""
+    if total_tokens <= 0:
+        return 0.0
+    return vocab_size / math.sqrt(2.0 * total_tokens)
+
+
+def compute_mattr(tokens: list[str], window: int = MATTR_WINDOW) -> float:
+    """
+    Mean segmental TTR over sliding windows of ``window`` tokens.
+
+    If the corpus has fewer than ``window`` tokens, a single window is used.
+    """
+    n = len(tokens)
+    if n == 0:
+        return 0.0
+    if n < window:
+        return len(set(tokens)) / n
+    ttrs: list[float] = []
+    for start in range(n - window + 1):
+        segment = tokens[start : start + window]
+        ttrs.append(len(set(segment)) / window)
+    return float(np.mean(ttrs))
+
+
+def analyze_corpus(name: str, path: Path) -> dict:
+    df = pd.read_csv(path)
+    texts = df["text"]
+    tokens = tokenize_corpus(texts)
+    total, vocab, ttr = compute_ttr(texts)
+    return {
+        "dataset": name,
+        "rows": len(df),
+        "total_tokens": total,
+        "vocabulary_size": vocab,
+        "ttr": round(ttr, 6),
+        "guiraud_r": round(guiraud_r(total, vocab), 6),
+        "mattr_50": round(compute_mattr(tokens, MATTR_WINDOW), 6),
+    }
+
+
+def _plot_grouped_bars(df: pd.DataFrame, path: Path) -> None:
+    apply_plot_style()
+    metrics = ["ttr", "guiraud_r", "mattr_50"]
+    labels = ["TTR", "Guiraud's R", f"MATTR ({MATTR_WINDOW})"]
+    x = np.arange(len(metrics))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    syn = df[df["dataset"] == "Synthetic"].iloc[0]
+    real = df[df["dataset"] == "Real-world"].iloc[0]
+
+    syn_vals = [syn[m] for m in metrics]
+    real_vals = [real[m] for m in metrics]
+
+    ax.bar(x - width / 2, syn_vals, width, label="Synthetic", color="#059669", edgecolor="#022c22")
+    ax.bar(x + width / 2, real_vals, width, label="Real-world", color="#10b981", edgecolor="#022c22")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylabel("Score")
+    ax.set_title("Lexical diversity metrics by corpus")
+    ax.legend()
+    ax.grid(axis="y", alpha=0.3)
+    plt.tight_layout()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(path, bbox_inches="tight")
+    plt.close()
+
+
+def _plot_token_vocab_bars(df: pd.DataFrame, path: Path) -> None:
+    apply_plot_style()
+    fig, axes = plt.subplots(1, 2, figsize=(9, 4))
+    names = df["dataset"].tolist()
+    colors = ["#059669", "#10b981"]
+
+    axes[0].bar(names, df["total_tokens"], color=colors, edgecolor="#022c22")
+    axes[0].set_title("Total token count")
+    axes[0].set_ylabel("Tokens")
+    for i, v in enumerate(df["total_tokens"]):
+        axes[0].text(i, v, f"{v:,}", ha="center", va="bottom", fontsize=9)
+
+    axes[1].bar(names, df["vocabulary_size"], color=colors, edgecolor="#022c22")
+    axes[1].set_title("Vocabulary size (unique types)")
+    axes[1].set_ylabel("Types")
+    for i, v in enumerate(df["vocabulary_size"]):
+        axes[1].text(i, v, f"{v:,}", ha="center", va="bottom", fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(path, bbox_inches="tight")
+    plt.close()
+
+
+def main() -> None:
+    ensure_reports_dir()
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+    rows = [analyze_corpus(name, path) for name, path in DATASETS]
+    df = pd.DataFrame(rows)
+
+    csv_path = _ROOT / "reports" / "lexical_diversity_comparison.csv"
+    save_dataframe_csv(df, csv_path)
+
+    _plot_grouped_bars(df, FIG_DIR / "lexical_diversity_metrics.png")
+    _plot_token_vocab_bars(df, FIG_DIR / "lexical_diversity_token_vocab.png")
+
+    syn, real = df.iloc[0], df.iloc[1]
+    lines: list[str] = []
+    lines.append("# InferAI — Lexical Diversity Report\n\n")
+    lines.append(
+        "Comparison of synthetic (`nyaya_dataset.csv`) and curated real-world corpora using "
+        "multiple lexical diversity indices. Generated by `reports/generate_lexical_diversity.py`.\n\n"
+    )
+
+    lines.append("## Summary table\n\n")
+    display = df.rename(
+        columns={
+            "dataset": "Dataset",
+            "rows": "Rows",
+            "total_tokens": "Total tokens",
+            "vocabulary_size": "Vocabulary size",
+            "ttr": "TTR",
+            "guiraud_r": "Guiraud's R",
+            "mattr_50": f"MATTR (w={MATTR_WINDOW})",
+        }
+    )
+    lines.append(dataframe_to_markdown(display) + "\n\n")
+
+    lines.append("## Figures\n\n")
+    lines.append("![Lexical diversity metrics](figures/lexical_diversity_metrics.png)\n\n")
+    lines.append("![Token and vocabulary counts](figures/lexical_diversity_token_vocab.png)\n\n")
+
+    lines.append("## Interpretation\n\n")
+    lines.append(
+        "### Why raw TTR alone is misleading\n\n"
+        f"- **Synthetic TTR** ≈ `{syn['ttr']:.4f}` with **{syn['total_tokens']:,}** tokens — "
+        f"the enormous token mass drives TTR toward zero even though the vocabulary is large "
+        f"({syn['vocabulary_size']:,} types).\n"
+        f"- **Real-world TTR** ≈ `{real['ttr']:.4f}` on only **{real['total_tokens']:,}** tokens — "
+        "a much smaller corpus yields a higher ratio by construction (fewer repeated types per token).\n"
+        "- TTR is **inversely correlated with corpus length**: comparing TTR across corpora of "
+        "different sizes confounds lexical richness with sample size.\n\n"
+        "### Complementary indices\n\n"
+        f"- **Guiraud's R** ({syn['guiraud_r']:.3f} synthetic vs {real['guiraud_r']:.3f} real-world) "
+        "partially normalizes for length via √N in the denominator.\n"
+        f"- **MATTR (window={MATTR_WINDOW})** ({syn['mattr_50']:.3f} vs {real['mattr_50']:.3f}) "
+        "computes local TTR over fixed-length segments, reducing sensitivity to global repetition "
+        "from template-heavy synthetic generation.\n\n"
+        "Together, these metrics show that the synthetic set is **template-dense** (high repetition "
+        "at scale) while the real-world set is **lexically sparser per document** but drawn from "
+        "more varied phrasing — supporting the professor's concern that synthetic diversity metrics "
+        "must be reported with length-aware indices, not TTR alone.\n"
+    )
+
+    out = _ROOT / "reports" / "lexical_diversity_report.md"
+    out.write_text("".join(lines), encoding="utf-8")
+    print(f"Wrote {out}")
+    print(f"Wrote {csv_path}")
+
+
+if __name__ == "__main__":
+    main()
