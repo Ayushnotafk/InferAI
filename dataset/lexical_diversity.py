@@ -122,25 +122,25 @@ def main():
 
     results = {
 
-        "Documents": len(texts),
+    "Documents": int(len(texts)),
 
-        "Total Tokens": total_tokens,
+    "Total Tokens": int(total_tokens),
 
-        "Vocabulary Size": vocabulary,
+    "Unique Word Types": int(vocabulary),
 
-        "Global TTR": round(calculate_ttr(tokens), 4),
+    "Global TTR": round(calculate_ttr(tokens), 4),
 
-        "MATTR (Window=50)": round(calculate_mattr(tokens), 4),
+    "MATTR (Window=50)": round(calculate_mattr(tokens), 4),
 
-        "Guiraud R": round(calculate_guiraud(tokens), 4),
+    "Guiraud R": round(calculate_guiraud(tokens), 4),
 
-        "Average Tokens/Sentence": round(sum(sentence_lengths) / len(sentence_lengths), 2),
+    "Average Tokens/Sentence": round(sum(sentence_lengths) / len(sentence_lengths), 2),
 
-        "Minimum Tokens": min(sentence_lengths),
+    "Minimum Tokens": int(min(sentence_lengths)),
 
-        "Maximum Tokens": max(sentence_lengths)
+    "Maximum Tokens": int(max(sentence_lengths))
 
-    }
+}
 
     print("=" * 60)
 
