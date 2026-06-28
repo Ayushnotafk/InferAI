@@ -1,0 +1,451 @@
+text,pramana_label,strength_label
+The ward nurse wrote that the patient's oxygen saturation stayed at 88% for twenty minutes after the walk test.,Pratyaksha,strong
+I could hear water dripping behind the drywall every time the upstairs shower ran.,Pratyaksha,strong
+The lab printout shows ketones in the urine sample collected at admission.,Pratyaksha,strong
+"On the factory floor, the torque wrench clicked at 45 Nm exactly as the work instruction specified.",Pratyaksha,strong
+The traffic camera still image timestamps the truck crossing the line at 14:02:11.,Pratyaksha,strong
+"During the field survey, we counted fourteen nests along the eastern ridge, not the six reported last year.",Pratyaksha,strong
+The smartphone accelerometer log shows a spike of 3.2 g right before the screen went black.,Pratyaksha,strong
+"In the lecture hall, the projector image was visibly shifted two inches to the left of the screen border.",Pratyaksha,strong
+"The tasting panel's sheet describes the wine as metallic with a sharp finish, with no fruit notes circled.",Pratyaksha,strong
+The security badge reader beeped red when I scanned the expired contractor pass.,Pratyaksha,strong
+"The river gauge downstream read 4.1 meters at dawn, which is above the local flood-watch threshold.",Pratyaksha,strong
+I watched the toddler pull at her ear repeatedly during the pediatric visit.,Pratyaksha,strong
+The microscope slide shows clustered rod-shaped bacteria along the epithelial edge.,Pratyaksha,strong
+The concert recording has clipping on the left channel in every chorus segment.,Pratyaksha,strong
+"The soil probe reported pH 5.2 in plot B, while plot A measured 6.8 the same afternoon.",Pratyaksha,strong
+The dashboard showed zero completed uploads between midnight and 06:00.,Pratyaksha,moderate
+"The patient said the rash itched more at night, and the photo they sent shows raised edges.",Pratyaksha,moderate
+The classroom thermometer read 31°C near the windows after the AC was switched off.,Pratyaksha,moderate
+I noticed the laptop fan spinning loudly even when no applications were open.,Pratyaksha,moderate
+The receipt lists three separate delivery attempts on the same day.,Pratyaksha,moderate
+"The neighbor's dog barked nonstop during the storm, which kept waking people on our street.",Pratyaksha,moderate
+The spreadsheet column for March has more blank cells than February in the sales export.,Pratyaksha,moderate
+The hiking group reported slippery granite on the north face after the morning frost.,Pratyaksha,moderate
+The ultrasound technician pointed out a shadow along the lower margin of the image.,Pratyaksha,moderate
+The city noise app flagged sustained readings above 70 dB near the construction zone.,Pratyaksha,moderate
+"The pharmacy label says take with food, and the pill color matches the photo in the pamphlet.",Pratyaksha,moderate
+The referee's bodycam footage shows the player’s foot making contact before the ball arrived.,Pratyaksha,moderate
+The greenhouse humidity sensor flatlined at 99% for an hour overnight.,Pratyaksha,moderate
+The archive scan shows a crease through the signature line on page three.,Pratyaksha,moderate
+The bus driver announced a detour because the main bridge was closed to traffic.,Pratyaksha,moderate
+The pulse oximeter on my finger read 91% while I was sitting still after climbing the stairs.,Pratyaksha,moderate
+"Something felt off about the room, but I cannot point to a single detail.",Pratyaksha,weak
+The app looked weird after the update.,Pratyaksha,weak
+I think the food tasted funny.,Pratyaksha,weak
+The meeting seemed tense.,Pratyaksha,weak
+The street was noisy last night.,Pratyaksha,weak
+The report had a lot of numbers I did not check.,Pratyaksha,weak
+Her voice sounded tired on the call.,Pratyaksha,weak
+The sky looked strange around sunset.,Pratyaksha,weak
+"The lab result came back flagged, but nobody explained the units.",Pratyaksha,weak
+The device felt hot in my hand.,Pratyaksha,weak
+There was a smell in the hallway.,Pratyaksha,weak
+"The photo on social media shows a crowd, though the caption is vague.",Pratyaksha,weak
+The garden looks worse than last week.,Pratyaksha,weak
+The invoice total surprised me.,Pratyaksha,weak
+The patient chart mentions dizziness without timing or vitals.,Pratyaksha,weak
+The water in the creek seemed low.,Pratyaksha,weak
+The laptop screen flickered once.,Pratyaksha,weak
+The store shelf was mostly empty.,Pratyaksha,weak
+The lecture slides were hard to read from the back row.,Pratyaksha,weak
+Bond yields inverted again last quarter; historically that pattern often precedes recessions within eighteen months.,Anumana,strong
+"The defendant's phone was at the tower near the warehouse at 02:14, and the broken lock was discovered at 02:20, so presence is plausible.",Anumana,strong
+"GPU utilization pegs at 100% while CPU stays under 15% during training jobs, which suggests the pipeline is GPU-bound.",Anumana,strong
+"The placebo arm improved on mood surveys but not on the biomarker panel, implying the drug's effect may be psychological rather than physiological.",Anumana,strong
+"Every time the cache warms, latency drops by half, so cold-start IO is likely the bottleneck.",Anumana,strong
+"The fossil sequence shows gradual transitions between forms, which supports gradual change rather than single-event saltation.",Anumana,strong
+"If tariffs rise and import volume is unchanged, consumer prices should increase in equilibrium.",Anumana,strong
+"The contract uses the term 'delivery' in two different senses in adjacent clauses, so courts may apply the narrower reading.",Anumana,strong
+"The student answered every practice question correctly after the tutorial, so she probably understands the core idea.",Anumana,strong
+"Packet loss correlates with peak-hour congestion but not with hardware swaps, so the issue is likely capacity, not faulty NICs.",Anumana,strong
+"The suspect had motive, access, and opportunity on the night in question, which makes guilt a reasonable working hypothesis for investigators.",Anumana,strong
+"Residuals fan out as predicted values grow, so the linear model is probably misspecified.",Anumana,strong
+"The patient improved after stopping the drug, which is consistent with an adverse reaction.",Anumana,strong
+"The ciphertext letter frequencies match English, so this is unlikely to be random noise.",Anumana,strong
+"Turnout surged in districts with new ballot drop boxes, so the policy may have boosted participation.",Anumana,strong
+"The bug disappears when threading is disabled, so a race condition is a sensible suspect.",Anumana,strong
+"The ruins contain Roman coins in the upper layer, so occupation during that period is likely.",Anumana,strong
+"If the lemma holds for n and n+1, then by induction it holds for all positive integers.",Anumana,strong
+"The strata are folded, so compressive forces probably acted after deposition.",Anumana,strong
+"The malware beacon resolves to the same IP range as prior campaigns, so attribution to the same actor is plausible.",Anumana,strong
+"Sales rose after the ad campaign, so marketing might have helped, though seasonality could also explain it.",Anumana,moderate
+"He missed two shifts and sounds congested on the phone, so he may be ill.",Anumana,moderate
+"The roads are wet and the radar showed rain an hour ago, so it probably rained here too.",Anumana,moderate
+"The exam average was low, so the test might have been difficult.",Anumana,moderate
+"The server logs spike at noon daily, so lunch-hour traffic could be the cause.",Anumana,moderate
+"The plant wilted after we moved it to the windowsill, so too much direct sun might be the issue.",Anumana,moderate
+"The startup burned cash faster after hiring sales staff, so the new payroll may be straining runway.",Anumana,moderate
+"The witness changed a detail in the second interview, so memory decay might be at play.",Anumana,moderate
+"The model overfits on the training split, so regularization should help.",Anumana,moderate
+"Crime reports fell after the streetlights were upgraded, so lighting might have mattered.",Anumana,moderate
+"The battery drains quickly when location services stay on, so GPS could be responsible.",Anumana,moderate
+"Enrollment dropped after the fee hike announcement, so price sensitivity may be showing up.",Anumana,moderate
+"The cough lasted three weeks, so antibiotics might be worth discussing with a clinician.",Anumana,moderate
+"The graph's shortest path length grew after the node removal, so that node was probably a bridge.",Anumana,moderate
+"The portfolio underperformed the index in a bull market, so stock selection may have lagged.",Anumana,moderate
+"The error only happens on Safari, so a browser-specific bug is possible.",Anumana,moderate
+They are probably lying because I do not trust them.,Anumana,weak
+It will rain tomorrow because the sky looks bad.,Anumana,weak
+The stock will moon because everyone online is bullish.,Anumana,weak
+She failed because she is lazy.,Anumana,weak
+"The project failed, so the manager must be incompetent.",Anumana,weak
+"Crime is up, therefore society is collapsing.",Anumana,weak
+"He was late, hence he does not care.",Anumana,weak
+"Inflation is high, so the government is definitely corrupt.",Anumana,weak
+"The patient recovered, therefore the home remedy cured them.",Anumana,weak
+"Grades dropped, so phones are ruining education.",Anumana,weak
+One cold winter proves climate change is fake.,Anumana,weak
+"The team lost, so the coach should be fired immediately.",Anumana,weak
+"Traffic was bad, therefore the city planner is useless.",Anumana,weak
+"A single study failed to replicate, so all of psychology is wrong.",Anumana,weak
+Training a neural network is like teaching a student who improves only after seeing many worked examples with feedback.,Upamana,strong
+A firewall in a corporate network functions like a bouncer who checks IDs before anyone enters the club.,Upamana,strong
+The heart's chambers and valves act like a double pump that keeps pressure in two separate loops.,Upamana,strong
+Version control is similar to saving named checkpoints in a video game before trying a difficult level.,Upamana,strong
+The immune system behaves like a layered defense force that remembers previous invaders.,Upamana,strong
+Gradient descent on a bumpy loss surface is like rolling a ball downhill while it rattles through potholes.,Upamana,strong
+A public blockchain resembles a town ledger that anyone can read but no single clerk can erase.,Upamana,strong
+The CPU scheduling queue is analogous to a restaurant kitchen ticket rail during dinner rush.,Upamana,strong
+Electric current in a wire is often explained like water flowing through a pipe with pressure as voltage.,Upamana,strong
+A Bloom filter works like a compact guest list that may mistakenly admit a stranger but rarely rejects a true guest.,Upamana,strong
+The Krebs cycle is like a revolving assembly line that keeps reusing the same carbon backbone.,Upamana,strong
+Attention in transformers is similar to a spotlight operator deciding which actors to illuminate on stage.,Upamana,strong
+A Bayesian prior is like a gentle hand on the steering wheel before the road data arrive.,Upamana,strong
+Market liquidity is like oil in an engine: everything seizes when it disappears.,Upamana,strong
+Overfitting a small dataset is like memorizing flashcards without reading the textbook chapter.,Upamana,strong
+A causal diagram is analogous to a map of one-way streets between variables.,Upamana,strong
+Debugging intermittent failures is like chasing a ghost that only appears when the lights are off.,Upamana,strong
+The double helix unwinds like a zipper when replication machinery moves along the strand.,Upamana,strong
+"A hash function is like a fingerprint for files: short to store, hard to reverse into the original.",Upamana,strong
+Teaching recursion to beginners is like pointing at nested Russian dolls and asking what is inside the next one.,Upamana,strong
+The new policy works like a speed bump: it slows everyone down but reduces collisions at the intersection.,Upamana,moderate
+Her explanation of entropy was like describing a messy room that keeps getting messier on its own.,Upamana,moderate
+The startup pitch compared their API to a universal translator for software systems.,Upamana,moderate
+He said the negotiation felt like chess where both sides could see only half the board.,Upamana,moderate
+The coach said defending is like holding a umbrella against wind from many directions at once.,Upamana,moderate
+The essay likened urban sprawl to an ink stain spreading outward from the city center.,Upamana,moderate
+The therapist compared grief to a wave that returns without warning.,Upamana,moderate
+The professor said memory is like a library where some books are mis-shelved.,Upamana,moderate
+The article described the supply chain as a relay race with broken baton handoffs.,Upamana,moderate
+The podcast host said compound interest is like a snowball rolling downhill.,Upamana,moderate
+The slide deck compared cloud storage to renting a locker you never visit in person.,Upamana,moderate
+The comment thread treated the debate like a tennis match with no umpire.,Upamana,moderate
+The nurse explained insulin timing using a key-and-lock metaphor for receptors.,Upamana,moderate
+The lawyer said the contract was like a fence with gaps big enough for a truck.,Upamana,moderate
+The tour guide compared the canyon layers to pages in a geology textbook.,Upamana,moderate
+The tweet said studying for boards is like drinking from a firehose.,Upamana,moderate
+"Politics is like sports, so just pick a team.",Upamana,weak
+"The economy is like my household budget, exactly the same.",Upamana,weak
+"AI is like magic, end of story.",Upamana,weak
+Vaccines are like cheating the immune system.,Upamana,weak
+"The brain is like a computer, so we can download thoughts.",Upamana,weak
+Climate is like weather on one rainy day.,Upamana,weak
+Courts are like comment sections with robes.,Upamana,weak
+"A company is like a family, so firing anyone is betrayal.",Upamana,weak
+"Depression is like being sad, just snap out of it.",Upamana,weak
+The internet is like a tube where messages go.,Upamana,weak
+Evolution is like a ladder with humans on top.,Upamana,weak
+"Statistics is like lying with numbers, always.",Upamana,weak
+"Encryption is like a secret, that's all.",Upamana,weak
+Democracy is like a popularity contest with no rules.,Upamana,weak
+"According to the WHO infection-prevention checklist, hand hygiene remains the first line of defense in clinical settings.",Shabda,strong
+The FDA prescribing information warns against combining this drug with strong CYP3A4 inhibitors.,Shabda,strong
+Reuters reported that the central bank held rates steady after citing moderating headline inflation.,Shabda,strong
+The textbook defines gross domestic product as the market value of final goods and services produced domestically in a period.,Shabda,strong
+The Supreme Court syllabus summarizes the holding without replacing the full opinion.,Shabda,strong
+Nature's editorial board states that authors must provide data availability statements for new submissions.,Shabda,strong
+The engineering code requires a safety factor of 1.5 for lifting hooks in this load class.,Shabda,strong
+The hospital policy manual mandates two patient identifiers before blood administration.,Shabda,strong
+The IPCC synthesis report concludes that human influence has warmed the climate system unequivocally.,Shabda,strong
+The RFC specifies that clients must send a supported-versions frame before application data.,Shabda,strong
+The university registrar announced that late add requests will not be granted after week two.,Shabda,strong
+The Cochrane review pooled twelve trials and reported a modest mortality benefit with confidence intervals that exclude zero.,Shabda,strong
+The city council minutes record a unanimous vote to adopt the revised zoning map.,Shabda,strong
+The cybersecurity advisory attributes the campaign to a known group and lists recommended mitigations.,Shabda,strong
+The professor stated in the syllabus that calculators are not permitted on the midterm.,Shabda,strong
+The annual report discloses a material weakness in internal controls over financial reporting.,Shabda,strong
+The medical society guideline recommends screening adults aged 45 to 75 for colorectal cancer.,Shabda,strong
+The court filing quotes the statute verbatim when arguing that mens rea must be proven.,Shabda,strong
+NASA's mission press kit lists the launch window and trajectory correction maneuvers.,Shabda,strong
+The journal's referee report recommends major revision before the paper can be accepted.,Shabda,strong
+Experts on the panel said the bridge design meets the updated seismic standard.,Shabda,moderate
+"The teacher explained that plagiarism includes uncited paraphrase, not only copied sentences.",Shabda,moderate
+Doctors on the clinic website recommend staying hydrated during prolonged heat advisories.,Shabda,moderate
+The news wire said the minister will present the budget on Thursday morning.,Shabda,moderate
+Historians in the documentary argue that trade routes declined after the river shifted course.,Shabda,moderate
+The software license forbids redistribution without attribution and a copy of the terms.,Shabda,moderate
+Analysts in the bank note predict slower consumer spending next quarter.,Shabda,moderate
+"The coach told players to stretch before practice, citing sports-medicine advice.",Shabda,moderate
+Researchers in the preprint claim their method beats the baseline on three benchmarks.,Shabda,moderate
+The ethics committee approved the protocol with minor changes to consent wording.,Shabda,moderate
+The style guide says figures must include error bars when reporting experimental means.,Shabda,moderate
+The agency bulletin states vendors must patch the vulnerability within thirty days.,Shabda,moderate
+The encyclopedia entry summarizes the war's causes without citing primary archives.,Shabda,moderate
+The podcast cited a dermatologist who recommends daily sunscreen on exposed skin.,Shabda,moderate
+The union memo says overtime must be authorized in writing by a supervisor.,Shabda,moderate
+Scientists say it is real because they are scientists.,Shabda,weak
+"Experts believe stuff, trust me.",Shabda,weak
+"The manual says read it, so do that.",Shabda,weak
+"According to someone online, vaccines are suspicious.",Shabda,weak
+A doctor on TV said this herb fixes everything.,Shabda,weak
+The professor stated attendance matters without saying why.,Shabda,weak
+"Studies show things, according to a headline I saw.",Shabda,weak
+Historians believe because it sounds dramatic.,Shabda,weak
+The government announced something important yesterday.,Shabda,weak
+"Reports indicate drama, details not included.",Shabda,weak
+"According to my uncle, markets always crash in October.",Shabda,weak
+"Teachers recommend studying, which is vague but official-sounding.",Shabda,weak
+The guidebook states the temple is old.,Shabda,weak
+"Researchers found a thing, no paper named.",Shabda,weak
+Cybersecurity experts warn about hackers because hackers are bad.,Shabda,weak
+Many circumstances that I experienced change the way I think,Anumana,moderate
+pets should be treated like human beings,Upamana,weak
+qualification is still the fundamental determinant of an employee's competency of their jobs,Anumana,moderate
+"many people driving private cars could cause air pollution, and overusing plastic packages would affect the environment",Anumana,moderate
+I would choose to live in a big city,Anumana,moderate
+I would prefer to live in an apartment in the community rather than in the university dormitories,Anumana,moderate
+dancing is an important part of culture,Anumana,weak
+no additional payment should be charged on them,Anumana,weak
+children could acquire the information regarding how to protect wild animals according to guided tour or volunteers,Shabda,strong
+To generate such a vast energy the fundamental resources are falling short,Anumana,moderate
+people are experiencing serious medical problems,Anumana,weak
+"if there is a man that beats his wife and treats her bad, his child probably is going to be rude and treat girls bad",Anumana,moderate
+"even if you are right, criticism is still helpful",Anumana,moderate
+"To my rivals' surprise, being the only member of my own ""team"" I gained a victory",Anumana,moderate
+Moving some places can give to you a lot of experiences,Anumana,moderate
+the preservation is very expensive because all components of old buildings have historical values,Anumana,strong
+I would prefer to have my own job,Anumana,weak
+Every technology has it’s good and bad effects but I prefer having the technologies with their disadvantages to living like 16 century without any of modern facilities of technology,Upamana,moderate
+it is very important to live life at a slower pace,Anumana,moderate
+one who studies overseas will gain many skills throughout this experience,Anumana,moderate
+"we should develop at least one personal hobby, not to show off, but express our emotion when we feel depressed or pressured",Anumana,moderate
+jobs can divert students from their studies,Anumana,weak
+students can acquire university knowledge without the prerequisite of passing exam,Anumana,moderate
+the jury giving the verdict are also humans,Anumana,weak
+city planner can still opt for non-personal vehicle and the exploitation of the suburb areas,Anumana,moderate
+This is especially true in sectors like entertainment and sports,Upamana,moderate
+"it should be up for grabs for a majority of young people, who wish to pursue their passion as well as develop comprehensively",Anumana,moderate
+university is not just about academic studies but also a place to nurture artistic talent and develop soft skills,Anumana,moderate
+"As living in a competent world, we are like playing a survival game",Upamana,moderate
+ease to prepare food has improved people’s lives,Anumana,weak
+"the government should fund the deprived for their health care and education, who are the group in real need for the authority's help",Anumana,moderate
+"As we destroy the natural habitat, like forests, jungles and lakes, to make place for our industry and farmland, we rob the ecosystem",Upamana,moderate
+they will never try to solve problems on their own,Anumana,moderate
+people are now more conscious to gain more educational qualification and also are more interested to work on various fields simultaneously to earn more and support themselves,Anumana,moderate
+"Another problem that the young adults may encounter is to find a co-tenant, who they do not like",Anumana,moderate
+They are essential to our spiritual life,Anumana,weak
+"there are Reality TV, television programs in which people are put into artificial environments and situations, for example like ""Big Brother""",Upamana,moderate
+Having knowledge about other countries and their languages lead to extend the child's vision,Anumana,moderate
+I prefer to see those serious movies which make people have deep thoughts toward their real lives,Anumana,moderate
+at no time will the unique role of human teachers be replaced,Anumana,moderate
+"The more people in the country become educated, the better chance it can develop",Anumana,moderate
+"In modern life, zoos have become even more important in serving as places for people to study and enjoy the nature while a lot of natural destruction is made to build towers and skyscrapers",Anumana,moderate
+Another technological innovations which help people around the world is related to medical equipments,Anumana,moderate
+it is a dramatically cruel activity to humanity if the latest foods or medicines are allowed to sold without testing on animals,Anumana,moderate
+eating their meat mean you eat the flesh of your parent sentient beings,Anumana,moderate
+"Unlike a professional, parents always support children and give them much social skill so they can communicate well with others and have good habit in life",Upamana,moderate
+successful people can learn important and very valuable points from trying new things,Anumana,moderate
+A well-informed man can act sensibly and make sound judgment,Anumana,moderate
+"aiding poor countries has positive effects, overweighing its side-effects for the several reasons",Anumana,moderate
+"creative design talents can value their own dressing ideas, developing their own fashion styles as they like",Anumana,moderate
+Safely getting rid of nuclear waste is a daunting task and there has not been any permanent solution of it,Anumana,moderate
+"my roommate, Mary, always wakes up 6 in the morning and spends 1 hour doing sport in the park which is near our dormitory",Anumana,moderate
+these cameras can help to provide some form of protection to the workers against the customers,Anumana,moderate
+they will grow up in a good neighborhood of a big city and they will be very happy about it,Anumana,moderate
+I support this point that the learning with a teacher is better,Anumana,moderate
+providing professional training can be effective in encouraging further good work,Anumana,moderate
+the prosperity of tourism can provide benefits for people on a global scale,Anumana,moderate
+the demerits of applying these new developments in the agriculture industry cannot be overlooked,Anumana,moderate
+The professor has been assigned to teach only,Anumana,weak
+"an international sports event is a very good thing to gather people, let them dream, being proud of their nationality and forget problems, but just for a while",Anumana,moderate
+the main function of a university remains as the provision of knowledge and access to resources,Anumana,moderate
+I personally consider this fact as the harmful thing that television has brought upon us,Anumana,moderate
+"it is a loss of national productivity that young people spend much time on searching for high salary jobs, even can be a sheer time-consuming",Anumana,moderate
+"My country need to focus more on the agriculture by establishing centers for research in this field, which will have some very positive consequences on agriculture people work, on the economy and on the employment",Anumana,moderate
+"living in big cities is quite funnier and better and more exciting than living in small towns because of many more social places, technologies facilities, better education and medical services",Anumana,strong
+working alone allows me to avoid spending time and efforts on many things that are an integral part of teamwork,Anumana,moderate
+there are still many other aspects which should be seen as important as income when people choose a job,Anumana,moderate
+"when I fix my study plan with a specific time and finish it on time, it improves my ability in the future to become more precise and careful",Anumana,moderate
+Our difficult experiences also make us robust and strong unknowingly,Anumana,moderate
+there have to be some alterations before IT has more serious impact on each individual's life,Anumana,moderate
+"The whole world is dependent on computers, without which, the world will go back hundreds of years",Anumana,moderate
+tourism can have a negative impact on the natural environment,Anumana,moderate
+There is also another obvious advantage of living in a big city considering the chance of receiving better education of our offspring,Anumana,moderate
+"if a gradate stays in the city after leaving his college and seeks a job with good salary instead of returning his village to do farm work, he could perhaps buy a house or his own car after a short time",Anumana,moderate
+there should not be any room for partiality in terms of gender while allocating seats for students in every university courses,Anumana,moderate
+"if the university take the policy that no one can attend the classes without passing exam, students are highly likely to leave uncultivated",Anumana,moderate
+traditional education has some merits like feedbacks and inspirations that cannot be replaced in the near future,Upamana,moderate
+we need to consider that police armed with guns or any other kinds of legal weapons just attempts to protect not only civilians but also himself,Anumana,moderate
+most people will be trying to understand each other after they have conflict or debates,Anumana,moderate
+this is a worrying tread which has negative impact on children,Anumana,moderate
+"there are sometimes unpleasant and boring parts which is not liked by anyone, but most of them are about responsibilities which is the part of individual's live",Anumana,moderate
+our body and moral health depend to physical activities directly,Anumana,moderate
+working in the office is obviously better than working at home in terms of efficiency,Anumana,moderate
+modern society needs advertising,Anumana,weak
+"if someone faced so complicated confusion in his study and his many endeavors on making out it were miscarried, this might be ended in disappointment",Anumana,moderate
+We need to know and learn about the theoritical basis of our future job,Anumana,moderate
+people who know a wide range of is better than people who know just one,Anumana,moderate
+"To put it differently, is that after this person has quit his job and became unemployed, he can no longer pay his bills nor buy what he needs for his everyday needs",Anumana,moderate
+How can the comtemporary scientists study the earth's gravity without the apple which fall on Newton's head,Anumana,moderate
+the development of technology can prompt economic growth and the improvement of living standards,Anumana,moderate
+for a teenager it is important to pay attention on their studies,Anumana,moderate
+Every day comes with new challenges for them like walking,Upamana,moderate
+"If you spend your spare time at home or something like that, you can't enjoy beautiful nature",Upamana,moderate
+"the government authorities and education institutes should work closely together to promote the traditional skills and ways of life, so as to make people to realize the value of them",Anumana,moderate
+students that already have a basic knowledge and education can get a part-time job and they can pay for their own studies when their parent could not afford to pay it,Anumana,moderate
+CCTV cameras are essential and therefore must be installed in every premise,Anumana,strong
+"living in big cities means more exposure to stimulation, like all kinds of information",Upamana,moderate
+"These days, not only many businesses, but also governments have to rely on advertising",Anumana,moderate
+these subject are necessary for students' future,Anumana,weak
+married women could go to work in order to enjoy the working life outside the home,Anumana,moderate
+public services and facilities should be given adequate attention by the authorities to maintain social stability,Anumana,moderate
+children usually mirror themselves on their parents,Anumana,weak
+the role of zoos towards both human and animals is undeniably indispensable,Anumana,moderate
+"stress management, how to survive our unbearable stress, is the most important skill that we should have",Anumana,moderate
+It is disagreed that computer can affect children in a negative way if they use a computer on a daily basis,Anumana,moderate
+even some disabled people with serious vertebral injuries can start doing physical activities like walking again thanks to the continuingly efforts of biomechanical engineers and neurologists,Upamana,moderate
+they are aware of how to lead people to reach success despite what kind of difficulties are getting in their way,Anumana,moderate
+a society that its police force carries guns will be definitely seen as a highly violent one,Anumana,moderate
+learning facts has more subsequent advantages for students' future lives,Anumana,moderate
+people in small town have more happiness and friendship and less illness and stress,Anumana,moderate
+"There are many advantages setting up the university such as more opportunities to people in the community to pursue their studies, creation of jobs",Anumana,moderate
+parents should be more worried about their children's attitudes to the 'cult of celebrity',Anumana,moderate
+The main reason why people are becoming so addicted to sitting at their homes even for the whole day is an advance technology,Anumana,moderate
+Studying in college and university is a great opportunity that all students should have,Anumana,moderate
+"no matter how widely they are spoken, every language should be protected from being disappeared",Anumana,moderate
+teenagers need more attention and help in comparison with the higher ages,Upamana,moderate
+"they can improve their results, break records and bring victories to their own countries",Anumana,moderate
+the juries should at least know something about the criminals before coming to a conclusion,Anumana,moderate
+everybody would like to know what is going on around the world in their everyday lives,Anumana,moderate
+I will absolutely choose a place to live that is not too far from my workplace,Anumana,moderate
+while small towns have picturesque nature and pure air,Anumana,moderate
+supplying hand phones to the unemployed is a waste of the taxpayers' money,Anumana,moderate
+communicating in person can be more convincing,Anumana,weak
+Emergence of new television channels or shows are not surprising,Anumana,moderate
+government cannot equalize the price of creation of modern artist,Anumana,moderate
+Part-time jobs furnish them with precious chance to practice what they are learning at their universities,Anumana,moderate
+conservation is more urgent now than at any time in history,Anumana,moderate
+there are some drawbacks from saving minority languages,Anumana,weak
+I would like to reiterate the necessity of the Internet in learning process,Anumana,moderate
+tourism should not be alledged to be notorous for its detriment to the ecological diversity,Anumana,moderate
+"it is too strong to assert that smoking should be prohibited everywhere in the society, one smoking in a restaurant is considered to enjoy his time with the ignorance of others' health",Anumana,moderate
+"time is the more valuable thing, which I have in my life",Anumana,moderate
+many university authorities provide music lessons for their students,Anumana,moderate
+This is actually very environmentally unfriendly,Anumana,weak
+"when people have jobs, they will have money to spend on goods and services",Anumana,moderate
+Most of the foods they eat are fat foods like chips or pizzas,Upamana,moderate
+schools should consider giving several small vocations to the students during the year,Anumana,moderate
+This experience also makes them aware of what they would like to make of their life,Anumana,moderate
+we must help animals live safely and comfortably in their own environment,Anumana,moderate
+"Unlike traditional classes, distance education courses don't take place in a classroom, where you are surrounded by your teachers and classmates",Upamana,moderate
+visiting a museum saves their precious time for making a decision,Anumana,moderate
+we can’t always let good people be rewarded in movies or TV programs,Anumana,moderate
+the good technology bringing to us is undeniable,Anumana,weak
+"In India, for example, female students are more often likely to grab more number of top scorer positions in every year higher secondary school examinations",Anumana,moderate
+"Using public transportation has a lot of advantages for the modern society facing a lot of problems: the environmental population, the isolation in life, the depletion of natural resources",Anumana,moderate
+"the measure cannot be adopted, otherwise those companies will go into liquidation",Anumana,moderate
+residents in rural areas still depend on their own farm for food production,Anumana,moderate
+it is crucial to alter automobiles to the other means of transportation and to legislate to control automobiles,Anumana,moderate
+"When they are around the active smokers, they will inhale hazardous smoke",Anumana,moderate
+students will choose a career that they want including the job with high salary include,Anumana,moderate
+The centre for research in agriculture can help my co-citizens to better exploit these land,Anumana,moderate
+It was fun and a little bit similar to the cinema,Upamana,moderate
+"people who are addicted to games, especially online games, can eventually bear dangerous consequences",Anumana,moderate
+"students only need to study academic subjects like mathematics, physics",Upamana,moderate
+"the Internet is an adequate source of academic information, which will potentially fulfill the needs of university pupils",Anumana,moderate
+"Driving cars during the rush hours might is bound to polluting cities's environment, but laws protect drivers to do so",Anumana,moderate
+"It is not uncommon that the teenages are found sleepless for several days playing on-line games at public internet bar, and there are also some media reports regarding the sudden death case of the teenages in the internet bar",Shabda,strong
+Adolescents follow not only the make up and attire of their favorite stars but also their behavior,Anumana,moderate
+"Art and music are, of course most accessible tools for modern people to liberate themselves from the extremely stressful life",Anumana,moderate
+professors should be encouraged to mainly do research,Anumana,weak
+the authorities should also respect the value of arts which are individually and socially advantageous,Anumana,moderate
+"in biology class, learning anatomy by operating fog have many benefits",Anumana,moderate
+"Just like a man that needs a healthy body, all the living creatures as a whole needs a strong planet as well",Upamana,moderate
+Many students as well as people find zoos as good places for witnessing and researching the true animal world,Anumana,moderate
+"if the students choose the classes as optional, it would provide more benefits than drawbacks",Anumana,moderate
+creativity also gives aesthetic charm,Anumana,weak
+"I would like to run my own business to control my own time, and to earn more money based on my noble ideas",Anumana,moderate
+unfortunately nowadays there are some individuals who cheat the others for gaining more power and money,Anumana,moderate
+internet capable phones help influence the young ones to become more interested in chatting and social sites rather than doing school works,Anumana,moderate
+"Likewise, other animals such as, horses, cattles and donkeys for farming, agriculture and as a mode of transportation",Upamana,moderate
+the influence on environmental problems are boarder and more profound than economic issues,Anumana,moderate
+choosing the job that is similar to parents' jobs could benefit to one's career,Upamana,moderate
+"By taking up a job, a wife can earn more money to support her family life",Anumana,moderate
+I can work long hours for earning more money,Anumana,moderate
+technology has a great contribution to our lives and civilization,Anumana,moderate
+"it should have more alternatives to use public transportation, such as a subway train or a sky train",Anumana,moderate
+"In personal live, we have some responsibilities towards to other people, there is nobody who likes all of these responsibilities",Anumana,moderate
+I do really prefer to improve my ability of relating people and make more friends rather than studying hard in school,Anumana,moderate
+violent contents must be excluded from all kidvids in order to reduce the proportion of juvenile delinquency,Anumana,moderate
+attending to classes makes students more attentive and have them to do their studies on time that this attitude lead them to success,Anumana,moderate
+it is clear that people can freely express their patriotic feelings during international sports events,Anumana,moderate
+"exchange of knowledge in different sectors of research like electronics, medical, astronomy etc would become easier",Upamana,moderate
+schools and adults should put a sense of cooperation in children to make them becoming a useful adult whether in society or community,Anumana,moderate
+"When they concentrate on computer for too long, their eyes will get tired, which is the main reason for some eyes problems, typically shortsighted",Anumana,moderate
+children may see that this behavior is inexcusable,Anumana,weak
+The accidents cannot be completely avoided although only those who have gun licenses can purchase guns,Anumana,moderate
+international aid should be prioritised,Anumana,weak
+schools and university are places in which students gather to be educated and learn from each others as well as formal educators,Anumana,moderate
+"Cultural events such as exhibitions and theatre plays can enrich one's and widen his horizons, things which aren't offered by small towns",Anumana,moderate
+the sole purpose of education is to nurture a young mind and not thrust studies on them,Anumana,moderate
+qualification should be the foremost measurement to determine the value of a employer,Anumana,moderate
+Modern technogy has impacted the traditional cultures in both negative and positive ways,Anumana,moderate
+making quick decisions leads to probable bad results,Anumana,weak
+we are building our personalities when we study alone,Anumana,moderate
+I don't like electronics,Anumana,weak
+they regard the violence as reasonable and justifiable,Anumana,weak
+you can't see the texture of the artwork which is very important to study the skills used by the artist,Anumana,moderate
+"a single international language may, to some extent, erode the cultural identity of a nation",Anumana,moderate
+my term of a successful man is one who has certain achievements in life rather than the one with a high income,Anumana,moderate
+Competition should be always based on self-improvement rule,Anumana,weak
+both male and female students are equally competitive to each other and deserve to produce impressive results in various field of education,Anumana,moderate
+its better that people learn foreign language in their own country,Anumana,moderate
+They save the travelling time to Universities and utilize that time on their studies,Anumana,moderate
+standardized tests are valuable option for educational system as long as it would help teachers to know if the students are really getting knowledge,Anumana,moderate
+"Fail to create this familiarity makes them felt isolated, in the extreme can lead to social disorder like autism",Upamana,moderate
+high sales are obviously a reflection of the powerful advertisements,Anumana,moderate
+spending on renovating the highways and roads can improve the quality,Anumana,moderate
+"If some employees lack the ability to plan and organize ahead, they may get the procrastination and therefore take into action until the deadline is imminent",Anumana,strong
+"when a shop is attacked by thieves, the clips taken by these cameras serve as a source of evidence to help the thieves to be traced",Anumana,moderate
+"Even when we managed to keep up with the pace by neglecting the details of a project and only aim for a general frame of the project, this will not be something satisfy for the company and clients",Anumana,moderate
+"people who watch exhibitions on TV or internet at home, save the time and money on the road, which is increasingly significant particularly to people in modern society",Anumana,moderate
+Those who don't even take a word of criticism will eventually lose chances to get improved,Anumana,moderate
+in this age they are not expected to be responsible,Anumana,moderate
+while generating energy from any source be it hydro power or oil there always is some wastage and so is the case with nuclear power,Anumana,moderate
+"They have more opportunities, profits, and authorities",Anumana,weak
+"cheap air fares have broadened travel possibilities for many people, particularly for the lower income group",Anumana,moderate
+"We definitely do not want our children to spend money on luxurious custom or lifestyle just to be similar to someone, especially when these people are not symbols of any talent but showing off",Upamana,moderate
+There are the build-up of the concept about healthy eating habits and self-control that really matter,Anumana,moderate
+people tend to follow the trend back to the tradition in the recent years,Anumana,moderate
+"This will improve the quality of both universities and students, thus placing people in positions which suit them most",Anumana,strong
+"All of my classmates gave him a rank of AAA, the excellent teacher",Anumana,moderate
+"After classes students and not only the students will get together in building of high school, participate in different competitions",Anumana,moderate
+with the stations increased people are willing to take a public transportation than drive on their own,Anumana,moderate
+"From social perspective, massively forcing the early retirement would be one of financial burden to the local government",Anumana,moderate
+"in era technology like this age, computer becomes important thing in human life",Upamana,moderate
+"even when people watch television together, there is no chance for them to have conversation in front of television",Anumana,moderate
+"With the help of advanced methods, many art masterpiece has been well restorated and well preserved",Anumana,moderate
+species extinction is quite natural according to the theory of evolution,Shabda,strong
+indispensable public services like hospital and school worth every penny investing,Upamana,moderate
+"including exercise in children's daily routine, it is a good way to teach them the importance of physical activity from an early age",Anumana,moderate
+universities should provide free of cost education to the interested scholars,Anumana,moderate
+financial aid is not the only way to assist poor countries,Anumana,moderate
+they may be factors decreasing the position of written language,Anumana,moderate
+"By working too long, they often become tired, lazy and reluctant to carry out physical exercise in order to remain fit and healthy and eventually loose health and become sick",Anumana,moderate
+the excellent knowledge will be of more importance,Anumana,weak
+Another advantage of living with parents for a longer period of time is the enhanced emotional attachment with them,Anumana,moderate
+the advantages of this are qualitatively greater than that of the opposite,Anumana,moderate
+luck is one factor in reaching goal,Anumana,weak
+the classmates should be regarded as the most important influence on individual achievements,Anumana,moderate
+Discovery Channel has many instructive episodes,Anumana,weak
+keeping own customs stably might cause discrimination,Anumana,weak
+government should invest more on medical care and education rather than on entertaining or sports facilities,Anumana,moderate
+"some male chauvinists think that women are incapable in particular fields, like maths, mechanical engineering, defense etc",Upamana,moderate
+"When being in the department of art, I have not only learned how to do a project, but also known some famous artists during the term",Anumana,moderate
+one should not give up,Anumana,weak
+life changes rapidly,Anumana,weak
+large emissions of carbon monoxide gas from refrigerants like air conditioners have depleted ozone layer,Upamana,moderate
+living and studying overseas gives the individual a new perspective on the subject that is studied or in general life,Anumana,moderate
+the university should allow the student to participate in the classed without passing the test,Anumana,moderate
+"there are other pressing demands on the government expenditure, such as health care service and education",Anumana,moderate
