@@ -1,0 +1,7 @@
+# Duplicate Analysis Report
+
+- Training Samples: 811
+- Held-out Samples: 200
+- Exact Duplicates (Training): 0
+- Exact Train-Test Overlap: 0
+- Near Duplicates (>=95%): 10
