@@ -1,0 +1,3 @@
+Pair Type,Count
+Exact duplicates (cross-split),0
+Near duplicates (fuzz≥90% or cosine≥0.9),506

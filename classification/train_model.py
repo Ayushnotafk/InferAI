@@ -115,7 +115,7 @@ plt.savefig(eval_dir / "confusion_matrix.png", dpi=150)
 plt.close()
 
 plt.figure(figsize=(7, 4))
-counts = df["label"].value_counts().reindex(label_encoder.classes_).fillna(0)
+counts = df[label_col].value_counts().reindex(label_encoder.classes_).fillna(0)
 counts.plot(kind="bar", color="steelblue")
 plt.title("Class distribution (training table)")
 plt.ylabel("Count")

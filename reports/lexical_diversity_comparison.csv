@@ -1,0 +1,3 @@
+dataset,rows,total_tokens,vocabulary_size,ttr,guiraud_r,mattr_50
+Synthetic,4200,108107,364,0.003367,0.782816,0.797221
+Real-world,200,2603,1349,0.518248,18.696481,0.834957
