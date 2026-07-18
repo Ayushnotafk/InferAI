@@ -1,0 +1,18 @@
+text,annotator_1,annotator_2,final_label,reason_for_disagreement
+The article described the supply chain as a relay race with broken baton handoffs.,Shabda,Anumana,Shabda,Authority or source implicit; span reads as reason-giving rather than testimony.
+"The ruins contain Roman coins in the upper layer, so occupation during that period is likely.",Pratyaksha,Anumana,Pratyaksha,Perceptual or measurement language overlaps with inferential/causal framing.
+The coach said defending is like holding a umbrella against wind from many directions at once.,Shabda,Upamana,Shabda,Reported claim uses comparative phrasing suggestive of analogy.
+The security badge reader beeped red when I scanned the expired contractor pass.,Pratyaksha,Anumana,Pratyaksha,Perceptual or measurement language overlaps with inferential/causal framing.
+The tweet said studying for boards is like drinking from a firehose.,Shabda,Upamana,Shabda,Reported claim uses comparative phrasing suggestive of analogy.
+The receipt lists three separate delivery attempts on the same day.,Upamana,Anumana,Upamana,Comparative structure is subtle; span functions as general inference.
+The journal's referee report recommends major revision before the paper can be accepted.,Pratyaksha,Shabda,Pratyaksha,Testimonial or authority wording co-occurs with direct-observation cues.
+"Something felt off about the room, but I cannot point to a single detail.",Pratyaksha,Anumana,Pratyaksha,Perceptual or measurement language overlaps with inferential/causal framing.
+"The project failed, so the manager must be incompetent.",Shabda,Anumana,Shabda,Authority or source implicit; span reads as reason-giving rather than testimony.
+Training a neural network is like teaching a student who improves only after seeing many worked examples with feedback.,Upamana,Shabda,Upamana,Analogy cues overlap with cited authority or reported claim.
+"The witness changed a detail in the second interview, so memory decay might be at play.",Shabda,Anumana,Shabda,Authority or source implicit; span reads as reason-giving rather than testimony.
+The hiking group reported slippery granite on the north face after the morning frost.,Anumana,Pratyaksha,Anumana,Inferential connector present but span also reads as direct report.
+The RFC specifies that clients must send a supported-versions frame before application data.,Upamana,Anumana,Upamana,Comparative structure is subtle; span functions as general inference.
+"The river gauge downstream read 4.1 meters at dawn, which is above the local flood-watch threshold.",Upamana,Pratyaksha,Upamana,Boundary disagreement between Upamana and Pratyaksha on short argumentative span.
+He said the negotiation felt like chess where both sides could see only half the board.,Pratyaksha,Anumana,Pratyaksha,Perceptual or measurement language overlaps with inferential/causal framing.
+The device felt hot in my hand.,Pratyaksha,Anumana,Pratyaksha,Perceptual or measurement language overlaps with inferential/causal framing.
+The tour guide compared the canyon layers to pages in a geology textbook.,Upamana,Shabda,Upamana,Analogy cues overlap with cited authority or reported claim.

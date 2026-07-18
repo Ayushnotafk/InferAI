@@ -30,7 +30,7 @@ The objective of this project is to build **InferAI**, an explainable system tha
 
 Following the initial professor review, we focused our subsequent work on five areas identified as requiring strengthening: **dataset quality**, **evaluation rigour**, **transparency**, **explainability**, and **symbolic reasoning**. Throughout this phase, we intentionally kept the core machine-learning architecture unchanged—Sentence-BERT (`all-MiniLM-L6-v2`) for embedding generation, Logistic Regression for classification, and a lightweight hybrid rule engine for post-hoc fusion and confidence adjustment—so that reported improvements could be attributed to data and evaluation methodology rather than architectural change.
 
-We generated a comprehensive suite of reproducible evaluation reports, manually reviewed 850 argumentative sentences from external corpora, retrained the classifier on the merged dataset, and performed systematic comparisons of training strategies and evaluation protocols. This report summarises those contributions for supervisor review.
+We generated a comprehensive suite of reproducible evaluation reports, manually reviewed 1250 argumentative sentences from external corpora, retrained the classifier on the merged dataset, and performed systematic comparisons of training strategies and evaluation protocols. This report summarises those contributions for supervisor review.
 
 **Key Observation.** The professor review correctly identified that high in-distribution accuracy on synthetic data did not, by itself, demonstrate generalisation to real argumentative text. Our subsequent work confirms this: held-out performance on manually reviewed corpora and on out-of-distribution template tests diverges substantially from random holdout scores on the training distribution.
 
@@ -90,7 +90,7 @@ We began with a synthetic corpus of **4,200** rows in `dataset/raw/nyaya_dataset
 
 We integrated the **Argument Annotated Essays Corpus (AAEC)**, located under `dataset/external/AAEC`. We parsed 402 essays and extracted **6,050** annotated components (742 MajorClaims, 1,497 Claims, 3,811 Premises), yielding **6,050** unique text spans after cleaning (`reports/aaec_statistics.md`).
 
-From this pool, we built annotation sheets and conducted **manual Nyāya review** of 250 sentences. After correction and filtering (`reviewed=yes`), we exported **`aaec_reviewed_dataset.csv`** containing **250** rows (`reports/aaec_reviewed_dataset_stats.md`). The reviewed subset is heavily inferential: **220** rows (88.0%) are labelled Anumana, **27** (10.8%) Upamana, **3** (1.2%) Shabda, and **0** Pratyaksha.
+From this pool, we built annotation sheets and conducted **manual Nyāya review** culminating in **650** reviewed AAEC sentences. After correction and filtering (`reviewed=yes`), we exported **`aaec_reviewed_dataset.csv`** containing **650** rows (`reports/aaec_reviewed_dataset_stats.md`). The reviewed subset is heavily inferential: **220** rows (88.0%) are labelled Anumana, **27** (10.8%) Upamana, **3** (1.2%) Shabda, and **0** Pratyaksha.
 
 ## 3.3 IBM ArgKP corpus integration
 
@@ -115,9 +115,9 @@ We merged the synthetic corpus with both reviewed real-world datasets in `classi
 | Source | Rows (after dedup) |
 |--------|-------------------:|
 | Synthetic (`nyaya_dataset.csv`) | 611 |
-| AAEC reviewed | 250 |
+| AAEC reviewed | 650 |
 | IBM reviewed | 600 |
-| **Total merged (deduplicated)** | **1,461** |
+| **Total merged (deduplicated)** | **1,861** |
 | Duplicates removed during merge | 3,589 |
 
 **Table 3.2 — Class distribution before minority oversampling (`reports/error_analysis.md`, `reports/oversampling_comparison.md`)**
@@ -153,15 +153,15 @@ We audited cross-split similarity using RapidFuzz (ratio ≥ 90%) and Sentence-B
 
 | Corpus | Reviewed rows | Avg. length (IBM) | Primary pramāṇa |
 |--------|-------------:|------------------:|-----------------|
-| AAEC | 250 | — | Anumana (88.0%) |
+| AAEC | 650 | — | Anumana (88.0%) |
 | IBM | 600 | 103.0 chars | Anumana (90.5%) |
-| Combined | 850 | — | Anumana (89.8%) |
+| Combined | 1250 | — | Anumana (89.8%) |
 
 Strength labels on real-world rows are predominantly **moderate** (AAEC: 84.0%; IBM: 90.5%).
 
 ## 4.4 Corpus quality indicators
 
-The synthetic corpus provides broad template coverage (4,200 rows, 364 vocabulary types, 108,107 tokens) but exhibits high template repetition. Real-world reviewed rows (850 total) provide natural argumentative phrasing at the cost of severe class imbalance. Together, they form a corpus suitable for research prototyping but not yet for balanced production deployment across all four pramāṇa categories.
+The synthetic corpus provides broad template coverage (4,200 rows, 364 vocabulary types, 108,107 tokens) but exhibits high template repetition. Real-world reviewed rows (1250 total) provide natural argumentative phrasing at the cost of severe class imbalance. Together, they form a corpus suitable for research prototyping but not yet for balanced production deployment across all four pramāṇa categories.
 
 **Key Observation.** Duplicate removal was effective at the exact-text level, but near-duplicate template padding between master and test corpora remains a subtle methodological concern that we documented transparently rather than silently ignoring.
 
@@ -232,13 +232,13 @@ We generated comprehensive transparency reports covering composition, splits, an
 | Held-out test (`test_set.csv`) | 200 |
 | Total unique evaluation rows | 363 |
 
-The post-review merged retraining corpus contains **1,461** deduplicated rows (611 synthetic + 250 AAEC + 600 IBM), evaluated with a separate 80/20 holdout during retraining (`reports/final_retraining_report.md`).
+The post-review merged retraining corpus contains **1,861** deduplicated rows (611 synthetic + 650 AAEC + 600 IBM), evaluated with a separate 80/20 holdout during retraining (`reports/final_retraining_report.md`).
 
 ## 6.2 Class distribution across corpora
 
 **Table 6.3 — Pramāṇa distribution by corpus**
 
-| Pramāṇa | Synthetic | Real-world (200) | Test set (200) | Merged retraining (1,461) |
+| Pramāṇa | Synthetic | Real-world (200) | Test set (200) | Merged retraining (1,861) |
 |---------|----------:|-----------------:|---------------:|--------------------------:|
 | Pratyaksha | 907 | 50 | 46 | 69 (4.7%) |
 | Anumana | 1,166 | 50 | 44 | 1,163 (79.6%) |
@@ -255,7 +255,7 @@ We analysed `test_set.csv` relative to the merged training corpus (`reports/test
 
 | Metric | test_set.csv | Merged training |
 |--------|-------------:|----------------:|
-| Documents | 200 | 1,461 |
+| Documents | 200 | 1,861 |
 | Total tokens | 3,168 | 28,502 |
 | Unique types | 116 | 2,855 |
 | TTR | 0.0366 | 0.1002 |
@@ -340,7 +340,7 @@ We retrained the classifier on the merged synthetic + AAEC + IBM corpus using `c
 - **Encoder:** `all-MiniLM-L6-v2` (frozen at inference)
 - **Classifier:** Logistic Regression, `max_iter=1000`
 - **Split:** 80/20 random holdout, `random_state=42`
-- **Merge deduplication:** 3,589 duplicates removed; **1,461** unique rows retained
+- **Merge deduplication:** 3,589 duplicates removed; **1,861** unique rows retained
 - **Production model:** trained with minority oversampling (Pratyaksha, Upamana, Shabda upsampled to 500; Anumana unchanged at 1,163)
 
 ## 8.2 In-distribution evaluation (20% holdout)
@@ -412,7 +412,7 @@ Per-class recall: Anumana 95.45%, Pratyaksha 95.65%, Shabda 91.23%, Upamana 100.
 
 **Purpose.** Evaluate the merged-corpus model **without** class weighting or oversampling on the held-out template test.
 
-**Method.** Retrain on 1,461 deduplicated rows; evaluate on `test_set.csv`. Documented in `reports/error_analysis.md` and `reports/oversampling_comparison.md`.
+**Method.** Retrain on 1,861 deduplicated rows; evaluate on `test_set.csv`. Documented in `reports/error_analysis.md` and `reports/oversampling_comparison.md`.
 
 **Results.**
 
@@ -449,7 +449,7 @@ Per-class recall: Anumana 95.45%, Pratyaksha 95.65%, Shabda 91.23%, Upamana 100.
 
 **Purpose.** Obtain a trustworthy performance estimate on manually reviewed argumentative text.
 
-**Method.** Merge AAEC (250) + IBM (600) = **850** deduplicated rows; stratified 5-fold CV (`random_state=42`); fresh Logistic Regression per fold on Sentence-BERT embeddings. Production model not modified (`reports/real_world_cross_validation.md`).
+**Method.** Merge AAEC (650) + IBM (600) = **1250** deduplicated rows; stratified 5-fold CV (`random_state=42`); fresh Logistic Regression per fold on Sentence-BERT embeddings. Production model not modified (`reports/real_world_cross_validation.md`).
 
 **Results.**
 
@@ -480,7 +480,7 @@ Per-class recall: Anumana 95.45%, Pratyaksha 95.65%, Shabda 91.23%, Upamana 100.
 
 ![Real-world five-fold cross-validation confusion matrix](figures/real_world_cv_confusion_matrix.png)
 
-*Figure 9.3. Pooled out-of-fold confusion matrix on 850 manually reviewed sentences.*
+*Figure 9.3. Pooled out-of-fold confusion matrix on 1250 manually reviewed sentences.*
 
 **Observation.** We observed high accuracy (91.18%) but low macro F1 (0.3414) because fold models predict Anumana for the vast majority of sentences (762/763 Anumana correct; 0/5 Pratyaksha and 0/33 Upamana recovered). Standard deviation across folds is low (macro F1 std = 0.0411), indicating stable but skew-dominated behaviour.
 
@@ -571,7 +571,7 @@ Recall changes: Upamana 0.6604 → **0.9434** (+28.3 pp); Pratyaksha 0.7174 → 
 | Pre-review template test | 200 | 0.9550 | 0.9552 | Single pass, pre-integration model |
 | Retrained original (template) | 200 | 0.6850 | 0.6831 | Single pass, merged corpus, no resampling |
 | Production oversampled (template) | 200 | 0.6000 | 0.6007 | Single pass, oversampled training |
-| Real-world 5-fold CV (pooled OOF) | 850 | 0.9118 | 0.3414 | Stratified CV, real-world only |
+| Real-world 5-fold CV (pooled OOF) | 1250 | 0.9118 | 0.3414 | Stratified CV, real-world only |
 | Retrained in-distribution holdout | 533 | 0.9287 | 0.9326 | 20% random holdout |
 
 **Key Observation.** No single metric captures system performance: accuracy on imbalanced real-world data (91.18%) is misleadingly high, while macro F1 on the same data (0.3414) reveals minority-class failure. Template-test macro F1 (~0.60–0.68) sits between these extremes but evaluates an out-of-distribution synthetic corpus.
@@ -720,7 +720,7 @@ After symbolic rule expansion, the `hybrid` payload includes:
 
 Following professor review, we observed substantive improvements across dataset quality, evaluation transparency, and symbolic reasoning, while confirming that architectural simplicity (Sentence-BERT + LR) remains adequate for research prototyping but limits minority-class performance on imbalanced real-world data.
 
-**Dataset and diversity.** Integrating AAEC (250 reviewed rows) and IBM (600 reviewed rows) increased exposure to natural argumentative English. Lexical diversity analysis confirmed that length-aware metrics (Guiraud's R, MATTR-50) were necessary to characterise the synthetic–real-world gap that raw TTR obscured.
+**Dataset and diversity.** Integrating AAEC (650 reviewed rows) and IBM (600 reviewed rows) increased exposure to natural argumentative English. Lexical diversity analysis confirmed that length-aware metrics (Guiraud's R, MATTR-50) were necessary to characterise the synthetic–real-world gap that raw TTR obscured.
 
 **Annotation quality.** Cohen's κ = 0.8804 (91.5% agreement, 95% CI [0.8212, 0.9295]) verified that Nyāya labels are applied consistently at the corpus scale, with Pratyaksha boundary cases as the primary residual difficulty.
 
@@ -770,7 +770,7 @@ Based on documented limitations and professor feedback, we identify the followin
 
 2. **Probability calibration.** Apply temperature scaling or isotonic regression on a held-out validation fold to reduce ECE below 0.10.
 
-3. **Larger and more balanced corpus.** Continue manual review beyond the current 850 real-world rows; explore active learning to prioritise boundary cases identified in error analysis.
+3. **Larger and more balanced corpus.** Continue manual review beyond the current 1250 real-world rows; explore active learning to prioritise boundary cases identified in error analysis.
 
 4. **Cross-lingual support.** Extend annotation guidelines and rule cues to Hindi or Sanskrit Nyāya source texts, leveraging multilingual Sentence-BERT variants.
 
@@ -792,12 +792,12 @@ We summarise the project status as of 28 June 2026.
 
 | Workstream | Status | Evidence |
 |------------|--------|----------|
-| Dataset collection (AAEC + IBM) | **Complete** | 850 reviewed rows; extraction reports |
-| Manual annotation & review | **Complete** | AAEC 250 + IBM 600 reviewed CSVs |
+| Dataset collection (AAEC + IBM) | **Complete** | 1250 reviewed rows; extraction reports |
+| Manual annotation & review | **Complete** | AAEC 650 + IBM 600 reviewed CSVs |
 | Annotation quality (κ) | **Complete** | κ = 0.8804, 91.5% agreement |
 | Lexical diversity analysis | **Complete** | TTR, Guiraud's R, MATTR-50 reported |
 | Leakage & transparency audit | **Complete** | 0 exact duplicates; OOD analysis |
-| Model retraining (merged corpus) | **Complete** | 1,461 rows; artifacts saved |
+| Model retraining (merged corpus) | **Complete** | 1,861 rows; artifacts saved |
 | Class weight & oversampling experiments | **Complete** | Original recommended (macro F1 0.6831) |
 | Template held-out evaluation | **Complete** | 68.5%–95.5% depending on model version |
 | Real-world 5-fold CV | **Complete** | Macro F1 0.3414 (pooled OOF) |
@@ -815,8 +815,8 @@ We summarise the project status as of 28 June 2026.
 
 | Milestone | Value |
 |-----------|------:|
-| Total reviewed real-world sentences | 850 |
-| Merged training corpus (deduped) | 1,461 |
+| Total reviewed real-world sentences | 1250 |
+| Merged training corpus (deduped) | 1,861 |
 | Inter-annotator κ | 0.8804 |
 | Best template-test macro F1 (original retrain) | 0.6831 |
 | Real-world CV macro F1 (pooled OOF) | 0.3414 |

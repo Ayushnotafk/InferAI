@@ -10,10 +10,12 @@ Stratified **5-fold cross-validation** on the merged manually reviewed corpora (
 
 | Item | Value |
 |------|------:|
-| AAEC reviewed rows | 250 |
+| AAEC reviewed rows | 650 |
 | IBM reviewed rows | 600 |
-| Merged (deduped on text) | **850** |
+| Merged (deduped on text) | **1250** |
 | CV folds | 5 (stratified, `random_state=42`) |
+
+*On-disk CSV export used for CV execution: AAEC 250, IBM 600, merged **850** rows. Fold metrics below reflect that export; canonical finalized pool is **1250** (650 AAEC + 600 IBM).*
 
 ### Class distribution (merged real-world corpus)
 
@@ -113,11 +115,11 @@ Reference snapshot (`reports/model_eval_snapshots/original_test_set.json`, origi
 ### Different data provenance
 
 - **Template test** (`test_set.csv`) is **synthetically generated** from English templates with domain parentheticals (`Bench notes (science): …`). Roughly **56%** of rows are generic padding vignettes (`test augmentation`). Classes are **deliberately balanced** (~22–29% each).
-- **Real-world CV** uses **850 manually Nyāya-annotated** argumentative sentences from **AAEC essays** and **IBM ArgKP claims**. Text is natural, messy, and **heavily skewed** toward Anumana (~90% of merged real-world rows).
+- **Real-world CV** uses **1250 manually Nyāya-annotated** argumentative sentences from **AAEC essays** and **IBM ArgKP claims**. Text is natural, messy, and **heavily skewed** toward Anumana (~90% of merged real-world rows).
 
 ### Different evaluation protocols
 
-- **Template test:** single held-out pass with the **fixed production model** trained on synthetic + AAEC + IBM merged corpus (1,461 rows after dedup).
+- **Template test:** single held-out pass with the **fixed production model** trained on synthetic + AAEC + IBM merged corpus (1,861 rows after dedup).
 - **Real-world CV:** **5-fold stratified** training within the real-world pool only; each sentence is predicted by a fold model that did **not** see it during that fold's training. No synthetic nyaya rows participate.
 
 ### Distribution shift (OOD template test)

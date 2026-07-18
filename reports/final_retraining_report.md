@@ -8,14 +8,14 @@ Model retrained on merged synthetic + AAEC reviewed + IBM reviewed corpora. Arch
 - AAEC reviewed: `dataset/processed/aaec_reviewed_dataset.csv`
 - IBM reviewed: `dataset/processed/ibm_reviewed_dataset.csv`
 - Merged export: `dataset/processed/merged_retraining_corpus.csv`
-- **Total rows:** 1461
+- **Total rows:** 1861
 - **Duplicates removed:** 3589
 - Shuffle seed: `42`
 
 ### Source contribution (after dedup)
 
 - Synthetic: 611
-- AAEC: 250
+- AAEC: 650
 - IBM: 600
 
 ### Class distribution

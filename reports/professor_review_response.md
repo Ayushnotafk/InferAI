@@ -104,3 +104,25 @@ Clarifies embedding-level SHAP scope; distinguishes from token-level and templat
 | leakage | `reports/data_leakage_report.md` |
 | shap | `reports/shap_limitations.md` |
 | Final evaluation (legacy) | `reports/final_evaluation_report.md` |
+
+## 11. Addressed review comments (July 2026)
+
+The following professor review items have been **fully addressed** with implemented documentation (not descriptive placeholders only):
+
+| Comment | Topic | Status | Primary deliverables |
+|---------|-------|--------|----------------------|
+| 1 | Dataset provenance & transparency | ✅ Addressed | `docs/dataset_provenance.md`, `reports/dataset_summary.md`, `reports/train_test_split.md` |
+| 6 | Lexical diversity (TTR, Guiraud's R, MATTR) | ✅ Addressed | `reports/lexical_diversity_report.md` |
+| 7 | Extended annotation / κ analysis | ✅ Addressed | `reports/kappa_report.md` (appendix), `reports/disagreement_examples.csv` |
+
+**Paste-ready update text:** [`reports/review_comment_updates.md`](review_comment_updates.md)
+
+**Reproducibility:**
+
+```bash
+python reports/generate_professor_documentation.py
+python calculate_kappa.py
+python reports/generate_lexical_diversity.py
+```
+
+No model architecture, prediction logic, or retraining was modified to produce this documentation.

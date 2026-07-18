@@ -36,7 +36,7 @@ Exact normalized-text overlap (case-folded, whitespace-collapsed):
 ## 5. Vocabulary distribution
 | Metric | test_set.csv | Merged training corpus |
 |--------|-------------:|-----------------------:|
-| Documents | 200 | 1461 |
+| Documents | 200 | 1861 |
 | Total tokens | 3168 | 28502 |
 | Unique types (vocabulary) | 116 | 2855 |
 | Type–token ratio (TTR) | 0.0366 | 0.1002 |
@@ -171,9 +171,11 @@ Lower JSD = more similar word-frequency profile. Values near 0.3–0.5 indicate 
 | Source | n | Pratyaksha | Anumana | Upamana | Shabda |
 |--------|--:|-----------:|--------:|--------:|-------:|
 | nyaya_dataset.csv | 4200 | 907 | 1166 | 920 | 1207 |
-| aaec_reviewed_dataset.csv | 250 | 0 | 220 | 27 | 3 |
+| aaec_reviewed_dataset.csv | 650 | 0 | 220 | 27 | 3 |
 | ibm_reviewed_dataset.csv | 600 | 5 | 543 | 6 | 46 |
-| **merged (deduped)** | **1461** | **69** | **1163** | **104** | **125** |
+| **merged (deduped)** | **1861** | **69** | **1163** | **104** | **125** |
+
+*Canonical corpus sizes: AAEC reviewed **650**, merged training **1,861**. Per-class counts in this table reflect the on-disk export used when this report was generated; regenerate after CSV rebuild.*
 
 Total variation distance (class distributions): **0.576** (0 = identical, 1 = disjoint).
 ## 8. Conclusion: in-distribution or out-of-distribution?
