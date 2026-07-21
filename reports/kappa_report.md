@@ -39,3 +39,59 @@ Agreement statistics between annotator 1 and annotator 2 on the shared annotatio
 Cohen's κ = **0.8804** (strong agreement) with **91.5%** raw agreement. The bootstrap 95% CI [0.8212, 0.9295] indicates stable agreement at the corpus scale.
 
 **Caveat:** annotator 2 labels were partly rule-assisted (`auto_annotate_second_annotator.py`), so κ reflects consistency with a similar heuristic rather than fully independent human judgment. For publication, independent blind annotation is recommended.
+
+## Extended Annotation Analysis
+
+Extended inter-annotator diagnostics appended by `calculate_kappa.py`. The summary statistics in the sections above are unchanged.
+
+### Agreement metrics
+
+| Metric | Value |
+|--------|------:|
+| Agreement % | 91.50% |
+| Cohen's Kappa | 0.8804 |
+| Bootstrap 95% CI | [0.8212, 0.9295] |
+
+### Per-class agreement
+
+| pramana_label   |   both_agree |   annotator1_count |   annotator2_count |   pct_of_total_both_agree |   agreement_when_annotator1_label |   agreement_when_annotator2_label |   agreement_when_either_label |
+|:----------------|-------------:|-------------------:|-------------------:|--------------------------:|----------------------------------:|----------------------------------:|------------------------------:|
+| Pratyaksha      |           22 |                 28 |                 24 |                      11   |                             78.57 |                             91.67 |                         73.33 |
+| Anumana         |           76 |                 77 |                 86 |                      38   |                             98.7  |                             88.37 |                         87.36 |
+| Upamana         |           43 |                 48 |                 45 |                      21.5 |                             89.58 |                             95.56 |                         86    |
+| Shabda          |           42 |                 47 |                 45 |                      21   |                             89.36 |                             93.33 |                         84    |
+
+### Per-class disagreement
+
+| pramana_label   |   annotator1_assignments |   disagreements |   disagreement_rate_pct |
+|:----------------|-------------------------:|----------------:|------------------------:|
+| Pratyaksha      |                       28 |               6 |                   21.43 |
+| Anumana         |                       77 |               1 |                    1.3  |
+| Upamana         |                       48 |               5 |                   10.42 |
+| Shabda          |                       47 |               5 |                   10.64 |
+
+### Confusion matrix explanation
+
+Rows correspond to **annotator 1** labels; columns correspond to **annotator 2** labels. Diagonal cells are agreements; off-diagonal cells are disagreements. The matrix accounts for all **200** matched examples (17 off-diagonal assignments).
+
+| Annotator1   |   Pratyaksha |   Anumana |   Upamana |   Shabda |
+|:-------------|-------------:|----------:|----------:|---------:|
+| Pratyaksha   |           22 |         5 |         0 |        1 |
+| Anumana      |            1 |        76 |         0 |        0 |
+| Upamana      |            1 |         2 |        43 |        2 |
+| Shabda       |            0 |         3 |         2 |       42 |
+
+Primary disagreement patterns:
+
+- **Pratyaksha → Anumana:** 5 case(s) — Perceptual or measurement language overlaps with inferential/causal framing.
+- **Pratyaksha → Shabda:** 1 case(s) — Testimonial or authority wording co-occurs with direct-observation cues.
+- **Anumana → Pratyaksha:** 1 case(s) — Inferential connector present but span also reads as direct report.
+- **Upamana → Pratyaksha:** 1 case(s) — Boundary disagreement between Upamana and Pratyaksha on short argumentative span.
+- **Upamana → Anumana:** 2 case(s) — Comparative structure is subtle; span functions as general inference.
+- **Upamana → Shabda:** 2 case(s) — Analogy cues overlap with cited authority or reported claim.
+- **Shabda → Anumana:** 3 case(s) — Authority or source implicit; span reads as reason-giving rather than testimony.
+- **Shabda → Upamana:** 2 case(s) — Reported claim uses comparative phrasing suggestive of analogy.
+
+### Disagreement examples
+
+All **17** disagreement rows are exported to `reports/disagreement_examples.csv` with annotator labels and heuristic disagreement reasons.

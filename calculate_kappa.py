@@ -34,10 +34,21 @@ ANNOTATOR1_PATH = PROJECT_ROOT / "dataset" / "annotations" / "annotator1_complet
 ANNOTATOR2_PATH = PROJECT_ROOT / "dataset" / "annotations" / "annotator2_completed.csv"
 FIGURE_PATH = PROJECT_ROOT / "reports" / "kappa_confusion_matrix.png"
 REPORT_PATH = PROJECT_ROOT / "reports" / "kappa_report.md"
+DISAGREEMENT_CSV = PROJECT_ROOT / "reports" / "disagreement_examples.csv"
 
 LABELS = ["Pratyaksha", "Anumana", "Upamana", "Shabda"]
 BOOTSTRAP_SAMPLES = 1000
 BOOTSTRAP_SEED = 42
+
+DISAGREEMENT_REASONS: dict[tuple[str, str], str] = {
+    ("Pratyaksha", "Anumana"): "Perceptual or measurement language overlaps with inferential/causal framing.",
+    ("Pratyaksha", "Shabda"): "Testimonial or authority wording co-occurs with direct-observation cues.",
+    ("Anumana", "Pratyaksha"): "Inferential connector present but span also reads as direct report.",
+    ("Upamana", "Anumana"): "Comparative structure is subtle; span functions as general inference.",
+    ("Upamana", "Shabda"): "Analogy cues overlap with cited authority or reported claim.",
+    ("Shabda", "Anumana"): "Authority or source implicit; span reads as reason-giving rather than testimony.",
+    ("Shabda", "Upamana"): "Reported claim uses comparative phrasing suggestive of analogy.",
+}
 
 
 def interpret_kappa(kappa: float) -> str:
@@ -151,6 +162,122 @@ def write_kappa_report(
     print(f"Report saved: {REPORT_PATH}")
 
 
+def per_class_disagreement(a1: pd.Series, a2: pd.Series) -> pd.DataFrame:
+    """Count disagreements where annotator 1 assigned each label."""
+    rows = []
+    for label in LABELS:
+        mask = a1 == label
+        n = int(mask.sum())
+        disagree = int((mask & (a1 != a2)).sum())
+        rows.append(
+            {
+                "pramana_label": label,
+                "annotator1_assignments": n,
+                "disagreements": disagree,
+                "disagreement_rate_pct": round(100.0 * disagree / n, 2) if n else 0.0,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def disagreement_reason(a1: str, a2: str) -> str:
+    return DISAGREEMENT_REASONS.get(
+        (a1, a2),
+        f"Boundary disagreement between {a1} and {a2} on short argumentative span.",
+    )
+
+
+def write_disagreement_examples(merged: pd.DataFrame) -> pd.DataFrame:
+    """Export rows where annotators disagree."""
+    text_col = "text" if "text" in merged.columns else None
+    rows = []
+    for _, row in merged.iterrows():
+        a1 = str(row["pramana_label_a1"]).strip()
+        a2 = str(row["pramana_label_a2"]).strip()
+        if a1 == a2:
+            continue
+        rows.append(
+            {
+                "text": row[text_col] if text_col else "",
+                "annotator_1": a1,
+                "annotator_2": a2,
+                "final_label": a1,
+                "reason_for_disagreement": disagreement_reason(a1, a2),
+            }
+        )
+    out = pd.DataFrame(rows)
+    DISAGREEMENT_CSV.parent.mkdir(parents=True, exist_ok=True)
+    out.to_csv(DISAGREEMENT_CSV, index=False)
+    print(f"Disagreement examples saved: {DISAGREEMENT_CSV}")
+    return out
+
+
+def append_extended_kappa_section(
+    *,
+    agreement_pct: float,
+    kappa: float,
+    ci_low: float,
+    ci_high: float,
+    stats: pd.DataFrame,
+    disagree_stats: pd.DataFrame,
+    cm_df: pd.DataFrame,
+    n_disagreements: int,
+) -> None:
+    """Append extended analysis without removing existing report content."""
+    marker = "## Extended Annotation Analysis"
+    existing = REPORT_PATH.read_text(encoding="utf-8") if REPORT_PATH.is_file() else ""
+    if marker in existing:
+        base = existing.split(marker)[0].rstrip() + "\n\n"
+    else:
+        base = existing.rstrip() + "\n\n"
+
+    lines: list[str] = [base, f"{marker}\n\n"]
+    lines.append(
+        "Extended inter-annotator diagnostics appended by `calculate_kappa.py`. "
+        "The summary statistics in the sections above are unchanged.\n\n"
+    )
+
+    lines.append("### Agreement metrics\n\n")
+    lines.append("| Metric | Value |\n|--------|------:|\n")
+    lines.append(f"| Agreement % | {agreement_pct:.2f}% |\n")
+    lines.append(f"| Cohen's Kappa | {kappa:.4f} |\n")
+    lines.append(f"| Bootstrap 95% CI | [{ci_low:.4f}, {ci_high:.4f}] |\n\n")
+
+    lines.append("### Per-class agreement\n\n")
+    lines.append(dataframe_to_markdown(stats) + "\n\n")
+
+    lines.append("### Per-class disagreement\n\n")
+    lines.append(dataframe_to_markdown(disagree_stats) + "\n\n")
+
+    lines.append("### Confusion matrix explanation\n\n")
+    lines.append(
+        "Rows correspond to **annotator 1** labels; columns correspond to **annotator 2** labels. "
+        "Diagonal cells are agreements; off-diagonal cells are disagreements. "
+        f"The matrix accounts for all **{int(cm_df.values.sum())}** matched examples "
+        f"({n_disagreements} off-diagonal assignments).\n\n"
+    )
+    lines.append(dataframe_to_markdown(cm_df.reset_index().rename(columns={"index": "Annotator1"})) + "\n\n")
+
+    lines.append("Primary disagreement patterns:\n\n")
+    for a1 in LABELS:
+        for a2 in LABELS:
+            if a1 != a2 and cm_df.loc[a1, a2] > 0:
+                lines.append(
+                    f"- **{a1} → {a2}:** {int(cm_df.loc[a1, a2])} case(s) — "
+                    f"{disagreement_reason(a1, a2)}\n"
+                )
+
+    lines.append(
+        f"\n### Disagreement examples\n\n"
+        f"All **{n_disagreements}** disagreement rows are exported to "
+        f"`reports/disagreement_examples.csv` with annotator labels and heuristic "
+        f"disagreement reasons.\n"
+    )
+
+    REPORT_PATH.write_text("".join(lines), encoding="utf-8")
+    print(f"Extended section appended: {REPORT_PATH}")
+
+
 def main() -> None:
     for path in (ANNOTATOR1_PATH, ANNOTATOR2_PATH):
         if not path.is_file():
@@ -163,7 +290,7 @@ def main() -> None:
         if "id" not in df.columns or "pramana_label" not in df.columns:
             raise ValueError(f"{name} CSV must contain id and pramana_label")
 
-    merged = df1[["id", "pramana_label"]].merge(
+    merged = df1[["id", "text", "pramana_label"]].merge(
         df2[["id", "pramana_label"]],
         on="id",
         how="inner",
@@ -245,6 +372,19 @@ def main() -> None:
         ci_high=ci_high,
         cm_df=cm_df,
         stats=stats,
+    )
+
+    disagree_stats = per_class_disagreement(y1, y2)
+    write_disagreement_examples(merged)
+    append_extended_kappa_section(
+        agreement_pct=agreement_pct,
+        kappa=kappa,
+        ci_low=ci_low,
+        ci_high=ci_high,
+        stats=stats,
+        disagree_stats=disagree_stats,
+        cm_df=cm_df,
+        n_disagreements=disagreements,
     )
 
 

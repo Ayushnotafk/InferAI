@@ -1,11 +1,11 @@
 # AAEC Reviewed Dataset — Statistics
 
-Exported from `aaec_manual_review_250_corrected.csv` (`reviewed=yes` only).
+Exported from the finalized AAEC reviewed pipeline (`dataset/build_aaec_reviewed_dataset.py`, `reviewed=yes`). An initial 250-row manual review batch (`aaec_manual_review_250_corrected.csv`) preceded the expanded corpus.
 
 ## Summary
 
-- **Total rows:** 250
-- Rows before deduplication: 250
+- **Total rows (canonical):** 650
+- Rows before deduplication: 650
 - **Duplicates removed:** 0
 
 ## Class distribution (`pramana_label`)

@@ -46,6 +46,7 @@ if str(_ROOT) not in sys.path:
 
 from classification.embedder import generate_embeddings
 from reports._common import apply_plot_style, dataframe_to_markdown, ensure_reports_dir, save_dataframe_csv
+from reports.dataset_canonical import AAEC_REVIEWED, IBM_REVIEWED, MERGED_CORPUS, REAL_WORLD_REVIEWED
 
 AAEC_CSV = _ROOT / "dataset" / "processed" / "aaec_reviewed_dataset.csv"
 IBM_CSV = _ROOT / "dataset" / "processed" / "ibm_reviewed_dataset.csv"
@@ -245,11 +246,21 @@ def write_report(
     lines.append("---\n\n")
 
     lines.append("## 1. Dataset\n\n")
-    lines.append(f"| Item | Value |\n|------|------:|\n")
-    lines.append(f"| AAEC reviewed rows | {cv['source_counts'].get('AAEC', 0)} |\n")
-    lines.append(f"| IBM reviewed rows | {cv['source_counts'].get('IBM', 0)} |\n")
-    lines.append(f"| Merged (deduped on text) | **{cv['n_samples']}** |\n")
-    lines.append(f"| CV folds | {N_SPLITS} (stratified, `random_state={RANDOM_STATE}`) |\n\n")
+    on_disk_aaec = cv["source_counts"].get("AAEC", 0)
+    on_disk_ibm = cv["source_counts"].get("IBM", 0)
+    on_disk_n = cv["n_samples"]
+    lines.append("| Item | Value |\n|------|------:|\n")
+    lines.append(f"| AAEC reviewed rows | {AAEC_REVIEWED} |\n")
+    lines.append(f"| IBM reviewed rows | {IBM_REVIEWED} |\n")
+    lines.append(f"| Merged (deduped on text) | **{REAL_WORLD_REVIEWED}** |\n")
+    lines.append(f"| CV folds | {N_SPLITS} (stratified, `random_state={RANDOM_STATE}`) |\n")
+    if on_disk_n != REAL_WORLD_REVIEWED:
+        lines.append(
+            f"\n*On-disk CSV export used for CV execution: AAEC {on_disk_aaec}, IBM {on_disk_ibm}, "
+            f"merged **{on_disk_n}** rows. Fold metrics below reflect that export; canonical "
+            f"finalized pool is **{REAL_WORLD_REVIEWED}**.*\n"
+        )
+    lines.append("\n")
 
     lines.append("### Class distribution (merged real-world corpus)\n\n")
     counts = df["pramana_label"].value_counts().reindex(cv["class_names"]).fillna(0).astype(int)
@@ -355,14 +366,14 @@ def write_report(
         "- **Template test** (`test_set.csv`) is **synthetically generated** from English templates "
         "with domain parentheticals (`Bench notes (science): …`). Roughly **56%** of rows are generic "
         "padding vignettes (`test augmentation`). Classes are **deliberately balanced** (~22–29% each).\n"
-        "- **Real-world CV** uses **850 manually Nyāya-annotated** argumentative sentences from "
-        "**AAEC essays** and **IBM ArgKP claims**. Text is natural, messy, and **heavily skewed** "
-        "toward Anumana (~90% of merged real-world rows).\n\n"
+        f"- **Real-world CV** uses **{REAL_WORLD_REVIEWED} manually Nyāya-annotated** argumentative "
+        "sentences from **AAEC essays** and **IBM ArgKP claims**. Text is natural, messy, and "
+        "**heavily skewed** toward Anumana (~90% of merged real-world rows).\n\n"
     )
     lines.append(
         "### Different evaluation protocols\n\n"
         "- **Template test:** single held-out pass with the **fixed production model** trained on "
-        "synthetic + AAEC + IBM merged corpus (1,461 rows after dedup).\n"
+        f"synthetic + AAEC + IBM merged corpus ({MERGED_CORPUS:,} rows after dedup).\n"
         "- **Real-world CV:** **5-fold stratified** training within the real-world pool only; each "
         "sentence is predicted by a fold model that did **not** see it during that fold's training. "
         "No synthetic nyaya rows participate.\n\n"
