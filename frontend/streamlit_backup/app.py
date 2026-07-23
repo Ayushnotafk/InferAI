@@ -345,6 +345,7 @@ def main() -> None:
             if not text.strip():
                 st.warning("Please enter text to analyze.")
             else:
+<<<<<<<< HEAD:frontend/streamlit_backup/app.py
                 should_analyze = True
                 target_text = text.strip()
 
@@ -376,6 +377,30 @@ def main() -> None:
         # Show cached results if we have them
         if st.session_state["last_response_data"] is not None:
             _render_results(st.session_state["last_response_data"], st.session_state["last_include_shap"])
+========
+                with st.spinner("Analyzing…"):
+                    try:
+                        data = analyze(text.strip(), DEFAULT_API, include_shap)
+                        st.success("Done.")
+                        _render_results(data, include_shap)
+>>>>>>>> upstream/main:frontend/app.py
+
+                    except httpx.HTTPStatusError as e:
+                        st.error(f"Backend returned HTTP {e.response.status_code}")
+                        st.code(e.response.text)
+
+                    except httpx.RequestError as e:
+                        st.error(
+                            f"Could not connect to backend at `{DEFAULT_API}`.\n\n"
+                            f"Start the API first:\n\n"
+                            f"`python -m uvicorn api.app:app --reload`\n\n{e}"
+                        )
+
+                    except Exception:
+                        import traceback
+
+                        st.error("Unexpected frontend error")
+                        st.code(traceback.format_exc())
 
         st.markdown(nx.footer_block(), unsafe_allow_html=True)
 

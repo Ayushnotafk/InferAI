@@ -1,0 +1,5 @@
+Class,Precision,Recall,F1,Support
+Anumana,0.9115,0.9987,0.9531,763
+Pratyaksha,0.0,0.0,0.0,5
+Shabda,0.9286,0.2653,0.4127,49
+Upamana,0.0,0.0,0.0,33

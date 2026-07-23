@@ -42,9 +42,16 @@ from classification.embedder import generate_embeddings
 # Load training table (``text``, ``label``)
 # ---------------------------------------------------------------------------
 
-df = pd.read_csv("dataset/raw/infer_dataset.csv")
+train_path = Path("dataset/raw/nyaya_dataset_merged.csv")
+if not train_path.is_file():
+    train_path = Path("dataset/raw/nyaya_dataset.csv")
+if not train_path.is_file():
+    train_path = Path("dataset/raw/infer_dataset.csv")
+
+df = pd.read_csv(train_path)
 texts = df["text"].astype(str)
-labels = df["label"].astype(str)
+label_col = "pramana_label" if "pramana_label" in df.columns else "label"
+labels = df[label_col].astype(str)
 
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(labels)
@@ -110,7 +117,7 @@ plt.savefig(eval_dir / "confusion_matrix.png", dpi=150)
 plt.close()
 
 plt.figure(figsize=(7, 4))
-counts = df["label"].value_counts().reindex(label_encoder.classes_).fillna(0)
+counts = df[label_col].value_counts().reindex(label_encoder.classes_).fillna(0)
 counts.plot(kind="bar", color="steelblue")
 plt.title("Class distribution (training table)")
 plt.ylabel("Count")

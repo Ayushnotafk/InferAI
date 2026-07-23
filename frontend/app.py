@@ -28,7 +28,10 @@ from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure
 from reasoning_strength.composite import composite_reasoning_strength
 
-DEFAULT_API = os.environ.get("INFERAI_API_URL")
+DEFAULT_API = (
+    os.environ.get("INFERAI_API_URL")
+    or "http://127.0.0.1:8000"
+)
 
 ARG_KEY = "infer_argument_text"
 
@@ -53,8 +56,15 @@ DEMO_EXAMPLES = {
 
 
 def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
-    if not base_url:
-        # Run locally in-process using imported Python modules!
+    try:
+        url = base_url.rstrip("/") + "/analyze"
+        payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
+        with httpx.Client(timeout=120.0) as client:
+            r = client.post(url, json=payload)
+            r.raise_for_status()
+            return r.json()
+    except Exception:
+        # Fallback: Run locally in-process using imported Python modules if REST server unreachable
         structure = extract_argument_structure(text)
         claim = structure["claim"]
         premises = structure["premises"]
@@ -104,13 +114,6 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
                 payload["shap"] = {"error": str(exc)}
 
         return payload
-    else:
-        url = base_url.rstrip("/") + "/analyze"
-        payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
-        with httpx.Client(timeout=120.0) as client:
-            r = client.post(url, json=payload)
-            r.raise_for_status()
-            return r.json()
 
 
 def _render_shap_block(sh: dict) -> None:
@@ -349,8 +352,8 @@ def main() -> None:
         help="Calculate and draw top embedding dimension contributions (SHAP values).",
     )
 
-    status_text = "Embedded In-Process Mode" if not DEFAULT_API else "De-coupled REST API Mode"
-    endpoint_text = "Local Python Modules" if not DEFAULT_API else DEFAULT_API
+    status_text = "De-coupled REST API Mode" if DEFAULT_API else "Embedded In-Process Mode"
+    endpoint_text = DEFAULT_API if DEFAULT_API else "Local Python Modules"
     st.sidebar.markdown(
         f"""
         <div style="margin-top: 2rem; border-top: 1px solid rgba(16, 185, 129, 0.15); padding-top: 1rem; font-size: 0.78rem; color: #64748b;">
@@ -422,8 +425,8 @@ def main() -> None:
             with st.spinner("Analyzing and blending weights…"):
                 try:
                     data = analyze(target_text, DEFAULT_API, include_shap, alpha)
-                except httpx.HTTPError as e:
-                    st.error("Could not reach the analysis service. Try again in a moment.")
+                except Exception as e:
+                    st.error(f"Could not reach analysis service: {e}")
                 else:
                     # Update cache
                     st.session_state["last_analyzed_text"] = target_text

@@ -1,0 +1,201 @@
+id,text
+48,The laptop screen flickered once.
+45,The invoice total surprised me.
+129,The article described the supply chain as a relay race with broken baton handoffs.
+199,"Researchers found a thing, no paper named."
+33,The app looked weird after the update.
+188,"The manual says read it, so do that."
+169,NASA's mission press kit lists the launch window and trajectory correction maneuvers.
+134,The lawyer said the contract was like a fence with gaps big enough for a truck.
+145,"Depression is like being sad, just snap out of it."
+90,She failed because she is lazy.
+194,The government announced something important yesterday.
+5,The traffic camera still image timestamps the truck crossing the line at 14:02:11.
+139,"AI is like magic, end of story."
+159,The IPCC synthesis report concludes that human influence has warmed the climate system unequivocally.
+197,"Teachers recommend studying, which is vague but official-sounding."
+115,Overfitting a small dataset is like memorizing flashcards without reading the textbook chapter.
+65,"Turnout surged in districts with new ballot drop boxes, so the policy may have boosted participation."
+66,"The bug disappears when threading is disabled, so a race condition is a sensible suspect."
+81,"The battery drains quickly when location services stay on, so GPS could be responsible."
+107,A public blockchain resembles a town ledger that anyone can read but no single clerk can erase.
+192,"Studies show things, according to a headline I saw."
+124,He said the negotiation felt like chess where both sides could see only half the board.
+142,Climate is like weather on one rainy day.
+111,The Krebs cycle is like a revolving assembly line that keeps reusing the same carbon backbone.
+59,"The student answered every practice question correctly after the tutorial, so she probably understands the core idea."
+43,"The photo on social media shows a crowd, though the caption is vague."
+15,"The soil probe reported pH 5.2 in plot B, while plot A measured 6.8 the same afternoon."
+113,A Bayesian prior is like a gentle hand on the steering wheel before the road data arrive.
+70,"The malware beacon resolves to the same IP range as prior campaigns, so attribution to the same actor is plausible."
+54,"The placebo arm improved on mood surveys but not on the biomarker panel, implying the drug's effect may be psychological rather than physiological."
+106,Gradient descent on a bumpy loss surface is like rolling a ball downhill while it rattles through potholes.
+161,The university registrar announced that late add requests will not be granted after week two.
+123,The startup pitch compared their API to a universal translator for software systems.
+92,"Crime is up, therefore society is collapsing."
+17,"The patient said the rash itched more at night, and the photo they sent shows raised edges."
+112,Attention in transformers is similar to a spotlight operator deciding which actors to illuminate on stage.
+119,"A hash function is like a fingerprint for files: short to store, hard to reverse into the original."
+2,I could hear water dripping behind the drywall every time the upstairs shower ran.
+63,"The patient improved after stopping the drug, which is consistent with an adverse reaction."
+149,"Encryption is like a secret, that's all."
+200,Cybersecurity experts warn about hackers because hackers are bad.
+46,The patient chart mentions dizziness without timing or vitals.
+60,"Packet loss correlates with peak-hour congestion but not with hardware swaps, so the issue is likely capacity, not faulty NICs."
+51,Bond yields inverted again last quarter; historically that pattern often precedes recessions within eighteen months.
+155,The Supreme Court syllabus summarizes the holding without replacing the full opinion.
+168,The court filing quotes the statute verbatim when arguing that mens rea must be proven.
+58,"The contract uses the term 'delivery' in two different senses in adjacent clauses, so courts may apply the narrower reading."
+41,The device felt hot in my hand.
+89,The stock will moon because everyone online is bullish.
+7,The smartphone accelerometer log shows a spike of 3.2 g right before the screen went black.
+143,Courts are like comment sections with robes.
+131,The slide deck compared cloud storage to renting a locker you never visit in person.
+136,The tweet said studying for boards is like drinking from a firehose.
+75,"The server logs spike at noon daily, so lunch-hour traffic could be the cause."
+11,"The river gauge downstream read 4.1 meters at dawn, which is above the local flood-watch threshold."
+163,The city council minutes record a unanimous vote to adopt the revised zoning map.
+162,The Cochrane review pooled twelve trials and reported a modest mortality benefit with confidence intervals that exclude zero.
+61,"The suspect had motive, access, and opportunity on the night in question, which makes guilt a reasonable working hypothesis for investigators."
+178,"The coach told players to stretch before practice, citing sports-medicine advice."
+32,"Something felt off about the room, but I cannot point to a single detail."
+83,"The cough lasted three weeks, so antibiotics might be worth discussing with a clinician."
+198,The guidebook states the temple is old.
+21,"The neighbor's dog barked nonstop during the storm, which kept waking people on our street."
+103,The heart's chambers and valves act like a double pump that keeps pressure in two separate loops.
+12,I watched the toddler pull at her ear repeatedly during the pediatric visit.
+166,The annual report discloses a material weakness in internal controls over financial reporting.
+84,"The graph's shortest path length grew after the node removal, so that node was probably a bridge."
+126,The essay likened urban sprawl to an ink stain spreading outward from the city center.
+137,"Politics is like sports, so just pick a team."
+144,"A company is like a family, so firing anyone is betrayal."
+138,"The economy is like my household budget, exactly the same."
+3,The lab printout shows ketones in the urine sample collected at admission.
+110,A Bloom filter works like a compact guest list that may mistakenly admit a stranger but rarely rejects a true guest.
+97,One cold winter proves climate change is fake.
+121,The new policy works like a speed bump: it slows everyone down but reduces collisions at the intersection.
+158,The hospital policy manual mandates two patient identifiers before blood administration.
+189,"According to someone online, vaccines are suspicious."
+182,The agency bulletin states vendors must patch the vulnerability within thirty days.
+128,The professor said memory is like a library where some books are mis-shelved.
+141,"The brain is like a computer, so we can download thoughts."
+27,The referee's bodycam footage shows the player’s foot making contact before the ball arrived.
+165,The professor stated in the syllabus that calculators are not permitted on the midterm.
+69,"The strata are folded, so compressive forces probably acted after deposition."
+4,"On the factory floor, the torque wrench clicked at 45 Nm exactly as the work instruction specified."
+170,The journal's referee report recommends major revision before the paper can be accepted.
+96,"Grades dropped, so phones are ruining education."
+14,The concert recording has clipping on the left channel in every chorus segment.
+135,The tour guide compared the canyon layers to pages in a geology textbook.
+164,The cybersecurity advisory attributes the campaign to a known group and lists recommended mitigations.
+127,The therapist compared grief to a wave that returns without warning.
+88,It will rain tomorrow because the sky looks bad.
+146,The internet is like a tube where messages go.
+40,"The lab result came back flagged, but nobody explained the units."
+8,"In the lecture hall, the projector image was visibly shifted two inches to the left of the screen border."
+116,A causal diagram is analogous to a map of one-way streets between variables.
+53,"GPU utilization pegs at 100% while CPU stays under 15% during training jobs, which suggests the pipeline is GPU-bound."
+22,The spreadsheet column for March has more blank cells than February in the sales export.
+1,The ward nurse wrote that the patient's oxygen saturation stayed at 88% for twenty minutes after the walk test.
+154,The textbook defines gross domestic product as the market value of final goods and services produced domestically in a period.
+177,Analysts in the bank note predict slower consumer spending next quarter.
+28,The greenhouse humidity sensor flatlined at 99% for an hour overnight.
+195,"Reports indicate drama, details not included."
+44,The garden looks worse than last week.
+20,The receipt lists three separate delivery attempts on the same day.
+47,The water in the creek seemed low.
+179,Researchers in the preprint claim their method beats the baseline on three benchmarks.
+102,A firewall in a corporate network functions like a bouncer who checks IDs before anyone enters the club.
+147,Evolution is like a ladder with humans on top.
+19,I noticed the laptop fan spinning loudly even when no applications were open.
+68,"If the lemma holds for n and n+1, then by induction it holds for all positive integers."
+171,Experts on the panel said the bridge design meets the updated seismic standard.
+85,"The portfolio underperformed the index in a bull market, so stock selection may have lagged."
+190,A doctor on TV said this herb fixes everything.
+6,"During the field survey, we counted fourteen nests along the eastern ridge, not the six reported last year."
+72,"He missed two shifts and sounds congested on the phone, so he may be ill."
+57,"If tariffs rise and import volume is unchanged, consumer prices should increase in equilibrium."
+26,"The pharmacy label says take with food, and the pill color matches the photo in the pamphlet."
+23,The hiking group reported slippery granite on the north face after the morning frost.
+109,Electric current in a wire is often explained like water flowing through a pipe with pressure as voltage.
+24,The ultrasound technician pointed out a shadow along the lower margin of the image.
+157,The engineering code requires a safety factor of 1.5 for lifting hooks in this load class.
+87,They are probably lying because I do not trust them.
+64,"The ciphertext letter frequencies match English, so this is unlikely to be random noise."
+193,Historians believe because it sounds dramatic.
+35,The meeting seemed tense.
+100,"A single study failed to replicate, so all of psychology is wrong."
+176,The software license forbids redistribution without attribution and a copy of the terms.
+86,"The error only happens on Safari, so a browser-specific bug is possible."
+185,The union memo says overtime must be authorized in writing by a supervisor.
+150,Democracy is like a popularity contest with no rules.
+82,"Enrollment dropped after the fee hike announcement, so price sensitivity may be showing up."
+120,Teaching recursion to beginners is like pointing at nested Russian dolls and asking what is inside the next one.
+175,Historians in the documentary argue that trade routes declined after the river shifted course.
+133,The nurse explained insulin timing using a key-and-lock metaphor for receptors.
+25,The city noise app flagged sustained readings above 70 dB near the construction zone.
+153,Reuters reported that the central bank held rates steady after citing moderating headline inflation.
+174,The news wire said the minister will present the budget on Thursday morning.
+42,There was a smell in the hallway.
+101,Training a neural network is like teaching a student who improves only after seeing many worked examples with feedback.
+50,The lecture slides were hard to read from the back row.
+94,"Inflation is high, so the government is definitely corrupt."
+77,"The startup burned cash faster after hiring sales staff, so the new payroll may be straining runway."
+99,"Traffic was bad, therefore the city planner is useless."
+140,Vaccines are like cheating the immune system.
+9,"The tasting panel's sheet describes the wine as metallic with a sharp finish, with no fruit notes circled."
+16,The dashboard showed zero completed uploads between midnight and 06:00.
+91,"The project failed, so the manager must be incompetent."
+98,"The team lost, so the coach should be fired immediately."
+132,The comment thread treated the debate like a tennis match with no umpire.
+183,The encyclopedia entry summarizes the war's causes without citing primary archives.
+36,The street was noisy last night.
+95,"The patient recovered, therefore the home remedy cured them."
+114,Market liquidity is like oil in an engine: everything seizes when it disappears.
+37,The report had a lot of numbers I did not check.
+10,The security badge reader beeped red when I scanned the expired contractor pass.
+67,"The ruins contain Roman coins in the upper layer, so occupation during that period is likely."
+108,The CPU scheduling queue is analogous to a restaurant kitchen ticket rail during dinner rush.
+18,The classroom thermometer read 31°C near the windows after the AC was switched off.
+125,The coach said defending is like holding a umbrella against wind from many directions at once.
+80,"Crime reports fell after the streetlights were upgraded, so lighting might have mattered."
+74,"The exam average was low, so the test might have been difficult."
+196,"According to my uncle, markets always crash in October."
+173,Doctors on the clinic website recommend staying hydrated during prolonged heat advisories.
+30,The bus driver announced a detour because the main bridge was closed to traffic.
+34,I think the food tasted funny.
+172,"The teacher explained that plagiarism includes uncited paraphrase, not only copied sentences."
+160,The RFC specifies that clients must send a supported-versions frame before application data.
+117,Debugging intermittent failures is like chasing a ghost that only appears when the lights are off.
+156,Nature's editorial board states that authors must provide data availability statements for new submissions.
+167,The medical society guideline recommends screening adults aged 45 to 75 for colorectal cancer.
+31,The pulse oximeter on my finger read 91% while I was sitting still after climbing the stairs.
+186,Scientists say it is real because they are scientists.
+180,The ethics committee approved the protocol with minor changes to consent wording.
+62,"Residuals fan out as predicted values grow, so the linear model is probably misspecified."
+187,"Experts believe stuff, trust me."
+71,"Sales rose after the ad campaign, so marketing might have helped, though seasonality could also explain it."
+56,"The fossil sequence shows gradual transitions between forms, which supports gradual change rather than single-event saltation."
+104,Version control is similar to saving named checkpoints in a video game before trying a difficult level.
+105,The immune system behaves like a layered defense force that remembers previous invaders.
+13,The microscope slide shows clustered rod-shaped bacteria along the epithelial edge.
+118,The double helix unwinds like a zipper when replication machinery moves along the strand.
+49,The store shelf was mostly empty.
+93,"He was late, hence he does not care."
+29,The archive scan shows a crease through the signature line on page three.
+73,"The roads are wet and the radar showed rain an hour ago, so it probably rained here too."
+181,The style guide says figures must include error bars when reporting experimental means.
+38,Her voice sounded tired on the call.
+52,"The defendant's phone was at the tower near the warehouse at 02:14, and the broken lock was discovered at 02:20, so presence is plausible."
+191,The professor stated attendance matters without saying why.
+184,The podcast cited a dermatologist who recommends daily sunscreen on exposed skin.
+122,Her explanation of entropy was like describing a messy room that keeps getting messier on its own.
+152,The FDA prescribing information warns against combining this drug with strong CYP3A4 inhibitors.
+55,"Every time the cache warms, latency drops by half, so cold-start IO is likely the bottleneck."
+151,"According to the WHO infection-prevention checklist, hand hygiene remains the first line of defense in clinical settings."
+130,The podcast host said compound interest is like a snowball rolling downhill.
+79,"The model overfits on the training split, so regularization should help."
+76,"The plant wilted after we moved it to the windowsill, so too much direct sun might be the issue."
+148,"Statistics is like lying with numbers, always."
+78,"The witness changed a detail in the second interview, so memory decay might be at play."
+39,The sky looked strange around sunset.

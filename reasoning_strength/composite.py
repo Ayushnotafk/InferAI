@@ -50,9 +50,44 @@ def _connector_density(text: str) -> float:
 
 def _hedging_penalty(text: str) -> float:
     t = text.lower()
-    hedges = ["maybe", "perhaps", "possibly", "might", "could be", "i think", "sort of", "kind of"]
+    hedges = [
+        "maybe",
+        "perhaps",
+        "possibly",
+        "might",
+        "could be",
+        "i think",
+        "sort of",
+        "kind of",
+    ]
     h = sum(t.count(h) for h in hedges)
     return min(0.35, 0.07 * h)
+
+
+def _signal_score(signal: Any) -> float:
+    """
+    Extract a numeric score from a pattern signal.
+
+    Supports:
+    - float/int
+    - {"score": ...}
+    - {"weight": ...}
+    - {"matched": True/False}
+    """
+    if isinstance(signal, (int, float)):
+        return float(signal)
+
+    if isinstance(signal, dict):
+        if "score" in signal:
+            return float(signal["score"])
+
+        if "weight" in signal:
+            return float(signal["weight"])
+
+        if "matched" in signal:
+            return 1.0 if signal["matched"] else 0.0
+
+    return 0.0
 
 
 def composite_reasoning_strength(
@@ -64,23 +99,30 @@ def composite_reasoning_strength(
     """
     Return (strength_label, debug_scores).
 
-    ``base_confidence`` is expected on a 0–100 scale (e.g., max softmax * 100).
+    base_confidence is expected on a 0–100 scale.
     """
+
     signals = detect_pattern_signals(text)
+
     structure = _evidence_completeness_score(claim, premises)
     connectors = _connector_density(text)
     hedge = _hedging_penalty(text)
 
     c = max(0.0, min(1.0, float(base_confidence) / 100.0))
 
+    signal_count = sum(
+        1 for value in (_signal_score(v) for v in signals.values()) if value > 0
+    )
+
     score = (
         0.45 * c
         + 0.18 * structure
-        + 0.12 * min(1.0, sum(1 for v in signals.values() if v > 0) / 4.0)
+        + 0.12 * min(1.0, signal_count / 4.0)
         + 0.15 * connectors
         + 0.10 * min(1.0, len(text) / 400.0)
         - hedge
     )
+
     score = max(0.0, min(1.0, score))
 
     if score >= 0.72:
@@ -96,6 +138,8 @@ def composite_reasoning_strength(
         "evidence_completeness": round(structure, 4),
         "connector_density": round(connectors, 4),
         "hedging_penalty": round(hedge, 4),
-        "pattern_signal_count": int(sum(1 for v in signals.values() if v > 0)),
+        "pattern_signal_count": signal_count,
+        "signals": signals,
     }
+
     return label, debug

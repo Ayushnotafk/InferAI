@@ -1,0 +1,5 @@
+Metric,Value
+Expected Calibration Error (ECE),0.457
+Multiclass Brier score (mean OvR),0.0949
+Mean max confidence,0.498
+Accuracy at mean confidence,0.955

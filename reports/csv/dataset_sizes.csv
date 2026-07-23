@@ -1,0 +1,8 @@
+Metric,Count
+Synthetic dataset (nyaya_dataset.csv),4200
+Real-world dataset (real_world_dataset.csv),200
+Held-out test set (test_set.csv),200
+Combined size before deduplication (post test exclusion),4400
+Rows removed (overlap with test_set.csv),0
+Duplicate texts removed,3589
+Final merged training size,811
