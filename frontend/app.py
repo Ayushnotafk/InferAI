@@ -238,11 +238,25 @@ def main() -> None:
                 with st.spinner("Analyzing…"):
                     try:
                         data = analyze(text.strip(), DEFAULT_API, include_shap)
-                    except httpx.HTTPError as e:
-                        st.error("Could not reach the analysis service. Try again in a moment.")
-                    else:
                         st.success("Done.")
                         _render_results(data, include_shap)
+
+                    except httpx.HTTPStatusError as e:
+                        st.error(f"Backend returned HTTP {e.response.status_code}")
+                        st.code(e.response.text)
+
+                    except httpx.RequestError as e:
+                        st.error(
+                            f"Could not connect to backend at `{DEFAULT_API}`.\n\n"
+                            f"Start the API first:\n\n"
+                            f"`python -m uvicorn api.app:app --reload`\n\n{e}"
+                        )
+
+                    except Exception:
+                        import traceback
+
+                        st.error("Unexpected frontend error")
+                        st.code(traceback.format_exc())
 
         st.markdown(nx.footer_block(), unsafe_allow_html=True)
 
