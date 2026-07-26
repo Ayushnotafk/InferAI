@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InferAI — Interactive Human-in-the-Loop Diagnostic Benchmark Tool</title>
+  <meta name="description" content="A research-grade interface to tune Neuro-Symbolic weights and benchmark argument classification.">
+  <!-- Google Fonts: Outfit and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Hero Header -->
+  <header class="nyx-hero">
+    <div class="nyx-hero-badge">⚖️ Research · Explainability · InferAI</div>
+    <h1>InferAI</h1>
+    <p>Transitioning from a static mockup to an Interactive Human-in-the-Loop Diagnostic Benchmark Tool. Isolate ML models, adjust symbolic rules weight (1 - α) in real-time, and analyze reasoning structure.</p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="nyx-container">
+    
+    <!-- Sidebar / Panel: Settings & Input -->
+    <div class="nyx-grid-layout">
+      
+      <!-- Control Panel -->
+      <section class="nyx-panel control-panel">
+        <h2 class="nyx-section-title">⚙️ Diagnostic Settings</h2>
+        
+        <div class="input-group">
+          <label for="api-url-input">API Endpoint URL</label>
+          <input type="text" id="api-url-input" class="nyx-input" value="http://127.0.0.1:8000" placeholder="e.g. http://127.0.0.1:8000">
+          <span class="input-help">FastAPI decoupled backend url.</span>
+        </div>
+
+        <div class="input-group">
+          <div class="slider-label-row">
+            <label for="alpha-slider">Neuro-Symbolic Weight (α)</label>
+            <span id="alpha-val" class="slider-value">0.80</span>
+          </div>
+          <input type="range" id="alpha-slider" min="0" max="1" step="0.05" value="0.80" class="nyx-slider">
+          <div class="slider-ticks">
+            <span>0.0 (Symbolic Rules)</span>
+            <span>0.5</span>
+            <span>1.0 (Statistical ML)</span>
+          </div>
+          <span class="input-help">Adjust the balance. α represents ML weight; 1 - α represents symbolic rule weight.</span>
+        </div>
+
+        <div class="input-group checkbox-group">
+          <input type="checkbox" id="shap-checkbox" class="nyx-checkbox">
+          <label for="shap-checkbox">Include SHAP contributions (Slower)</label>
+        </div>
+
+        <hr class="nyx-divider">
+
+        <h2 class="nyx-section-title">📝 Input Argument</h2>
+        <div class="example-buttons">
+          <button type="button" class="btn btn-example" data-type="observation">Observation</button>
+          <button type="button" class="btn btn-example" data-type="inference">Inference</button>
+          <button type="button" class="btn btn-example" data-type="analogy">Analogy</button>
+          <button type="button" class="btn btn-example" data-type="authority">Authority</button>
+        </div>
+
+        <textarea id="argument-textarea" class="nyx-textarea" placeholder="Type or paste a short English argument to analyze..."></textarea>
+        
+        <button type="button" id="analyze-btn" class="btn btn-primary">Run Diagnostics</button>
+        
+        <div id="status-message" class="status-msg hide"></div>
+      </section>
+
+      <!-- Results Panel -->
+      <section class="nyx-panel results-panel placeholder-active" id="results-panel">
+        
+        <!-- Placeholder View -->
+        <div class="results-placeholder">
+          <div class="placeholder-icon">⚖️</div>
+          <h3>Ready for Diagnostics</h3>
+          <p>Configure settings and input an argument on the left, then click "Run Diagnostics" to view real-time Neuro-Symbolic blending.</p>
+        </div>
+
+        <!-- Real Results (hidden by default) -->
+        <div class="results-content hide">
+          
+          <!-- Pramana Spotlight & Core Metrics -->
+          <div class="spotlight-row">
+            
+            <div class="nyx-prediction">
+              <div class="nyx-prediction-label">FUSED PRAMĀṆA LABEL</div>
+              <div id="final-label-spotlight" class="nyx-prediction-value">✦ —</div>
+              <div id="ml-label-sub" class="nyx-prediction-sub">Reference ML label: —</div>
+            </div>
+
+            <div class="metrics-card">
+              <h3 class="nyx-glass-head">Confidence Metrics</h3>
+              
+              <div class="progress-container">
+                <div class="progress-label-row">
+                  <span>Combined Hybrid Confidence</span>
+                  <strong id="hybrid-conf-val">—</strong>
+                </div>
+                <div class="progress-bar-bg">
+                  <div id="hybrid-conf-bar" class="progress-bar-fill" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="progress-container">
+                <div class="progress-label-row">
+                  <span>Statistical ML Confidence</span>
+                  <strong id="ml-conf-val">—</strong>
+                </div>
+                <div class="progress-bar-bg">
+                  <div id="ml-conf-bar" class="progress-bar-fill ml-only-bar" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="strength-container">
+                <span class="nyx-glass-head">Reasoning Strength</span>
+                <div id="strength-badge-wrapper"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Blending Comparison Visualization -->
+          <div class="comparison-card">
+            <h3 class="nyx-glass-head">⚖️ Probability Blending Comparison</h3>
+            <p class="card-desc">Compare how the statistical machine learning model probabilities (α) are blended with symbolic rule heuristics (1 - α) to produce the combined hybrid classification.</p>
+            
+            <div class="chart-layout">
+              <div class="chart-wrapper">
+                <!-- Custom SVG Chart Container -->
+                <svg id="blending-svg-chart" viewBox="0 0 500 240" preserveAspectRatio="xMidYMid meet" class="nyx-svg-chart"></svg>
+                <div class="chart-legend">
+                  <span class="legend-item"><span class="legend-color ml-color"></span>Statistical ML</span>
+                  <span class="legend-item"><span class="legend-color rule-color"></span>Symbolic Rules</span>
+                  <span class="legend-item"><span class="legend-color hybrid-color"></span>Combined Hybrid</span>
+                </div>
+              </div>
+              
+              <div class="table-wrapper">
+                <table class="nyx-table">
+                  <thead>
+                    <tr>
+                      <th>Pramāṇa</th>
+                      <th class="text-right">ML</th>
+                      <th class="text-right">Rules</th>
+                      <th class="text-right">Hybrid</th>
+                    </tr>
+                  </thead>
+                  <tbody id="chart-table-body">
+                    <!-- Table rows injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extracted Structure Cards -->
+          <div class="structure-row">
+            <div class="nyx-glass card-half">
+              <div class="nyx-glass-head">◈ Claim</div>
+              <div id="extracted-claim" class="nyx-glass-body">—</div>
+            </div>
+            <div class="nyx-glass card-half">
+              <div class="nyx-glass-head">◇ Premises & Evidence</div>
+              <div id="extracted-premises" class="nyx-glass-body">—</div>
+            </div>
+          </div>
+
+          <!-- Rule Signals & Highlighting -->
+          <div class="nyx-glass">
+            <div class="nyx-glass-head">🔍 Symbolic Rule Pattern Signals</div>
+            <div id="signals-list" class="signals-badge-list">
+              <!-- Signals injected by JS -->
+            </div>
+            
+            <div class="highlight-section">
+              <div class="nyx-glass-head">HTML Highlighted Cues</div>
+              <div id="highlighted-cues-box" class="nyx-html-cues-box">
+                <!-- Highlighted HTML injected here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Explanation -->
+          <div class="nyx-glass">
+            <div class="nyx-glass-head">✦ Natural-Language Explanation</div>
+            <div id="explanation-text" class="nyx-glass-body">—</div>
+          </div>
+
+          <!-- SHAP Section (Conditional) -->
+          <div id="shap-section" class="nyx-glass hide">
+            <div class="nyx-glass-head">⚡ SHAP Embedding Space Contributions</div>
+            <div id="shap-note" class="nyx-shap-note"></div>
+            
+            <div class="shap-chart-layout">
+              <div class="shap-chart-container">
+                <svg id="shap-svg-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet" class="nyx-svg-chart"></svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="nyx-footer">
+    InferAI — Interactive Human-in-the-Loop Diagnostic Benchmark Tool
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

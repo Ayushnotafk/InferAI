@@ -124,10 +124,15 @@ def merge_training_datasets() -> pd.DataFrame:
 
 
 def main() -> None:
+    if not NYAYA_RAW.is_file():
+        build_legacy_synthetic_dataset()
     merged = merge_training_datasets()
     MERGED_OUT.parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(MERGED_OUT, index=False)
+    infer_out = ROOT / "dataset" / "raw" / "infer_dataset.csv"
+    merged.to_csv(infer_out, index=False)
     print(f"\nSaved: {MERGED_OUT} ({len(merged)} rows)")
+    print(f"Saved: {infer_out} ({len(merged)} rows)")
 
 
 # -----------------------------------------------------------------------------

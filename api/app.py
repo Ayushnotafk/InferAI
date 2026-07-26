@@ -8,6 +8,7 @@ structure (premises, hybrid fusion, composite strength, highlights).
 from __future__ import annotations
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from classification.hybrid_reasoning import hybrid_fuse
@@ -20,12 +21,26 @@ from reasoning_strength.composite import composite_reasoning_strength
 
 app = FastAPI(title="InferAI", version="0.3.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class InputText(BaseModel):
     text: str
     include_shap: bool = Field(
         default=False,
         description="If true, include SHAP summary for embedding dimensions (slower).",
+    )
+    alpha: float = Field(
+        default=0.8,
+        ge=0.0,
+        le=1.0,
+        description="Weight of the ML component in the hybrid fusion (1 - alpha is the weight of the symbolic rules).",
     )
 
 
@@ -46,7 +61,7 @@ def analyze_text(data: InputText):
     proba = detail["probabilities"]
     classes = detail["classes"]
 
-    hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=0.8, rule_weight=0.2)
+    hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=data.alpha, rule_weight=1.0 - data.alpha)
     adjusted_confidence = float(hybrid["adjusted_confidence"])
 
     strength, strength_debug = composite_reasoning_strength(

@@ -34,7 +34,7 @@ def _project_root() -> Path:
 def load_classifier():
     global _model, _label_encoder
     if _model is None:
-        _model = joblib.load(_project_root() / "models" / "nyaya_model.pkl")
+        _model = joblib.load(_project_root() / "models" / "infer_model.pkl")
     if _label_encoder is None:
         _label_encoder = joblib.load(_project_root() / "models" / "label_encoder.pkl")
     return _model, _label_encoder

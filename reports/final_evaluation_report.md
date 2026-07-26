@@ -60,5 +60,5 @@ The logistic regression head operates on Sentence-BERT embeddings; errors often 
    - Text: "Bench notes (philosophy): the sample fluoresced under UV immediately after staining."
 
 ## Observations
-- Hybrid fusion (`classification/hybrid_reasoning.py`) can stabilize borderline cases at inference time, but the supervised head still reflects whatever distribution is present in `nyaya_dataset.csv`.
+- Hybrid fusion (`classification/hybrid_reasoning.py`) can stabilize borderline cases at inference time, but the supervised head still reflects whatever distribution is present in `infer_dataset.csv`.
 - Composite strength (`reasoning_strength/composite.py`) intentionally decouples rhetorical strength from raw softmax peaks.
