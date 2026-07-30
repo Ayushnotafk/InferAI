@@ -1,0 +1,3 @@
+text,claim,premises,y_true,y_pred,status,explanation
+It is raining. Therefore the streets are wet.,The streets are wet.,It is raining.,None,Weak Inference,incorrect,Inference cue detected with very weak lexical connection between premise and claim.
+A neural network is like a teapot; therefore it boils ideas.,It boils ideas.,A neural network is like a teapot.,Weak Analogy,Weak Inference,incorrect,Inference cue detected with very weak lexical connection between premise and claim.

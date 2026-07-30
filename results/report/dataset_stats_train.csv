@@ -1,0 +1,2 @@
+name,path,n_rows,class_counts,class_proportions,avg_sentence_tokens,avg_sentence_chars,vocabulary_size,total_tokens,ttr,guiraud_r,avg_claim_tokens,avg_premise_tokens
+train,C:\Users\ayush\OneDrive\Desktop\sem 4\prnew14th\dataset\raw\nyaya_dataset.csv,4200,"{'Shabda': 1207, 'Anumana': 1166, 'Upamana': 920, 'Pratyaksha': 907}","{'Shabda': 0.2873809523809524, 'Anumana': 0.2776190476190476, 'Upamana': 0.21904761904761905, 'Pratyaksha': 0.21595238095238095}",25.739761904761906,173.42,364,108107,0.0033670345121037492,1.107068454254643,,

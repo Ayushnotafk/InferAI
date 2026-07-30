@@ -1,0 +1,2 @@
+text,claim,premises,y_true,y_pred,status,explanation
+"Because quantum foam vibrates, democracy is unstable.",Democracy is unstable.,Quantum foam vibrates.,Weak Inference,None,missed,

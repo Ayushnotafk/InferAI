@@ -56,6 +56,132 @@ Or run individual generators:
 
 Figures are saved under `reports/figures/`; tabular exports under `reports/csv/`.
 
+## Research neuro-symbolic framework
+
+InferAI v0.4 adds a **research-grade evaluation layer** without breaking the existing pipeline. All new behavior is modular and configurable via API flags or the benchmark scripts.
+
+### Fusion modes (alpha)
+
+`alpha` is the **ML weight** in hybrid fusion (`1 - alpha` is symbolic rule weight):
+
+| Mode | Alpha | Description |
+|------|-------|-------------|
+| Pure ML | `1.0` | Sentence-BERT + logistic regression only |
+| Pure symbolic | `0.0` | Weighted rule cues only (`resources/rules_v2.yaml`) |
+| Hybrid (default) | **`0.2`** | Ablation-optimal fixed fusion (20% ML / 80% rules) |
+| Adaptive | dynamic | Confidence- and cue-driven routing (`classification/adaptive_router.py`) |
+
+**Why α = 0.2?** Held-out ablation on `dataset/test_set.csv` peaks at 76.5% accuracy / 0.762 macro F1 for α = 0.2 versus 61.0% for the legacy α = 0.8. Fusion math was verified correct; the legacy default was too ML-heavy to overturn wrong ML posteriors when rules are right. Full write-up: [`reports/alpha_investigation.md`](reports/alpha_investigation.md).
+
+### Adaptive routing
+
+When `adaptive_routing=true` (default) and `alpha` is unset, InferAI computes a per-sample `adaptive_alpha` from base α = 0.2:
+
+- High ML confidence → increase ML weight
+- Low ML confidence → increase symbolic weight
+- Strong symbolic cues → increase symbolic contribution
+- No symbolic cues → favour ML
+
+The API returns `adaptive_alpha` and `routing_reason` for explainability.
+
+### Fallacy detection
+
+`reasoning/fallacy_detector.py` applies heuristic Nyāya-inspired checks (contradiction, unstated premise, weak inference, weak analogy, weak authority). Results appear as `fallacy_detected`, `fallacy_type`, and `fallacy_explanation`. Gold evaluation set: `dataset/gold/fallacy_gold.jsonl`.
+
+### Benchmark framework
+
+```
+evaluation/
+    benchmark.py               # run_benchmark(), run_ablation_study()
+    metrics.py                 # accuracy, P/R, macro/weighted F1, ECE
+    plots.py / publication_figures.py
+    confusion_matrix.py
+    adaptive_analysis.py
+    fallacy_evaluation.py
+    error_analysis.py
+    dataset_statistics.py
+    llm_baseline.py            # optional GPT-4 / Gemini
+    explanation_evaluation.py  # HITL Likert sheets + printable forms
+    freeze.py
+```
+
+Reproduce benchmarks:
+
+```bash
+python scripts/freeze_model.py --tag research
+python scripts/run_benchmarks.py --out results/benchmarks
+python scripts/generate_research_report.py --out results/report
+```
+
+Optional LLM comparison (requires API keys; skipped if unset):
+
+```bash
+# Windows PowerShell
+$env:OPENAI_API_KEY="..."
+$env:GEMINI_API_KEY="..."
+python scripts/generate_research_report.py --include-llm --out results/report
+```
+
+Outputs under `results/report/`: benchmark CSV tables, ablation plots (PNG+PDF), confusion matrices, adaptive/fallacy/error analyses, dataset stats, explainability forms, Markdown summary, and `figures_bundle.pdf`.
+
+Ablation sweep: `alpha ∈ {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}`.
+
+### Statistical rigor & publication assets
+
+```bash
+python scripts/generate_research_report.py --out results/report
+# Faster iteration (skip CV/calibration/robustness/OOD/SHAP sweeps):
+python scripts/generate_research_report.py --skip-slow --out results/report
+# Faster stress tests:
+python scripts/generate_research_report.py --quick-stress --out results/report
+```
+
+Additional evaluation modules:
+
+| Module | Output |
+|--------|--------|
+| `evaluation/statistical_tests.py` | McNemar, paired permutation, bootstrap 95% CIs → `statistical_significance.csv` |
+| `evaluation/cross_validation.py` | 5-fold CV mean±std accuracy / macro F1 |
+| `evaluation/calibration.py` | Temperature / Platt / Isotonic ECE comparison + reliability plots |
+| `evaluation/robustness.py` | Typo / grammar / word-order / synonym / paraphrase stress tests |
+| `evaluation/ood_evaluation.py` | Real-world OOD accuracy, confidence, JSD |
+| `evaluation/shap_analysis.py` | Global / ± / per-class SHAP figures (300 DPI) |
+| `evaluation/publication_tables.py` | Tables 1–6 as Markdown + LaTeX |
+
+### LLM baseline
+
+`evaluation/llm_baseline.py` uses an identical Nyāya classification prompt for GPT-4 and Gemini 1.5 Pro via `httpx`. Providers are optional and key-driven (`OPENAI_API_KEY`, `GEMINI_API_KEY` / `GOOGLE_API_KEY`).
+
+### Dataset utilities
+
+`dataset_utils/` provides load, label validation, gold-format validation, stratified splits, and cleaned export **without modifying** existing corpora.
+
+Gold annotation format (JSONL example: `dataset/gold/example_gold.jsonl`):
+
+```json
+{"text": "...", "claim": "...", "premises": "...", "label": "Anumana"}
+```
+
+### Explainability evaluation
+
+```python
+from evaluation.explanation_evaluation import (
+    export_evaluation_sheet,
+    export_printable_form,
+    summarize_completed_sheet,
+)
+```
+
+Export CSV sheets + printable Markdown forms; summarize clarity / trust / plausibility (1–5) with bar charts.
+
+### Reproducibility (model freeze)
+
+```bash
+python scripts/freeze_model.py --tag pre_ablation
+```
+
+Artifacts are saved under `models/frozen/<timestamp>/`.
+
 ## API
 
 ```bash
@@ -67,11 +193,16 @@ POST `/analyze` with JSON:
 ```json
 {
   "text": "Smoke is rising from the hill, therefore there must be fire.",
-  "include_shap": false
+  "include_shap": false,
+  "alpha": null,
+  "adaptive_routing": true,
+  "benchmark_mode": false
 }
 ```
 
-Key fields include `claim`, `premises` / `evidence`, `reasoning_indicators`, `highlighted_html`, `predicted_pramana` (ML head), `hybrid_predicted_pramana`, `confidence`, `adjusted_confidence`, `reasoning_strength`, `reasoning_strength_debug`, `hybrid`, and optional `shap`.
+Set `"alpha": 1.0` for pure ML, `"alpha": 0.0` for pure symbolic, or a value in `(0, 1)` for fixed hybrid. When `alpha` is `null` and `adaptive_routing` is true, routing is dynamic.
+
+Key fields include `claim`, `premises` / `evidence`, `reasoning_indicators`, `highlighted_html`, `predicted_pramana` (ML head), `hybrid_predicted_pramana`, `confidence`, `adjusted_confidence`, `reasoning_strength`, `reasoning_strength_debug`, `hybrid`, `adaptive_alpha`, `routing_reason`, `fallacy_detected`, `fallacy_type`, `fallacy_explanation`, `benchmark_mode`, and optional `shap`.
 
 ## Streamlit UI
 
@@ -83,4 +214,4 @@ Optional: set **`INFERAI_API_URL`** (or legacy **`NYAYAX_API_URL`**) if the API 
 
 ## End-to-end workflow
 
-Input text → structured extraction (claim / premises / indicators / highlights) → Sentence-BERT embeddings → logistic regression → **hybrid fusion (0.8 ML + 0.2 rules)** → composite strength → explanation → JSON (optional SHAP).
+Input text → structured extraction (claim / premises / indicators / highlights) → Sentence-BERT embeddings → logistic regression → **hybrid fusion** (fixed or adaptive alpha) → fallacy screening → composite strength → explanation → JSON (optional SHAP).

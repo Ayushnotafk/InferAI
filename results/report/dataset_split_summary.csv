@@ -1,0 +1,3 @@
+split,name,path,n_rows,avg_sentence_tokens,avg_sentence_chars,vocabulary_size,total_tokens,ttr,guiraud_r,avg_claim_tokens,avg_premise_tokens
+train,train,C:\Users\ayush\OneDrive\Desktop\sem 4\prnew14th\dataset\raw\nyaya_dataset.csv,4200,25.739761904761906,173.42,364,108107,0.0033670345121037492,1.107068454254643,,
+test,test,C:\Users\ayush\OneDrive\Desktop\sem 4\prnew14th\dataset\test_set.csv,200,16.4,117.43,228,3280,0.06951219512195123,3.9810526858865956,,

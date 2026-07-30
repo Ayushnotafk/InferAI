@@ -1,0 +1,424 @@
+{
+  "default_alpha": 0.2,
+  "modes": {
+    "ml": {
+      "mode": "ml",
+      "alpha": 1.0,
+      "adaptive": false,
+      "n_samples": 200,
+      "test_csv": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\test_set.csv",
+      "accuracy": 0.6,
+      "macro_precision": 0.6482843780050703,
+      "macro_recall": 0.6054358620094125,
+      "macro_f1": 0.6006850690151067,
+      "weighted_f1": 0.6048838116902318,
+      "ece": 0.1422471764106095,
+      "mean_alpha": 1.0,
+      "classification_report": "              precision    recall  f1-score   support\n\n     Anumana       0.49      0.50      0.49        44\n  Pratyaksha       0.43      0.76      0.55        46\n      Shabda       0.68      0.37      0.48        57\n     Upamana       1.00      0.79      0.88        53\n\n    accuracy                           0.60       200\n   macro avg       0.65      0.61      0.60       200\nweighted avg       0.66      0.60      0.60       200\n",
+      "confusion_matrix": [
+        [
+          22,
+          22,
+          0,
+          0
+        ],
+        [
+          1,
+          35,
+          10,
+          0
+        ],
+        [
+          11,
+          25,
+          21,
+          0
+        ],
+        [
+          11,
+          0,
+          0,
+          42
+        ]
+      ],
+      "labels": [
+        "Anumana",
+        "Pratyaksha",
+        "Shabda",
+        "Upamana"
+      ]
+    },
+    "symbolic": {
+      "mode": "symbolic",
+      "alpha": 0.0,
+      "adaptive": false,
+      "n_samples": 200,
+      "test_csv": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\test_set.csv",
+      "accuracy": 0.55,
+      "macro_precision": 0.832089552238806,
+      "macro_recall": 0.5698300303671401,
+      "macro_f1": 0.5712673844961111,
+      "weighted_f1": 0.5717884182374415,
+      "ece": 0.17649069833640307,
+      "mean_alpha": 0.0,
+      "classification_report": "              precision    recall  f1-score   support\n\n     Anumana       0.33      1.00      0.49        44\n  Pratyaksha       1.00      0.48      0.65        46\n      Shabda       1.00      0.39      0.56        57\n     Upamana       1.00      0.42      0.59        53\n\n    accuracy                           0.55       200\n   macro avg       0.83      0.57      0.57       200\nweighted avg       0.85      0.55      0.57       200\n",
+      "confusion_matrix": [
+        [
+          44,
+          0,
+          0,
+          0
+        ],
+        [
+          24,
+          22,
+          0,
+          0
+        ],
+        [
+          35,
+          0,
+          22,
+          0
+        ],
+        [
+          31,
+          0,
+          0,
+          22
+        ]
+      ],
+      "labels": [
+        "Anumana",
+        "Pratyaksha",
+        "Shabda",
+        "Upamana"
+      ]
+    },
+    "hybrid": {
+      "mode": "hybrid",
+      "alpha": 0.2,
+      "adaptive": false,
+      "n_samples": 200,
+      "test_csv": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\test_set.csv",
+      "accuracy": 0.765,
+      "macro_precision": 0.8736559139784946,
+      "macro_recall": 0.7653508771929824,
+      "macro_f1": 0.7619095734648236,
+      "weighted_f1": 0.7688407027187238,
+      "ece": 0.34618780106179253,
+      "mean_alpha": 0.2,
+      "classification_report": "              precision    recall  f1-score   support\n\n     Anumana       1.00      0.50      0.67        44\n  Pratyaksha       0.49      1.00      0.66        46\n      Shabda       1.00      0.56      0.72        57\n     Upamana       1.00      1.00      1.00        53\n\n    accuracy                           0.77       200\n   macro avg       0.87      0.77      0.76       200\nweighted avg       0.88      0.77      0.77       200\n",
+      "confusion_matrix": [
+        [
+          22,
+          22,
+          0,
+          0
+        ],
+        [
+          0,
+          46,
+          0,
+          0
+        ],
+        [
+          0,
+          25,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          53
+        ]
+      ],
+      "labels": [
+        "Anumana",
+        "Pratyaksha",
+        "Shabda",
+        "Upamana"
+      ]
+    },
+    "adaptive": {
+      "mode": "adaptive",
+      "alpha": null,
+      "adaptive": true,
+      "n_samples": 200,
+      "test_csv": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\test_set.csv",
+      "accuracy": 0.765,
+      "macro_precision": 0.8736559139784946,
+      "macro_recall": 0.7653508771929824,
+      "macro_f1": 0.7619095734648236,
+      "weighted_f1": 0.7688407027187238,
+      "ece": 0.23548396926575332,
+      "mean_alpha": 0.43075,
+      "classification_report": "              precision    recall  f1-score   support\n\n     Anumana       1.00      0.50      0.67        44\n  Pratyaksha       0.49      1.00      0.66        46\n      Shabda       1.00      0.56      0.72        57\n     Upamana       1.00      1.00      1.00        53\n\n    accuracy                           0.77       200\n   macro avg       0.87      0.77      0.76       200\nweighted avg       0.88      0.77      0.77       200\n",
+      "confusion_matrix": [
+        [
+          22,
+          22,
+          0,
+          0
+        ],
+        [
+          0,
+          46,
+          0,
+          0
+        ],
+        [
+          0,
+          25,
+          32,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          53
+        ]
+      ],
+      "labels": [
+        "Anumana",
+        "Pratyaksha",
+        "Shabda",
+        "Upamana"
+      ]
+    }
+  },
+  "ablation": [
+    {
+      "alpha": 0.0,
+      "accuracy": 0.55,
+      "macro_f1": 0.5712673844961111,
+      "weighted_f1": 0.5717884182374415,
+      "macro_precision": 0.832089552238806,
+      "macro_recall": 0.5698300303671401,
+      "ece": 0.17649069833640307
+    },
+    {
+      "alpha": 0.2,
+      "accuracy": 0.765,
+      "macro_f1": 0.7619095734648236,
+      "weighted_f1": 0.7688407027187238,
+      "macro_precision": 0.8736559139784946,
+      "macro_recall": 0.7653508771929824,
+      "ece": 0.34618780106179253
+    },
+    {
+      "alpha": 0.4,
+      "accuracy": 0.74,
+      "macro_f1": 0.731111489078355,
+      "weighted_f1": 0.736782529710638,
+      "macro_precision": 0.8273596176821983,
+      "macro_recall": 0.743421052631579,
+      "ece": 0.2749968281715062
+    },
+    {
+      "alpha": 0.6,
+      "accuracy": 0.665,
+      "macro_f1": 0.6554896462904263,
+      "weighted_f1": 0.659077152103357,
+      "macro_precision": 0.7170489982989983,
+      "macro_recall": 0.6710634255861145,
+      "ece": 0.14314949190788712
+    },
+    {
+      "alpha": 0.8,
+      "accuracy": 0.61,
+      "macro_f1": 0.6091828722266774,
+      "weighted_f1": 0.6133541332531409,
+      "macro_precision": 0.6584337349397591,
+      "macro_recall": 0.6155876257501836,
+      "ece": 0.12775188799993578
+    },
+    {
+      "alpha": 1.0,
+      "accuracy": 0.6,
+      "macro_f1": 0.6006850690151067,
+      "weighted_f1": 0.6048838116902318,
+      "macro_precision": 0.6482843780050703,
+      "macro_recall": 0.6054358620094125,
+      "ece": 0.1422471764106095
+    }
+  ],
+  "adaptive_analysis": {
+    "n_samples": 200,
+    "mean_alpha": 0.43075,
+    "min_alpha": 0.05,
+    "max_alpha": 0.8,
+    "std_alpha": 0.22829134346269025,
+    "median_alpha": 0.45,
+    "pct_ml_dominated": 48.0,
+    "pct_rules_dominated": 31.0,
+    "pct_balanced": 21.0,
+    "accuracy": 0.765,
+    "bucket_counts": {
+      "ml_dominated": 96,
+      "rules_dominated": 62,
+      "balanced": 42
+    },
+    "accuracy_by_bucket": {
+      "balanced": 0.5714285714285714,
+      "ml_dominated": 0.6979166666666666,
+      "rules_dominated": 1.0
+    },
+    "explanation": "Adaptive routing improves over fixed high-ML hybrids by lowering alpha when symbolic cues are present (recovering rule-correct / ML-wrong cases) and raising alpha when cues are absent so ML remains the decision maker under the soft rule floor. Empirical mean alpha=0.431 (base=0.2)."
+  },
+  "error_analysis": {
+    "n_samples": 200,
+    "n_errors": 47,
+    "accuracy": 0.765,
+    "top_confused_classes": [
+      {
+        "true": "Shabda",
+        "pred": "Pratyaksha",
+        "count": 25
+      },
+      {
+        "true": "Anumana",
+        "pred": "Pratyaksha",
+        "count": 22
+      }
+    ],
+    "n_low_confidence_errors": 32,
+    "n_fusion_hurt_ml_correct": 0,
+    "n_rule_rescues": 33,
+    "n_ml_failures": 47,
+    "n_symbolic_failures": 0,
+    "narrative": "Most frequent confusion: Shabda \u2192 Pratyaksha (25 cases). Rules rescued 33 ML errors; fusion overrode 0 correct ML decisions; 47 residual ML failures; 0 symbolic-aligned residual errors."
+  },
+  "fallacy_evaluation": {
+    "n_samples": 12,
+    "accuracy": 0.75,
+    "macro_precision": 0.6333333333333333,
+    "macro_recall": 0.6333333333333333,
+    "macro_f1": 0.6333333333333333,
+    "binary_precision": 0.8571428571428571,
+    "binary_recall": 0.8571428571428571,
+    "true_positives": 6,
+    "false_positives": 1,
+    "false_negatives": 1,
+    "true_negatives": 4,
+    "status_counts": {
+      "correct": 5,
+      "true_negative": 4,
+      "incorrect": 2,
+      "missed": 1
+    },
+    "confusion_matrix": [
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "labels": [
+      "Contradiction",
+      "None",
+      "Unstated Premise",
+      "Weak Analogy",
+      "Weak Authority",
+      "Weak Inference"
+    ]
+  },
+  "dataset_statistics": {
+    "train": {
+      "name": "train",
+      "path": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\raw\\nyaya_dataset.csv",
+      "n_rows": 4200,
+      "class_counts": {
+        "Shabda": 1207,
+        "Anumana": 1166,
+        "Upamana": 920,
+        "Pratyaksha": 907
+      },
+      "class_proportions": {
+        "Shabda": 0.2873809523809524,
+        "Anumana": 0.2776190476190476,
+        "Upamana": 0.21904761904761905,
+        "Pratyaksha": 0.21595238095238095
+      },
+      "avg_sentence_tokens": 25.739761904761906,
+      "avg_sentence_chars": 173.42,
+      "vocabulary_size": 364,
+      "total_tokens": 108107,
+      "ttr": 0.0033670345121037492,
+      "guiraud_r": 1.107068454254643,
+      "avg_claim_tokens": null,
+      "avg_premise_tokens": null
+    },
+    "test": {
+      "name": "test",
+      "path": "C:\\Users\\ayush\\OneDrive\\Desktop\\sem 4\\prnew14th\\dataset\\test_set.csv",
+      "n_rows": 200,
+      "class_counts": {
+        "Shabda": 57,
+        "Upamana": 53,
+        "Pratyaksha": 46,
+        "Anumana": 44
+      },
+      "class_proportions": {
+        "Shabda": 0.285,
+        "Upamana": 0.265,
+        "Pratyaksha": 0.23,
+        "Anumana": 0.22
+      },
+      "avg_sentence_tokens": 16.4,
+      "avg_sentence_chars": 117.43,
+      "vocabulary_size": 228,
+      "total_tokens": 3280,
+      "ttr": 0.06951219512195123,
+      "guiraud_r": 3.9810526858865956,
+      "avg_claim_tokens": null,
+      "avg_premise_tokens": null
+    }
+  }
+}

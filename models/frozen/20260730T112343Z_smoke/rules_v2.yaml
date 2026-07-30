@@ -1,0 +1,631 @@
+version: 2.0
+total_rules: 77
+generated_from: "classification/hybrid_reasoning.py::_RULE_SPECS (WeightedRule(pattern, weight, pramana, cue))"
+date: "2026-07-07"
+
+# NOTE: This YAML documents the existing symbolic cue base used by the hybrid fusion layer.
+# It does not change inference logic. Patterns are the exact regex strings from `_RULE_SPECS`.
+
+Pratyaksha:
+  - id: PRATYAKSHA_001
+    pramana: Pratyaksha
+    cue_type: observed
+    weight: 1.6
+    pattern: "\\bobserved\\b"
+    description: Direct perception cue via explicit observation wording.
+    example_trigger: "We observed a clear increase in brightness."
+    example_non_trigger: "We inferred a clear increase in brightness."
+  - id: PRATYAKSHA_002
+    pramana: Pratyaksha
+    cue_type: measured
+    weight: 1.8
+    pattern: "\\bmeasured\\b"
+    description: Measurement cue indicating instrumented or quantified perception.
+    example_trigger: "The voltage was measured at 3.3V."
+    example_non_trigger: "The voltage seems high."
+  - id: PRATYAKSHA_003
+    pramana: Pratyaksha
+    cue_type: recorded
+    weight: 1.5
+    pattern: "\\brecorded\\b"
+    description: Recorded-data cue suggesting observation logged in a record.
+    example_trigger: "The system recorded 120 events in the log."
+    example_non_trigger: "The system probably saw 120 events."
+  - id: PRATYAKSHA_004
+    pramana: Pratyaksha
+    cue_type: detected
+    weight: 1.6
+    pattern: "\\bdetected\\b"
+    description: Detection cue typically used with sensors/instruments.
+    example_trigger: "The device detected a signal spike."
+    example_non_trigger: "We assume there was a signal spike."
+  - id: PRATYAKSHA_005
+    pramana: Pratyaksha
+    cue_type: sensor
+    weight: 2.0
+    pattern: "\\bsensor(?:s| data)?\\b"
+    description: Sensor-based perception cue.
+    example_trigger: "Sensor data shows a sudden drop in pressure."
+    example_non_trigger: "The report shows a sudden drop in pressure."
+  - id: PRATYAKSHA_006
+    pramana: Pratyaksha
+    cue_type: temperature
+    weight: 1.4
+    pattern: "\\btemperature(?:s)?\\b"
+    description: Physical-measurement vocabulary cue (temperature).
+    example_trigger: "The temperature increased by 5 degrees."
+    example_non_trigger: "The mood temperature increased in the room."
+  - id: PRATYAKSHA_007
+    pramana: Pratyaksha
+    cue_type: pressure
+    weight: 1.4
+    pattern: "\\bpressure(?:s)?\\b"
+    description: Physical-measurement vocabulary cue (pressure).
+    example_trigger: "Pressure readings remained stable overnight."
+    example_non_trigger: "Social pressure remained stable overnight."
+  - id: PRATYAKSHA_008
+    pramana: Pratyaksha
+    cue_type: laboratory
+    weight: 2.2
+    pattern: "\\blaborator(?:y|ies)\\b"
+    description: Laboratory context cue suggesting empirical observation.
+    example_trigger: "In the laboratory, the sample was tested."
+    example_non_trigger: "In the library, the sample was described."
+  - id: PRATYAKSHA_009
+    pramana: Pratyaksha
+    cue_type: experiment
+    weight: 2.1
+    pattern: "\\bexperiment(?:s|al)?\\b"
+    description: Experimental context cue for empirical procedure.
+    example_trigger: "The experiment produced consistent readings."
+    example_non_trigger: "The argument is an experiment in rhetoric."
+  - id: PRATYAKSHA_010
+    pramana: Pratyaksha
+    cue_type: sample
+    weight: 1.7
+    pattern: "\\bsample(?:s)?\\b"
+    description: Sampling vocabulary cue in measurement/observation contexts.
+    example_trigger: "We took samples from the river."
+    example_non_trigger: "This is a sample explanation."
+  - id: PRATYAKSHA_011
+    pramana: Pratyaksha
+    cue_type: microscope
+    weight: 2.3
+    pattern: "\\bmicroscope\\b"
+    description: Instrument cue indicating direct inspection.
+    example_trigger: "Under the microscope, the cells appeared intact."
+    example_non_trigger: "Under scrutiny, the plan appeared intact."
+  - id: PRATYAKSHA_012
+    pramana: Pratyaksha
+    cue_type: evidence collected
+    weight: 2.0
+    pattern: "\\bevidence collected\\b"
+    description: Explicit evidence-collection phrasing as observational grounding.
+    example_trigger: "Evidence collected at the scene confirms damage."
+    example_non_trigger: "Evidence suggests the scene was damaged."
+  - id: PRATYAKSHA_013
+    pramana: Pratyaksha
+    cue_type: survey results
+    weight: 1.9
+    pattern: "\\bsurvey results\\b"
+    description: Survey-result phrasing indicating recorded observations.
+    example_trigger: "Survey results show a majority supports the change."
+    example_non_trigger: "Survey questions suggest a majority supports the change."
+  - id: PRATYAKSHA_014
+    pramana: Pratyaksha
+    cue_type: statistics
+    weight: 1.6
+    pattern: "\\bstatistics\\b"
+    description: Statistical-reporting cue as observational/recorded evidence.
+    example_trigger: "The statistics indicate a downward trend."
+    example_non_trigger: "Statistically, it might be a downward trend."
+  - id: PRATYAKSHA_015
+    pramana: Pratyaksha
+    cue_type: measured values
+    weight: 2.2
+    pattern: "\\bmeasured values\\b"
+    description: Explicit phrase indicating quantitative observation.
+    example_trigger: "The measured values are within tolerance."
+    example_non_trigger: "The expected values are within tolerance."
+  - id: PRATYAKSHA_016
+    pramana: Pratyaksha
+    cue_type: inspection
+    weight: 1.5
+    pattern: "\\binspection\\b"
+    description: Inspection vocabulary cue for direct examination.
+    example_trigger: "Inspection revealed cracks in the casing."
+    example_non_trigger: "Prediction revealed cracks in the casing."
+  - id: PRATYAKSHA_017
+    pramana: Pratyaksha
+    cue_type: monitoring
+    weight: 1.5
+    pattern: "\\bmonitoring\\b"
+    description: Monitoring vocabulary cue suggesting observation over time.
+    example_trigger: "Continuous monitoring showed no anomalies."
+    example_non_trigger: "Continuous reasoning showed no anomalies."
+  - id: PRATYAKSHA_018
+    pramana: Pratyaksha
+    cue_type: first-person observation
+    weight: 1.8
+    pattern: "\\bi (?:saw|heard|observed|noticed|smelled|felt)\\b"
+    description: First-person sensory report cue.
+    example_trigger: "I heard a loud crack before the failure."
+    example_non_trigger: "I think there was a loud crack before the failure."
+  - id: PRATYAKSHA_019
+    pramana: Pratyaksha
+    cue_type: instrument reading
+    weight: 1.7
+    pattern: "\\bthe (?:sensor|display|log|image|recording)\\b"
+    description: Reference to an instrument or recorded artifact.
+    example_trigger: "The log shows the process exited early."
+    example_non_trigger: "The story shows the process exited early."
+  - id: PRATYAKSHA_020
+    pramana: Pratyaksha
+    cue_type: we measured
+    weight: 2.0
+    pattern: "\\bwe measured\\b"
+    description: Team-reported measurement phrasing.
+    example_trigger: "We measured the concentration at 2 mg/L."
+    example_non_trigger: "We estimated the concentration at 2 mg/L."
+  - id: PRATYAKSHA_021
+    pramana: Pratyaksha
+    cue_type: telemetry
+    weight: 1.8
+    pattern: "\\btelemetry\\b"
+    description: Telemetry vocabulary cue indicating instrumented observation.
+    example_trigger: "Telemetry confirmed the motor overheated."
+    example_non_trigger: "Testimony confirmed the motor overheated."
+  - id: PRATYAKSHA_022
+    pramana: Pratyaksha
+    cue_type: field notes
+    weight: 1.6
+    pattern: "\\bfield notes\\b"
+    description: Field-notes phrasing suggesting observed records.
+    example_trigger: "Field notes describe visible discoloration."
+    example_non_trigger: "Theory notes describe visible discoloration."
+  - id: PRATYAKSHA_023
+    pramana: Pratyaksha
+    cue_type: visible/audible
+    weight: 1.4
+    pattern: "\\bvisible\\b|\\baudible\\b"
+    description: Sensory adjectives indicating direct perception.
+    example_trigger: "The defect was visible to the naked eye."
+    example_non_trigger: "The defect was plausible to the naked eye."
+
+Anumana:
+  - id: ANUMANA_001
+    pramana: Anumana
+    cue_type: because
+    weight: 2.0
+    pattern: "\\bbecause\\b"
+    description: Causal/inferential connective cue.
+    example_trigger: "It must be raining because the street is wet."
+    example_non_trigger: "It must be raining; the street is wet."
+  - id: ANUMANA_002
+    pramana: Anumana
+    cue_type: therefore
+    weight: 2.3
+    pattern: "\\btherefore\\b"
+    description: Conclusion marker indicating inference.
+    example_trigger: "The premises are true; therefore the claim follows."
+    example_non_trigger: "The premises are true; the claim follows."
+  - id: ANUMANA_003
+    pramana: Anumana
+    cue_type: thus
+    weight: 2.0
+    pattern: "\\bthus\\b"
+    description: Conclusion marker indicating inference.
+    example_trigger: "The engine has no fuel, thus it cannot start."
+    example_non_trigger: "The engine has no fuel; it cannot start."
+  - id: ANUMANA_004
+    pramana: Anumana
+    cue_type: hence
+    weight: 2.1
+    pattern: "\\bhence\\b"
+    description: Conclusion marker indicating inference.
+    example_trigger: "The lights are off, hence nobody is home."
+    example_non_trigger: "The lights are off; nobody is home."
+  - id: ANUMANA_005
+    pramana: Anumana
+    cue_type: consequently
+    weight: 2.2
+    pattern: "\\bconsequently\\b"
+    description: Consequence marker used in inferential chains.
+    example_trigger: "The supply is cut; consequently production stops."
+    example_non_trigger: "The supply is cut; production stops."
+  - id: ANUMANA_006
+    pramana: Anumana
+    cue_type: implies
+    weight: 2.1
+    pattern: "\\bimplies\\b"
+    description: Logical implication cue.
+    example_trigger: "A rising fever implies an infection."
+    example_non_trigger: "A rising fever describes an infection."
+  - id: ANUMANA_007
+    pramana: Anumana
+    cue_type: suggests
+    weight: 1.6
+    pattern: "\\bsuggests\\b"
+    description: Suggestive inference cue (weaker than explicit therefore).
+    example_trigger: "The pattern suggests a systemic issue."
+    example_non_trigger: "The pattern shows a systemic issue."
+  - id: ANUMANA_008
+    pramana: Anumana
+    cue_type: likely
+    weight: 1.5
+    pattern: "\\blikely\\b"
+    description: Probabilistic inference cue.
+    example_trigger: "It is likely the server is overloaded."
+    example_non_trigger: "It is the server that is overloaded."
+  - id: ANUMANA_009
+    pramana: Anumana
+    cue_type: causes
+    weight: 2.0
+    pattern: "\\bcauses\\b"
+    description: Explicit causal claim cue.
+    example_trigger: "Smoking causes respiratory problems."
+    example_non_trigger: "Smoking correlates with respiratory problems."
+  - id: ANUMANA_010
+    pramana: Anumana
+    cue_type: if...then
+    weight: 2.4
+    pattern: "\\bif\\b.{0,40}\\bthen\\b"
+    description: Conditional reasoning cue within a bounded span.
+    example_trigger: "If the alarm is armed then the door cannot open."
+    example_non_trigger: "If the alarm is armed, the door cannot open."
+  - id: ANUMANA_011
+    pramana: Anumana
+    cue_type: due to
+    weight: 2.0
+    pattern: "\\bdue to\\b"
+    description: Causal attribution cue.
+    example_trigger: "The delay occurred due to network congestion."
+    example_non_trigger: "The delay occurred during network congestion."
+  - id: ANUMANA_012
+    pramana: Anumana
+    cue_type: results in
+    weight: 2.1
+    pattern: "\\bresults in\\b"
+    description: Consequence phrasing cue.
+    example_trigger: "Lack of sleep results in poor attention."
+    example_non_trigger: "Lack of sleep is linked to poor attention."
+  - id: ANUMANA_013
+    pramana: Anumana
+    cue_type: leads to
+    weight: 2.1
+    pattern: "\\bleads to\\b"
+    description: Consequence phrasing cue.
+    example_trigger: "Overheating leads to system shutdowns."
+    example_non_trigger: "Overheating is associated with shutdowns."
+  - id: ANUMANA_014
+    pramana: Anumana
+    cue_type: therefore it follows
+    weight: 2.5
+    pattern: "\\btherefore it follows\\b"
+    description: Strong explicit inferential phrase.
+    example_trigger: "All metals expand when heated; therefore it follows this rod will expand."
+    example_non_trigger: "All metals expand when heated; this rod will expand."
+  - id: ANUMANA_015
+    pramana: Anumana
+    cue_type: since
+    weight: 1.7
+    pattern: "\\bsince\\b"
+    description: Premise-introducing cue used for inference.
+    example_trigger: "Since the battery is dead, the car will not start."
+    example_non_trigger: "Since yesterday, the battery is dead."
+  - id: ANUMANA_016
+    pramana: Anumana
+    cue_type: which suggests
+    weight: 1.9
+    pattern: "\\bwhich suggests\\b"
+    description: Phrase indicating an interpretive inference from evidence.
+    example_trigger: "The results were inconsistent, which suggests measurement error."
+    example_non_trigger: "The results were inconsistent, which shows measurement error."
+  - id: ANUMANA_017
+    pramana: Anumana
+    cue_type: most likely
+    weight: 1.8
+    pattern: "\\bmost likely\\b"
+    description: Stronger probabilistic inference cue.
+    example_trigger: "The cause is most likely a short circuit."
+    example_non_trigger: "The cause is a short circuit."
+
+Upamana:
+  - id: UPAMANA_001
+    pramana: Upamana
+    cue_type: similar to
+    weight: 2.4
+    pattern: "\\bsimilar to\\b"
+    description: Analogy cue via explicit similarity phrasing.
+    example_trigger: "The mechanism is similar to a lock and key."
+    example_non_trigger: "The mechanism is simple to use."
+  - id: UPAMANA_002
+    pramana: Upamana
+    cue_type: just as
+    weight: 2.3
+    pattern: "\\bjust as\\b"
+    description: Analogy cue via parallel construction ("just as ... so ...").
+    example_trigger: "Just as fire spreads, so does misinformation."
+    example_non_trigger: "Just as a reminder, please submit the form."
+  - id: UPAMANA_003
+    pramana: Upamana
+    cue_type: acts like
+    weight: 2.5
+    pattern: "\\bacts like\\b"
+    description: Analogy cue indicating functional similarity.
+    example_trigger: "This enzyme acts like a catalyst in the reaction."
+    example_non_trigger: "This enzyme acts quickly in the reaction."
+  - id: UPAMANA_004
+    pramana: Upamana
+    cue_type: works like
+    weight: 2.5
+    pattern: "\\bworks like\\b"
+    description: Analogy cue indicating functional similarity.
+    example_trigger: "The scheduler works like a queue."
+    example_non_trigger: "The scheduler works reliably."
+  - id: UPAMANA_005
+    pramana: Upamana
+    cue_type: resembles
+    weight: 2.4
+    pattern: "\\bresembles\\b"
+    description: Analogy cue via resemblance verb.
+    example_trigger: "The pattern resembles a fractal."
+    example_non_trigger: "The pattern results from a fractal."
+  - id: UPAMANA_006
+    pramana: Upamana
+    cue_type: analogous to
+    weight: 2.6
+    pattern: "\\banalogous to\\b"
+    description: Strong analogy marker ("analogous to").
+    example_trigger: "This is analogous to balancing a budget."
+    example_non_trigger: "This is identical to balancing a budget."
+  - id: UPAMANA_007
+    pramana: Upamana
+    cue_type: compared with/to
+    weight: 2.2
+    pattern: "\\bcompared with\\b|\\bcompared to\\b"
+    description: Explicit comparison phrasing.
+    example_trigger: "Compared to last year, the risk is lower."
+    example_non_trigger: "According to last year, the risk is lower."
+  - id: UPAMANA_008
+    pramana: Upamana
+    cue_type: comparison
+    weight: 1.8
+    pattern: "\\bcomparison\\b"
+    description: Comparison noun cue used in analogical framing.
+    example_trigger: "A comparison to the earlier case clarifies the point."
+    example_non_trigger: "A conclusion to the earlier case clarifies the point."
+  - id: UPAMANA_009
+    pramana: Upamana
+    cue_type: metaphor
+    weight: 2.3
+    pattern: "\\bmetaphor\\b"
+    description: Metaphor vocabulary cue.
+    example_trigger: "This is a metaphor for societal collapse."
+    example_non_trigger: "This is a model for societal collapse."
+  - id: UPAMANA_010
+    pramana: Upamana
+    cue_type: in the same way
+    weight: 2.4
+    pattern: "\\bin the same way\\b"
+    description: Analogy cue via "in the same way" phrasing.
+    example_trigger: "In the same way a seed grows, ideas can grow."
+    example_non_trigger: "In the same day a seed grows, ideas can grow."
+  - id: UPAMANA_011
+    pramana: Upamana
+    cue_type: as if
+    weight: 2.2
+    pattern: "\\bas if\\b"
+    description: Simile-like framing cue via "as if".
+    example_trigger: "He spoke as if he were an expert."
+    example_non_trigger: "He spoke as he was an expert."
+  - id: UPAMANA_012
+    pramana: Upamana
+    cue_type: is like
+    weight: 2.4
+    pattern: "\\bis like\\b"
+    description: Direct simile phrase ("is like").
+    example_trigger: "Their strategy is like building on sand."
+    example_non_trigger: "Their strategy is building on sand."
+  - id: UPAMANA_013
+    pramana: Upamana
+    cue_type: like a/an
+    weight: 2.0
+    pattern: "\\blike a\\b|\\blike an\\b"
+    description: Phrase-level simile cue ("like a/an"), with false-positive suppression in code for "I like X".
+    example_trigger: "The mind is like a mirror."
+    example_non_trigger: "I like football."
+
+Shabda:
+  - id: SHABDA_001
+    pramana: Shabda
+    cue_type: according to official body
+    weight: 3.4
+    pattern: "\\baccording to\\s+(?:who|world health organization|cdc|unesco|fda|nasa|the government|government|official report|court judgement|court judgment)\\b"
+    description: Tiered "according to" for official institutions or legal/official documents.
+    example_trigger: "According to WHO, vaccines are effective."
+    example_non_trigger: "According to my friend, vaccines are effective."
+  - id: SHABDA_002
+    pramana: Shabda
+    cue_type: according to expert/study
+    weight: 2.7
+    pattern: "\\baccording to\\s+(?:experts?|researchers?|scientists?|the study|a study|research|medical guidelines?|journal|published)\\b"
+    description: Tiered "according to" for experts, studies, or research context.
+    example_trigger: "According to researchers, the method reduces error."
+    example_non_trigger: "According to my mom, the method reduces error."
+  - id: SHABDA_003
+    pramana: Shabda
+    cue_type: according to informal source
+    weight: 0.7
+    pattern: "\\baccording to\\s+(?:my friend|my mom|my dad|a friend|some guy)\\b"
+    description: Informal testimony marker; treated as weak Shabda.
+    example_trigger: "According to my friend, this works every time."
+    example_non_trigger: "We measured that this works every time."
+  - id: SHABDA_004
+    pramana: Shabda
+    cue_type: according to (general)
+    weight: 1.5
+    pattern: "\\baccording to\\b"
+    description: General testimony marker; in code it is suppressed if a more specific tier matched.
+    example_trigger: "According to the report, the trend is rising."
+    example_non_trigger: "Therefore, the trend is rising."
+  - id: SHABDA_005
+    pramana: Shabda
+    cue_type: reported by
+    weight: 2.0
+    pattern: "\\breported by\\b"
+    description: Attribution phrasing to a reporting source.
+    example_trigger: "It was reported by the journal last week."
+    example_non_trigger: "It was observed by the team last week."
+  - id: SHABDA_006
+    pramana: Shabda
+    cue_type: research shows
+    weight: 2.5
+    pattern: "\\bresearch shows\\b"
+    description: Research-as-authority phrasing.
+    example_trigger: "Research shows the intervention helps."
+    example_non_trigger: "Experience shows the intervention helps."
+  - id: SHABDA_007
+    pramana: Shabda
+    cue_type: study found
+    weight: 2.5
+    pattern: "\\bstudy found\\b"
+    description: Study-result testimony phrasing.
+    example_trigger: "The study found no significant effect."
+    example_non_trigger: "The experiment detected no significant effect."
+  - id: SHABDA_008
+    pramana: Shabda
+    cue_type: journal
+    weight: 2.0
+    pattern: "\\bjournal\\b"
+    description: Academic publication context cue.
+    example_trigger: "A journal article reported the findings."
+    example_non_trigger: "A personal blog reported the findings."
+  - id: SHABDA_009
+    pramana: Shabda
+    cue_type: published
+    weight: 1.9
+    pattern: "\\bpublished\\b"
+    description: Publication marker in testimony context.
+    example_trigger: "The results were published in 2024."
+    example_non_trigger: "The results were measured in 2024."
+  - id: SHABDA_010
+    pramana: Shabda
+    cue_type: WHO
+    weight: 3.2
+    pattern: "\\bWHO\\b"
+    description: Explicit WHO mention as strong authority cue.
+    example_trigger: "WHO issued updated guidance."
+    example_non_trigger: "They issued updated guidance."
+  - id: SHABDA_011
+    pramana: Shabda
+    cue_type: UNESCO
+    weight: 3.0
+    pattern: "\\bUNESCO\\b"
+    description: Explicit UNESCO mention as authority cue.
+    example_trigger: "UNESCO guidelines recommend preservation."
+    example_non_trigger: "Local guidelines recommend preservation."
+  - id: SHABDA_012
+    pramana: Shabda
+    cue_type: CDC
+    weight: 3.0
+    pattern: "\\bCDC\\b"
+    description: Explicit CDC mention as authority cue.
+    example_trigger: "CDC reports a reduction in cases."
+    example_non_trigger: "Reports show a reduction in cases."
+  - id: SHABDA_013
+    pramana: Shabda
+    cue_type: government
+    weight: 2.4
+    pattern: "\\bgovernment\\b"
+    description: Government source cue for testimony/authority.
+    example_trigger: "The government announced new regulations."
+    example_non_trigger: "The committee announced new regulations."
+  - id: SHABDA_014
+    pramana: Shabda
+    cue_type: official report
+    weight: 2.6
+    pattern: "\\bofficial report\\b"
+    description: Official-report phrasing as authority cue.
+    example_trigger: "An official report states the policy changed."
+    example_non_trigger: "An informal note states the policy changed."
+  - id: SHABDA_015
+    pramana: Shabda
+    cue_type: court judgement
+    weight: 2.7
+    pattern: "\\bcourt judg(?:e)?ment\\b"
+    description: Legal authority cue via court judgement/judgment mention.
+    example_trigger: "The court judgment established the precedent."
+    example_non_trigger: "The court hearing established the precedent."
+  - id: SHABDA_016
+    pramana: Shabda
+    cue_type: experts
+    weight: 2.0
+    pattern: "\\bexperts?\\b"
+    description: Expert-authority vocabulary cue.
+    example_trigger: "Experts agree the risk is minimal."
+    example_non_trigger: "Participants agree the risk is minimal."
+  - id: SHABDA_017
+    pramana: Shabda
+    cue_type: scientists
+    weight: 2.1
+    pattern: "\\bscientists?\\b"
+    description: Scientific authority vocabulary cue.
+    example_trigger: "Scientists report a new discovery."
+    example_non_trigger: "Engineers report a new discovery."
+  - id: SHABDA_018
+    pramana: Shabda
+    cue_type: researchers
+    weight: 2.0
+    pattern: "\\bresearchers?\\b"
+    description: Researcher-authority vocabulary cue.
+    example_trigger: "Researchers conclude the method is robust."
+    example_non_trigger: "Users conclude the method is robust."
+  - id: SHABDA_019
+    pramana: Shabda
+    cue_type: medical guidelines
+    weight: 2.5
+    pattern: "\\bmedical guidelines?\\b"
+    description: Medical guideline authority cue.
+    example_trigger: "Medical guidelines recommend vaccination."
+    example_non_trigger: "Personal guidelines recommend vaccination."
+  - id: SHABDA_020
+    pramana: Shabda
+    cue_type: evidence suggests
+    weight: 2.2
+    pattern: "\\bevidence suggests\\b"
+    description: Evidence-as-testimony phrasing (treated as Shabda in this engine).
+    example_trigger: "Evidence suggests the treatment is effective."
+    example_non_trigger: "Evidence collected shows the treatment is effective."
+  - id: SHABDA_021
+    pramana: Shabda
+    cue_type: study/studies
+    weight: 1.6
+    pattern: "\\bstud(?:y|ies)\\b"
+    description: Study/studies vocabulary cue; code suppresses informal "he studies biology" unless research context is present.
+    example_trigger: "Several studies indicate a benefit."
+    example_non_trigger: "He studies biology at the university."
+  - id: SHABDA_022
+    pramana: Shabda
+    cue_type: report/reported
+    weight: 1.5
+    pattern: "\\breport(?:ed|s)?\\b"
+    description: Reporting vocabulary cue.
+    example_trigger: "The report states the hazard is severe."
+    example_non_trigger: "The measurement states the hazard is severe."
+  - id: SHABDA_023
+    pramana: Shabda
+    cue_type: authoritative document
+    weight: 2.0
+    pattern: "\\bthe (?:handbook|manual|court|statute)\\b"
+    description: Authority cue via reference to formal documents.
+    example_trigger: "The statute defines the requirement."
+    example_non_trigger: "The story defines the requirement."
+  - id: SHABDA_024
+    pramana: Shabda
+    cue_type: professor/teacher
+    weight: 1.4
+    pattern: "\\bprofessor\\b|\\bteacher\\b"
+    description: Instructional authority vocabulary cue.
+    example_trigger: "My professor said the theorem holds."
+    example_non_trigger: "My friend said the theorem holds."

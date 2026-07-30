@@ -1,0 +1,2 @@
+mode,alpha,adaptive,n_samples,test_csv,accuracy,macro_precision,macro_recall,macro_f1,weighted_f1,ece,mean_alpha,confusion_matrix,labels
+adaptive,,True,200,C:\Users\ayush\OneDrive\Desktop\sem 4\prnew14th\dataset\test_set.csv,0.66,0.7341921290092022,0.6681688326641049,0.6526022991588645,0.6568467651673842,0.15833178618172605,0.8286499999999998,"[[22, 22, 0, 0], [0, 44, 2, 0], [10, 25, 22, 0], [9, 0, 0, 44]]","['Anumana', 'Pratyaksha', 'Shabda', 'Upamana']"

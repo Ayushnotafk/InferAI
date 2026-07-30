@@ -1,0 +1,2 @@
+name,path,n_rows,class_counts,class_proportions,avg_sentence_tokens,avg_sentence_chars,vocabulary_size,total_tokens,ttr,guiraud_r,avg_claim_tokens,avg_premise_tokens
+test,C:\Users\ayush\OneDrive\Desktop\sem 4\prnew14th\dataset\test_set.csv,200,"{'Shabda': 57, 'Upamana': 53, 'Pratyaksha': 46, 'Anumana': 44}","{'Shabda': 0.285, 'Upamana': 0.265, 'Pratyaksha': 0.23, 'Anumana': 0.22}",16.4,117.43,228,3280,0.06951219512195123,3.9810526858865956,,

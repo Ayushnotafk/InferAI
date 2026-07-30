@@ -1,0 +1,7 @@
+perturbation,accuracy,delta_accuracy,relative_drop_pct
+clean,1.0,0.0,0.0
+typo,0.98,-0.020000000000000018,2.0000000000000018
+grammar,1.0,0.0,-0.0
+word_order,1.0,0.0,-0.0
+synonym,1.0,0.0,-0.0
+paraphrase,1.0,0.0,-0.0

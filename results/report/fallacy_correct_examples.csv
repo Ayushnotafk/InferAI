@@ -1,0 +1,6 @@
+text,claim,premises,y_true,y_pred,status,explanation
+It is raining heavily. Therefore the ground is dry.,The ground is dry.,It is raining heavily.,Contradiction,Contradiction,correct,Premise and claim appear mutually inconsistent (wet/dry or rain/no-rain opposition).
+Therefore society will collapse.,Society will collapse.,,Unstated Premise,Unstated Premise,correct,An inferential connector is present but no substantive premise was extracted.
+"According to someone, vaccines are unnecessary.",Vaccines are unnecessary.,According to someone.,Weak Authority,Weak Authority,correct,Authority phrasing ('according to') without an identifiable institutional or expert source.
+The ground is dry. However it is raining outside.,It is raining outside.,The ground is dry.,Contradiction,Contradiction,correct,Premise and claim appear mutually inconsistent (wet/dry or rain/no-rain opposition).
+Hence the conclusion follows.,The conclusion follows.,n/a,Unstated Premise,Unstated Premise,correct,An inferential connector is present but no substantive premise was extracted.

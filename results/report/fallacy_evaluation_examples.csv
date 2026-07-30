@@ -1,0 +1,13 @@
+text,claim,premises,y_true,y_pred,status,explanation
+It is raining heavily. Therefore the ground is dry.,The ground is dry.,It is raining heavily.,Contradiction,Contradiction,correct,Premise and claim appear mutually inconsistent (wet/dry or rain/no-rain opposition).
+It is raining. Therefore the streets are wet.,The streets are wet.,It is raining.,None,Weak Inference,incorrect,Inference cue detected with very weak lexical connection between premise and claim.
+Therefore society will collapse.,Society will collapse.,,Unstated Premise,Unstated Premise,correct,An inferential connector is present but no substantive premise was extracted.
+"Because quantum foam vibrates, democracy is unstable.",Democracy is unstable.,Quantum foam vibrates.,Weak Inference,None,missed,
+A neural network is like a teapot; therefore it boils ideas.,It boils ideas.,A neural network is like a teapot.,Weak Analogy,Weak Inference,incorrect,Inference cue detected with very weak lexical connection between premise and claim.
+"According to someone, vaccines are unnecessary.",Vaccines are unnecessary.,According to someone.,Weak Authority,Weak Authority,correct,Authority phrasing ('according to') without an identifiable institutional or expert source.
+"According to WHO, vaccination reduces disease spread.",Vaccination reduces disease spread.,WHO guidance.,None,None,true_negative,
+Teaching attention is similar to a spotlight; the model learns where to look.,The model learns where to look.,Teaching attention is similar to a spotlight.,None,None,true_negative,
+Smoke is rising; therefore there is fire on the hill.,There is fire on the hill.,Smoke is rising.,None,None,true_negative,
+The sensor recorded 41 degrees; the display showed the same value.,The display showed the same value.,The sensor recorded 41 degrees.,None,None,true_negative,
+The ground is dry. However it is raining outside.,It is raining outside.,The ground is dry.,Contradiction,Contradiction,correct,Premise and claim appear mutually inconsistent (wet/dry or rain/no-rain opposition).
+Hence the conclusion follows.,The conclusion follows.,n/a,Unstated Premise,Unstated Premise,correct,An inferential connector is present but no substantive premise was extracted.

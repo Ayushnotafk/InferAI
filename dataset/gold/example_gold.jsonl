@@ -1,0 +1,2 @@
+{"text": "It is raining heavily outside.", "claim": "The ground is dry.", "premises": "It is raining.", "label": "Anumana"}
+{"text": "According to WHO, vaccination reduces disease spread.", "claim": "Vaccination reduces disease spread.", "premises": "WHO guidance supports vaccination.", "label": "Shabda"}

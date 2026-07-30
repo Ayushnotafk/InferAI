@@ -1,0 +1,3 @@
+sample_id,text,predicted_label,explanation,clarity,trust,plausibility,reviewer_notes
+1,Smoke rises from the hill; therefore there is fire.,Anumana,Inferential cues (therefore) support Anumana.,,,,
+2,"According to WHO, vaccination reduces disease spread.",Shabda,Authoritative citation supports Shabda.,,,,

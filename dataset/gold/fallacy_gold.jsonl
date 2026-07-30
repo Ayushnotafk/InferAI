@@ -1,0 +1,12 @@
+{"text": "It is raining heavily. Therefore the ground is dry.", "claim": "The ground is dry.", "premises": "It is raining heavily.", "fallacy_type": "Contradiction"}
+{"text": "It is raining. Therefore the streets are wet.", "claim": "The streets are wet.", "premises": "It is raining.", "fallacy_type": null}
+{"text": "Therefore society will collapse.", "claim": "Society will collapse.", "premises": "", "fallacy_type": "Unstated Premise"}
+{"text": "Because quantum foam vibrates, democracy is unstable.", "claim": "Democracy is unstable.", "premises": "Quantum foam vibrates.", "fallacy_type": "Weak Inference"}
+{"text": "A neural network is like a teapot; therefore it boils ideas.", "claim": "It boils ideas.", "premises": "A neural network is like a teapot.", "fallacy_type": "Weak Analogy"}
+{"text": "According to someone, vaccines are unnecessary.", "claim": "Vaccines are unnecessary.", "premises": "According to someone.", "fallacy_type": "Weak Authority"}
+{"text": "According to WHO, vaccination reduces disease spread.", "claim": "Vaccination reduces disease spread.", "premises": "WHO guidance.", "fallacy_type": null}
+{"text": "Teaching attention is similar to a spotlight; the model learns where to look.", "claim": "The model learns where to look.", "premises": "Teaching attention is similar to a spotlight.", "fallacy_type": null}
+{"text": "Smoke is rising; therefore there is fire on the hill.", "claim": "There is fire on the hill.", "premises": "Smoke is rising.", "fallacy_type": null}
+{"text": "The sensor recorded 41 degrees; the display showed the same value.", "claim": "The display showed the same value.", "premises": "The sensor recorded 41 degrees.", "fallacy_type": null}
+{"text": "The ground is dry. However it is raining outside.", "claim": "It is raining outside.", "premises": "The ground is dry.", "fallacy_type": "Contradiction"}
+{"text": "Hence the conclusion follows.", "claim": "The conclusion follows.", "premises": "n/a", "fallacy_type": "Unstated Premise"}

@@ -1,0 +1,5 @@
+comparison,mode_a,mode_b,acc_a,acc_b,mcnemar_p,mcnemar_significant,mcnemar_method,permutation_p,permutation_significant,p_value,significant
+ml vs hybrid,ml,hybrid,0.6,0.765,2.5403120142884262e-08,True,chi_square_continuity,0.0004997501249375312,True,2.5403120142884262e-08,Yes
+ml vs adaptive,ml,adaptive,0.6,0.765,2.5403120142884262e-08,True,chi_square_continuity,0.0004997501249375312,True,2.5403120142884262e-08,Yes
+symbolic vs hybrid,symbolic,hybrid,0.55,0.765,6.704106102318284e-06,True,chi_square_continuity,0.0004997501249375312,True,6.704106102318284e-06,Yes
+hybrid vs adaptive,hybrid,adaptive,0.765,0.765,1.0,False,no_discordant_pairs,1.0,False,1.0,No

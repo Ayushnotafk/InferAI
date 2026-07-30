@@ -1,0 +1,2 @@
+cluster,count,recommendation
+embedding_failure,47,Collect more minority-class training examples; consider class-balanced fine-tuning of the logistic head on hard embedding neighborhoods.

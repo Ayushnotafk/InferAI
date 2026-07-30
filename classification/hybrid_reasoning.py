@@ -308,8 +308,11 @@ def hybrid_fuse(
     text: str,
     *,
     class_order: tuple[str, ...] | list[str] | None = None,
-    ml_weight: float = 0.8,
-    rule_weight: float = 0.2,
+    ml_weight: float | None = None,
+    rule_weight: float | None = None,
+    alpha: float | None = None,
+    routing_mode: str = "fixed",
+    routing_reason: str | None = None,
 ) -> dict[str, Any]:
     """
     Fuse ML softmax with weighted rule-based distribution.
@@ -323,11 +326,30 @@ def hybrid_fuse(
     class_order
         Names aligned with ``ml_probs`` indices. If ``None``, use default tuple
         (callers should pass ``label_encoder.classes_`` from disk).
+    alpha
+        ML fusion weight in [0, 1]. When set, ``ml_weight=alpha`` and
+        ``rule_weight=1-alpha``. Overrides ``ml_weight`` / ``rule_weight``.
+    ml_weight, rule_weight
+        Legacy weights. Defaults follow ablation-optimal alpha=0.2
+        (ML 0.2 / rules 0.8). Ignored when ``alpha`` is provided.
+    routing_mode
+        ``fixed`` or ``adaptive`` — recorded for explainability.
+    routing_reason
+        Human-readable routing explanation (optional).
     """
     order = tuple(class_order) if class_order is not None else DEFAULT_CLASS_ORDER
+
+    if alpha is not None:
+        ml_w = float(alpha)
+        rule_w = 1.0 - ml_w
+    else:
+        # Research default: alpha=0.2 (see reports/alpha_investigation.md).
+        ml_w = 0.2 if ml_weight is None else float(ml_weight)
+        rule_w = 0.8 if rule_weight is None else float(rule_weight)
+
     p_ml = _norm_vec(np.asarray(ml_probs, dtype=np.float64).reshape(-1))
     p_rules = rule_distribution(text, class_order=order)
-    fused = ml_weight * p_ml + rule_weight * p_rules
+    fused = ml_w * p_ml + rule_w * p_rules
     fused = _norm_vec(fused)
 
     ml_label = _label_from_probs(p_ml, order)
@@ -359,5 +381,8 @@ def hybrid_fuse(
         "rule_scores": {k: round(v, 4) for k, v in raw_scores.items()},
         "matched_cues": matched_cues,
         "agreement": agreement_meta,
-        "weights": {"ml": ml_weight, "rules": rule_weight},
+        "weights": {"ml": ml_w, "rules": rule_w},
+        "alpha": round(ml_w, 4),
+        "routing_mode": routing_mode,
+        "routing_reason": routing_reason or f"Fusion alpha={ml_w:.2f} ({routing_mode}).",
     }

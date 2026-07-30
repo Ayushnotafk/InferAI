@@ -1,0 +1,20 @@
+{
+  "created_utc": "20260730T112700Z",
+  "note": "Pre-research-upgrade baseline freeze",
+  "default_alpha": 0.8,
+  "rule_count": 77,
+  "files": {
+    "nyaya_model.pkl": {
+      "sha256": "4248a1443f3015c39d6b4decc5ba742ee4db2bf8e841480417476541ffbc05ae"
+    },
+    "label_encoder.pkl": {
+      "sha256": "506ebc844e12eed863b81916320df8a80da2aa71e10d34be7e1e0e2c19145cb5"
+    },
+    "shap_background.npy": {
+      "sha256": "196a8fd13088150c1d66867e58de9a31607bcb5c2992d70c32338319ceddb883"
+    },
+    "rules_v2.yaml": {
+      "sha256": "a4a7b5b7339712de8b6ce95e23fe9f52f8c40790fa25fd235b507a8a3e248658"
+    }
+  }
+}

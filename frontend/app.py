@@ -59,17 +59,19 @@ def analyze(text: str, base_url: str, include_shap: bool) -> dict:
 
 
 def _render_shap_block(sh: dict) -> None:
-    st.markdown(nx.section_title("Contribution analysis"), unsafe_allow_html=True)
+    st.markdown(nx.section_title("Contribution analysis", "bar-chart"), unsafe_allow_html=True)
+
     if isinstance(sh, dict) and "error" in sh:
         st.error(sh["error"])
         return
 
     note = sh.get("note") or ""
-    st.markdown(nx.shap_note_block(note), unsafe_allow_html=True)
+    if note:
+        st.markdown(nx.shap_note_block(note), unsafe_allow_html=True)
 
     rows = sh.get("top_embedding_contributions") or []
     if not rows:
-        st.info("No contribution rows returned.")
+        st.caption("No contribution rows returned.")
         return
 
     df = pd.DataFrame(rows)
@@ -80,32 +82,26 @@ def _render_shap_block(sh: dict) -> None:
 
     chart_df = df.set_index("Dimension")[["SHAP"]].head(16)
 
-    c1, c2 = st.columns((1.15, 1.0), gap="medium")
+    c1, c2 = st.columns((1.15, 1.0), gap="large")
     with c1:
-        st.markdown(
-            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">By dimension</p>',
-            unsafe_allow_html=True,
-        )
+        st.caption("By dimension")
         cdf = chart_df.reset_index()
         st.bar_chart(
             cdf,
             x="SHAP",
             y="Dimension",
             horizontal=True,
-            height=300,
+            height=320,
             sort=False,
         )
     with c2:
-        st.markdown(
-            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">Top dimensions</p>',
-            unsafe_allow_html=True,
-        )
+        st.caption("Top dimensions")
         show = df[["Dimension", "SHAP"]].head(16).copy()
         st.dataframe(
             show,
             use_container_width=True,
             hide_index=True,
-            height=300,
+            height=320,
         )
 
 
@@ -120,67 +116,69 @@ def _render_results(data: dict, include_shap: bool) -> None:
     explanation = data.get("explanation", "") or "—"
     indicators = data.get("reasoning_indicators") or []
     highlighted = data.get("highlighted_html", "")
+    adaptive_alpha = data.get("adaptive_alpha")
+    routing_reason = data.get("routing_reason", "")
+    fallacy_detected = data.get("fallacy_detected", False)
+    fallacy_type = data.get("fallacy_type")
+    fallacy_explanation = data.get("fallacy_explanation")
 
-    st.markdown(nx.section_title("Result"), unsafe_allow_html=True)
+    st.markdown(nx.section_title("Results", "sparkles"), unsafe_allow_html=True)
+    st.markdown(
+        nx.metrics_row(
+            str(hybrid_label),
+            str(ml_label),
+            adj_conf,
+            str(strength),
+            adaptive_alpha=float(adaptive_alpha) if adaptive_alpha is not None else None,
+            routing_reason=str(routing_reason) if routing_reason else "",
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown(nx.spacer("md"), unsafe_allow_html=True)
+    st.markdown(nx.confidence_bars(adj_conf, ml_conf), unsafe_allow_html=True)
 
-    col_pred, col_metrics = st.columns((1.05, 1.0), gap="medium")
-
-    with col_pred:
-        sub = f"Reference label: {ml_label}"
+    if fallacy_detected and fallacy_type:
         st.markdown(
-            nx.prediction_spotlight(str(hybrid_label), subtitle=sub),
+            nx.fallacy_warning_card(str(fallacy_type), str(fallacy_explanation or "")),
             unsafe_allow_html=True,
         )
+    else:
+        st.markdown(nx.fallacy_ok_card(), unsafe_allow_html=True)
 
-    with col_metrics:
-        st.markdown(
-            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">Confidence</p>',
-            unsafe_allow_html=True,
-        )
-        st.progress(adj_conf / 100.0, text=f"{adj_conf:.0f}% combined")
-        st.progress(ml_conf / 100.0, text=f"{ml_conf:.0f}% model")
-        st.markdown(
-            '<p class="nyx-glass-head" style="margin-top:0.85rem;margin-bottom:0.45rem;">Reasoning strength</p>',
-            unsafe_allow_html=True,
-        )
-        st.markdown(nx.strength_badge_html(str(strength)), unsafe_allow_html=True)
+    st.markdown(nx.section_title("Explanation", "file-text"), unsafe_allow_html=True)
+    st.markdown(
+        nx.content_card("Summary", str(explanation), large=True, icon_name="file-text"),
+        unsafe_allow_html=True,
+    )
 
-    st.markdown(nx.section_title("Extracted structure"), unsafe_allow_html=True)
-    c_claim, c_evi = st.columns(2, gap="medium")
+    st.markdown(nx.section_title("Extracted structure", "layers"), unsafe_allow_html=True)
+    c_claim, c_evi = st.columns(2, gap="large")
     with c_claim:
-        st.markdown(nx.glass_card("Claim", str(claim), icon="◈"), unsafe_allow_html=True)
+        st.markdown(
+            nx.content_card("Claim", str(claim), icon_name="message"),
+            unsafe_allow_html=True,
+        )
     with c_evi:
         st.markdown(
-            nx.glass_card("Premises & evidence", str(premises), icon="◇"),
+            nx.content_card("Premises & evidence", str(premises), icon_name="layers"),
             unsafe_allow_html=True,
         )
 
     if indicators:
-        st.markdown(
-            '<p class="nyx-glass-head" style="margin:0.35rem 0 0.35rem;">Signals</p>',
-            unsafe_allow_html=True,
-        )
-        st.markdown(" · ".join(f"`{i}`" for i in indicators))
+        st.markdown(nx.tags_block(indicators), unsafe_allow_html=True)
 
     if highlighted:
-        st.markdown(nx.section_title("Highlighted cues"), unsafe_allow_html=True)
-        st.markdown(
-            f'<div class="nyx-html nyx-glass" style="padding:0.85rem 1rem;">{highlighted}</div>',
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(nx.section_title("Explanation"), unsafe_allow_html=True)
-    st.markdown(nx.glass_card("Summary", str(explanation), icon="✦"), unsafe_allow_html=True)
+        st.markdown(nx.highlight_block(highlighted), unsafe_allow_html=True)
 
     if include_shap and "shap" in data:
-        st.markdown("<div style='height:0.35rem'></div>", unsafe_allow_html=True)
+        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
         _render_shap_block(data["shap"])
 
 
 def main() -> None:
     st.set_page_config(
         page_title="InferAI",
-        page_icon="⚖️",
+        page_icon=None,
         layout="wide",
         initial_sidebar_state="collapsed",
     )
@@ -189,9 +187,12 @@ def main() -> None:
     if ARG_KEY not in st.session_state:
         st.session_state[ARG_KEY] = ""
 
-    _, main, _ = st.columns([0.08, 1.0, 0.08], gap="small")
-    with main:
-        st.markdown(nx.hero_block(), unsafe_allow_html=True)
+    _, main_col, _ = st.columns([0.05, 1.0, 0.05], gap="small")
+    with main_col:
+        st.markdown(nx.header_block(), unsafe_allow_html=True)
+
+        st.markdown(nx.section_title("Input", "message"), unsafe_allow_html=True)
+        st.markdown(nx.examples_label(), unsafe_allow_html=True)
 
         d1, d2, d3, d4 = st.columns(4, gap="small")
         with d1:
@@ -211,25 +212,27 @@ def main() -> None:
                 st.session_state[ARG_KEY] = DEMO_EXAMPLES["authority"]
                 st.rerun()
 
-        st.markdown("<div style='height:0.4rem'></div>", unsafe_allow_html=True)
+        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
 
         text = st.text_area(
-            "Your argument",
-            height=156,
+            "Argument text",
+            height=200,
             placeholder="Paste or type a short argument to analyze…",
             label_visibility="collapsed",
             key=ARG_KEY,
         )
 
-        row_a, row_b = st.columns([1.0, 2.2], gap="medium")
-        with row_a:
+        include_shap = st.checkbox(
+            "Include contribution chart (SHAP)",
+            value=False,
+            help="Optional embedding-level attribution chart. First run may take longer.",
+        )
+
+        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
+
+        _, btn_col, _ = st.columns([0.9, 1.4, 0.9])
+        with btn_col:
             run = st.button("Analyze", type="primary", use_container_width=True)
-        with row_b:
-            include_shap = st.checkbox(
-                "Include contribution chart (SHAP)",
-                value=False,
-                help="Adds an optional technical chart. First run may take longer.",
-            )
 
         if run:
             if not text.strip():
@@ -238,7 +241,6 @@ def main() -> None:
                 with st.spinner("Analyzing…"):
                     try:
                         data = analyze(text.strip(), DEFAULT_API, include_shap)
-                        st.success("Done.")
                         _render_results(data, include_shap)
 
                     except httpx.HTTPStatusError as e:
