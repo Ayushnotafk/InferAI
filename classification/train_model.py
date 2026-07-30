@@ -1,5 +1,5 @@
 """
-Train the Nyāya-style pramāṇa classifier and persist rich evaluation artifacts.
+Train the InferAI pramāṇa classifier and persist rich evaluation artifacts.
 
 Artifacts (under ``models/evaluation/``):
 
@@ -45,6 +45,8 @@ from classification.embedder import generate_embeddings
 train_path = Path("dataset/raw/nyaya_dataset_merged.csv")
 if not train_path.is_file():
     train_path = Path("dataset/raw/nyaya_dataset.csv")
+if not train_path.is_file():
+    train_path = Path("dataset/raw/infer_dataset.csv")
 
 df = pd.read_csv(train_path)
 texts = df["text"].astype(str)
@@ -90,7 +92,7 @@ eval_dir.mkdir(parents=True, exist_ok=True)
 bg_size = min(200, len(X_train))
 np.save(models_dir / "shap_background.npy", np.asarray(X_train[:bg_size]))
 
-joblib.dump(model, models_dir / "nyaya_model.pkl")
+joblib.dump(model, models_dir / "infer_model.pkl")
 joblib.dump(label_encoder, models_dir / "label_encoder.pkl")
 
 # ---------------------------------------------------------------------------

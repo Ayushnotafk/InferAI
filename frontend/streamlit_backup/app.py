@@ -20,14 +20,6 @@ import streamlit as st
 from frontend import components as nx
 from frontend.theme import inject_dashboard_theme
 
-from classification.hybrid_reasoning import hybrid_fuse
-from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence
-from explanation_engine.explainer import generate_explanation
-from explanation_engine.shap_explainer import explain_embedding
-from preprocessing.argument_structure import extract_argument_structure
-from reasoning_strength.composite import composite_reasoning_strength
-
 DEFAULT_API = (
     os.environ.get("INFERAI_API_URL")
     or "http://127.0.0.1:8000"
@@ -56,80 +48,26 @@ DEMO_EXAMPLES = {
 
 
 def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
-    try:
-        url = base_url.rstrip("/") + "/analyze"
-        payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
-        with httpx.Client(timeout=120.0) as client:
-            r = client.post(url, json=payload)
-            r.raise_for_status()
-            return r.json()
-    except Exception:
-        # Fallback: Run locally in-process using imported Python modules if REST server unreachable
-        structure = extract_argument_structure(text)
-        claim = structure["claim"]
-        premises = structure["premises"]
-        reasoning_indicators = structure["reasoning_indicators"]
-        highlighted_html = structure["highlighted_html"]
-
-        detail = predict_pramana_detailed(text)
-        ml_label = detail["ml_label"]
-        ml_confidence = float(detail["ml_confidence"])
-        embedding = detail["embedding"]
-        proba = detail["probabilities"]
-        classes = detail["classes"]
-
-        hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=alpha, rule_weight=1.0 - alpha)
-        adjusted_confidence = float(hybrid["adjusted_confidence"])
-
-        strength, strength_debug = composite_reasoning_strength(
-            text,
-            adjusted_confidence,
-            claim,
-            premises,
-        )
-
-        explanation = generate_explanation(hybrid["final_label"], strength_label=strength)
-
-        payload = {
-            "input_text": text,
-            "claim": claim,
-            "evidence": premises,
-            "premises": premises,
-            "reasoning_indicators": reasoning_indicators,
-            "highlighted_html": highlighted_html,
-            "predicted_pramana": ml_label,
-            "hybrid_predicted_pramana": hybrid["final_label"],
-            "confidence": format_confidence(ml_confidence),
-            "adjusted_confidence": format_confidence(adjusted_confidence),
-            "reasoning_strength": strength,
-            "reasoning_strength_debug": strength_debug,
-            "explanation": explanation,
-            "hybrid": hybrid,
-        }
-
-        if include_shap:
-            try:
-                payload["shap"] = explain_embedding(embedding)
-            except FileNotFoundError as exc:
-                payload["shap"] = {"error": str(exc)}
-
-        return payload
+    url = base_url.rstrip("/") + "/analyze"
+    payload = {"text": text, "include_shap": include_shap, "alpha": alpha}
+    with httpx.Client(timeout=120.0) as client:
+        r = client.post(url, json=payload)
+        r.raise_for_status()
+        return r.json()
 
 
 def _render_shap_block(sh: dict) -> None:
-    st.markdown(nx.section_title("Contribution analysis", "bar-chart"), unsafe_allow_html=True)
-
+    st.markdown(nx.section_title("Contribution analysis"), unsafe_allow_html=True)
     if isinstance(sh, dict) and "error" in sh:
         st.error(sh["error"])
         return
 
     note = sh.get("note") or ""
-    if note:
-        st.markdown(nx.shap_note_block(note), unsafe_allow_html=True)
+    st.markdown(nx.shap_note_block(note), unsafe_allow_html=True)
 
     rows = sh.get("top_embedding_contributions") or []
     if not rows:
-        st.caption("No contribution rows returned.")
+        st.info("No contribution rows returned.")
         return
 
     df = pd.DataFrame(rows)
@@ -140,26 +78,32 @@ def _render_shap_block(sh: dict) -> None:
 
     chart_df = df.set_index("Dimension")[["SHAP"]].head(16)
 
-    c1, c2 = st.columns((1.15, 1.0), gap="large")
+    c1, c2 = st.columns((1.15, 1.0), gap="medium")
     with c1:
-        st.caption("By dimension")
+        st.markdown(
+            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">By dimension</p>',
+            unsafe_allow_html=True,
+        )
         cdf = chart_df.reset_index()
         st.bar_chart(
             cdf,
             x="SHAP",
             y="Dimension",
             horizontal=True,
-            height=320,
+            height=300,
             sort=False,
         )
     with c2:
-        st.caption("Top dimensions")
+        st.markdown(
+            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">Top dimensions</p>',
+            unsafe_allow_html=True,
+        )
         show = df[["Dimension", "SHAP"]].head(16).copy()
         st.dataframe(
             show,
             use_container_width=True,
             hide_index=True,
-            height=320,
+            height=300,
         )
 
 
@@ -238,82 +182,70 @@ def _render_results(data: dict, include_shap: bool) -> None:
     explanation = data.get("explanation", "") or "—"
     indicators = data.get("reasoning_indicators") or []
     highlighted = data.get("highlighted_html", "")
-    adaptive_alpha = data.get("adaptive_alpha")
-    routing_reason = data.get("routing_reason", "")
-    fallacy_detected = data.get("fallacy_detected", False)
-    fallacy_type = data.get("fallacy_type")
-    fallacy_explanation = data.get("fallacy_explanation")
 
-    st.markdown(nx.section_title("Results", "sparkles"), unsafe_allow_html=True)
-    st.markdown(
-        nx.metrics_row(
-            str(hybrid_label),
-            str(ml_label),
-            adj_conf,
-            str(strength),
-            adaptive_alpha=float(adaptive_alpha) if adaptive_alpha is not None else None,
-            routing_reason=str(routing_reason) if routing_reason else "",
-        ),
-        unsafe_allow_html=True,
-    )
-    st.markdown(nx.spacer("md"), unsafe_allow_html=True)
-    st.markdown(nx.confidence_bars(adj_conf, ml_conf), unsafe_allow_html=True)
+    st.markdown(nx.section_title("Result"), unsafe_allow_html=True)
 
-    if fallacy_detected and fallacy_type:
+    col_pred, col_metrics = st.columns((1.05, 1.0), gap="medium")
+
+    with col_pred:
+        sub = f"Reference label: {ml_label}"
         st.markdown(
-            nx.fallacy_warning_card(str(fallacy_type), str(fallacy_explanation or "")),
+            nx.prediction_spotlight(str(hybrid_label), subtitle=sub),
             unsafe_allow_html=True,
         )
-    else:
-        st.markdown(nx.fallacy_ok_card(), unsafe_allow_html=True)
 
-    st.markdown(nx.section_title("Explanation", "file-text"), unsafe_allow_html=True)
-    st.markdown(
-        nx.content_card("Summary", str(explanation), large=True, icon_name="file-text"),
-        unsafe_allow_html=True,
-    )
+    with col_metrics:
+        st.markdown(
+            '<p class="nyx-glass-head" style="margin-bottom:0.45rem;">Confidence</p>',
+            unsafe_allow_html=True,
+        )
+        st.progress(adj_conf / 100.0, text=f"{adj_conf:.0f}% combined")
+        st.progress(ml_conf / 100.0, text=f"{ml_conf:.0f}% model")
+        st.markdown(
+            '<p class="nyx-glass-head" style="margin-top:0.85rem;margin-bottom:0.45rem;">Reasoning strength</p>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(nx.strength_badge_html(str(strength)), unsafe_allow_html=True)
 
-<<<<<<< HEAD
-    st.markdown(nx.section_title("Extracted structure", "layers"), unsafe_allow_html=True)
-    c_claim, c_evi = st.columns(2, gap="large")
-=======
     # Diagnostic views
     _render_diagnostic_comparison(data)
 
     st.markdown(nx.section_title("Extracted structure"), unsafe_allow_html=True)
     c_claim, c_evi = st.columns(2, gap="medium")
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
     with c_claim:
-        st.markdown(
-            nx.content_card("Claim", str(claim), icon_name="message"),
-            unsafe_allow_html=True,
-        )
+        st.markdown(nx.glass_card("Claim", str(claim), icon="◈"), unsafe_allow_html=True)
     with c_evi:
         st.markdown(
-            nx.content_card("Premises & evidence", str(premises), icon_name="layers"),
+            nx.glass_card("Premises & evidence", str(premises), icon="◇"),
             unsafe_allow_html=True,
         )
 
     if indicators:
-        st.markdown(nx.tags_block(indicators), unsafe_allow_html=True)
+        st.markdown(
+            '<p class="nyx-glass-head" style="margin:0.35rem 0 0.35rem;">Signals</p>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(" · ".join(f"`{i}`" for i in indicators))
 
     if highlighted:
-        st.markdown(nx.highlight_block(highlighted), unsafe_allow_html=True)
+        st.markdown(nx.section_title("Highlighted cues"), unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="nyx-html nyx-glass" style="padding:0.85rem 1rem;">{highlighted}</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.markdown(nx.section_title("Explanation"), unsafe_allow_html=True)
+    st.markdown(nx.glass_card("Summary", str(explanation), icon="✦"), unsafe_allow_html=True)
 
     if include_shap and "shap" in data:
-        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
+        st.markdown("<div style='height:0.35rem'></div>", unsafe_allow_html=True)
         _render_shap_block(data["shap"])
 
 
 def main() -> None:
     st.set_page_config(
-<<<<<<< HEAD
-        page_title="InferAI",
-        page_icon=None,
-=======
         page_title="InferAI Diagnostic Tool",
         page_icon="⚖️",
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -331,14 +263,6 @@ def main() -> None:
     if "last_response_data" not in st.session_state:
         st.session_state["last_response_data"] = None
 
-<<<<<<< HEAD
-    _, main_col, _ = st.columns([0.05, 1.0, 0.05], gap="small")
-    with main_col:
-        st.markdown(nx.header_block(), unsafe_allow_html=True)
-
-        st.markdown(nx.section_title("Input", "message"), unsafe_allow_html=True)
-        st.markdown(nx.examples_label(), unsafe_allow_html=True)
-=======
     # Sidebar: Diagnostic Settings Panel
     st.sidebar.markdown(
         '<p class="nyx-section-title" style="margin-top: 0.5rem; margin-bottom: 0.8rem; font-size: 0.82rem;">🛠️ Diagnostic Settings</p>',
@@ -368,13 +292,11 @@ def main() -> None:
         help="Calculate and draw top embedding dimension contributions (SHAP values).",
     )
 
-    status_text = "De-coupled REST API Mode" if DEFAULT_API else "Embedded In-Process Mode"
-    endpoint_text = DEFAULT_API if DEFAULT_API else "Local Python Modules"
     st.sidebar.markdown(
         f"""
         <div style="margin-top: 2rem; border-top: 1px solid rgba(16, 185, 129, 0.15); padding-top: 1rem; font-size: 0.78rem; color: #64748b;">
-            <strong>System Status:</strong> {status_text}<br/>
-            <strong>Endpoint:</strong> <code>{endpoint_text}</code>
+            <strong>System Status:</strong> De-coupled REST API Mode<br/>
+            <strong>Endpoint:</strong> <code>{DEFAULT_API}</code>
         </div>
         """,
         unsafe_allow_html=True,
@@ -383,7 +305,6 @@ def main() -> None:
     _, main_col, _ = st.columns([0.05, 1.0, 0.05], gap="small")
     with main_col:
         st.markdown(nx.hero_block(), unsafe_allow_html=True)
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 
         d1, d2, d3, d4 = st.columns(4, gap="small")
         with d1:
@@ -403,31 +324,17 @@ def main() -> None:
                 st.session_state[ARG_KEY] = DEMO_EXAMPLES["authority"]
                 st.rerun()
 
-        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
+        st.markdown("<div style='height:0.4rem'></div>", unsafe_allow_html=True)
 
         text = st.text_area(
-            "Argument text",
-            height=200,
+            "Your argument",
+            height=156,
             placeholder="Paste or type a short argument to analyze…",
             label_visibility="collapsed",
             key=ARG_KEY,
         )
 
-<<<<<<< HEAD
-        include_shap = st.checkbox(
-            "Include contribution chart (SHAP)",
-            value=False,
-            help="Optional embedding-level attribution chart. First run may take longer.",
-        )
-
-        st.markdown(nx.spacer("md"), unsafe_allow_html=True)
-
-        _, btn_col, _ = st.columns([0.9, 1.4, 0.9])
-        with btn_col:
-            run = st.button("Analyze", type="primary", use_container_width=True)
-=======
         run = st.button("Analyze", type="primary", use_container_width=True)
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 
         # Interaction / execution logic
         should_analyze = False
@@ -438,15 +345,9 @@ def main() -> None:
             if not text.strip():
                 st.warning("Please enter text to analyze.")
             else:
-<<<<<<< HEAD
-                with st.spinner("Analyzing…"):
-                    try:
-                        data = analyze(text.strip(), DEFAULT_API, include_shap)
-                        _render_results(data, include_shap)
-=======
+<<<<<<<< HEAD:frontend/streamlit_backup/app.py
                 should_analyze = True
                 target_text = text.strip()
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 
         # 2. Interactive updates: user changed parameters on a previously analyzed text
         elif (
@@ -463,8 +364,8 @@ def main() -> None:
             with st.spinner("Analyzing and blending weights…"):
                 try:
                     data = analyze(target_text, DEFAULT_API, include_shap, alpha)
-                except Exception as e:
-                    st.error(f"Could not reach analysis service: {e}")
+                except httpx.HTTPError as e:
+                    st.error("Could not reach the analysis service. Try again in a moment.")
                 else:
                     # Update cache
                     st.session_state["last_analyzed_text"] = target_text
@@ -476,6 +377,30 @@ def main() -> None:
         # Show cached results if we have them
         if st.session_state["last_response_data"] is not None:
             _render_results(st.session_state["last_response_data"], st.session_state["last_include_shap"])
+========
+                with st.spinner("Analyzing…"):
+                    try:
+                        data = analyze(text.strip(), DEFAULT_API, include_shap)
+                        st.success("Done.")
+                        _render_results(data, include_shap)
+>>>>>>>> upstream/main:frontend/app.py
+
+                    except httpx.HTTPStatusError as e:
+                        st.error(f"Backend returned HTTP {e.response.status_code}")
+                        st.code(e.response.text)
+
+                    except httpx.RequestError as e:
+                        st.error(
+                            f"Could not connect to backend at `{DEFAULT_API}`.\n\n"
+                            f"Start the API first:\n\n"
+                            f"`python -m uvicorn api.app:app --reload`\n\n{e}"
+                        )
+
+                    except Exception:
+                        import traceback
+
+                        st.error("Unexpected frontend error")
+                        st.code(traceback.format_exc())
 
         st.markdown(nx.footer_block(), unsafe_allow_html=True)
 

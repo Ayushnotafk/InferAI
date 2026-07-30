@@ -40,10 +40,18 @@ html, body, [class*="css"] {
   margin-right: auto !important;
 }
 
+<<<<<<< HEAD
 section[data-testid="stSidebar"],
+=======
+/* Hide sidebar — single-column product layout (Disabled to show diagnostics)
+section[data-testid="stSidebar"] {
+  display: none !important;
+}
+>>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 div[data-testid="stSidebarCollapsedControl"] {
   display: none !important;
 }
+*/
 
 #MainMenu { visibility: hidden; }
 footer { visibility: hidden; }

@@ -3,7 +3,7 @@ import numpy as np
 
 from classification.embedder import generate_embeddings
 
-model = joblib.load("models/nyaya_model.pkl")
+model = joblib.load("models/infer_model.pkl")
 label_encoder = joblib.load("models/label_encoder.pkl")
 
 

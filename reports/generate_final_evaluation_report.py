@@ -31,7 +31,7 @@ def _load_metrics() -> dict:
 
 
 def _misclassified_examples(limit: int = 6) -> list[dict]:
-    model = joblib.load(_ROOT / "models" / "nyaya_model.pkl")
+    model = joblib.load(_ROOT / "models" / "infer_model.pkl")
     le = joblib.load(_ROOT / "models" / "label_encoder.pkl")
     tdf = pd.read_csv(_ROOT / "dataset" / "test_set.csv")
     texts = tdf["text"].astype(str).tolist()
@@ -110,7 +110,7 @@ def main() -> None:
     lines.append("\n## Observations\n")
     lines.append(
         "- Hybrid fusion (`classification/hybrid_reasoning.py`) can stabilize borderline cases at inference time, "
-        "but the supervised head still reflects whatever distribution is present in `nyaya_dataset.csv`.\n"
+        "but the supervised head still reflects whatever distribution is present in `infer_dataset.csv`.\n"
         "- Composite strength (`reasoning_strength/composite.py`) intentionally decouples rhetorical strength from raw softmax peaks.\n"
     )
 
