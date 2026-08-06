@@ -123,6 +123,7 @@ header[data-testid="stHeader"] { background: transparent; }
   margin: 0 auto;
   line-height: 1.6;
   max-width: 38rem;
+  text-align: center;
 }
 
 /* ----- Section labels ----- */
