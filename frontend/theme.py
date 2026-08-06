@@ -584,9 +584,7 @@ div[data-testid="stSpinner"] {
   margin-bottom: 1.25rem;
 }
 </style>
-DASHBOARD_CSS_END
 """
-DASHBOARD_CSS = DASHBOARD_CSS.replace("DASHBOARD_CSS_END\\n", "")
 
 
 def inject_dashboard_theme() -> None:
