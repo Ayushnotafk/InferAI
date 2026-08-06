@@ -2,26 +2,56 @@ ANUMANA_INDICATORS = [
     "therefore",
     "thus",
     "hence",
+    "because",
+    "since",
+    "consequently",
+    "as a result",
     "implies",
-    "suggests"
+    "indicates",
+    "suggests",
+    "demonstrates",
+    "proves",
+    "deduces",
+    "infers",
+    "shows"
 ]
 
 SABDA_INDICATORS = [
     "according to",
-    "experts say",
+    "reported by",
     "research shows",
-    "reported by"
+    "experts say",
+    "studies indicate",
+    "published by",
+    "as stated by",
+    "the report says",
+    "the article states",
+    "evidence from",
+    "official sources",
+    "government data"
 ]
 
 UPAMANA_INDICATORS = [
     "like",
     "similar to",
-    "analogous to"
+    "analogous to",
+    "resembles",
+    "compared with",
+    "just as",
+    "in the same way",
+    "works like"
 ]
 
 PRATYAKSHA_INDICATORS = [
     "observed",
     "measured",
+    "recorded",
     "detected",
-    "recorded"
+    "visible",
+    "seen",
+    "noticed",
+    "examined",
+    "monitored",
+    "identified",
+    "verified"
 ]
