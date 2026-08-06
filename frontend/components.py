@@ -256,7 +256,7 @@ def tags_block(items: Iterable[str]) -> str:
     if not chips:
         return ""
     return f"""
-<div class="ia-block">
+<div class="ia-section-container">
   {section_title("Reasoning signals", "tag")}
   <div class="ia-tags">{chips}</div>
 </div>
@@ -265,8 +265,10 @@ def tags_block(items: Iterable[str]) -> str:
 
 def highlight_block(html_fragment: str) -> str:
     return f"""
-{section_title("Highlighted cues", "highlighter")}
-<div class="ia-highlight">{html_fragment}</div>
+<div class="ia-section-container">
+  {section_title("Highlighted cues", "highlighter")}
+  <div class="ia-highlight">{html_fragment}</div>
+</div>
 """
 
 

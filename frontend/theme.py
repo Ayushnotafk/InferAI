@@ -126,19 +126,20 @@ header[data-testid="stHeader"] { background: transparent; }
 }
 
 /* ----- Section labels ----- */
+.ia-section-container {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
 .ia-section {
   font-family: var(--font-brand);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text);
-  margin: 2.5rem 0 1rem 0;
+  margin: 0 0 1rem 0;
   display: flex;
   align-items: center;
   line-height: 1.25;
-}
-.ia-block {
-  margin-top: 0.25rem;
 }
 
 /* ----- Cards ----- */
