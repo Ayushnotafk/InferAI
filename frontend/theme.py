@@ -137,13 +137,14 @@ header[data-testid="stHeader"] { background: transparent; }
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text);
-  margin: 2.5rem 0 1rem 0;
+  margin: 0 0 1rem 0;
+  padding-top: 2.5rem !important;
   display: flex;
   align-items: center;
   line-height: 1.25;
 }
 .ia-section-container .ia-section {
-  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 /* ----- Cards ----- */
