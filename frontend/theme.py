@@ -127,8 +127,8 @@ header[data-testid="stHeader"] { background: transparent; }
 
 /* ----- Section labels ----- */
 .ia-section-container {
-  margin-top: 2.25rem;
-  margin-bottom: 2.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 .ia-section {
   font-family: var(--font-brand);
@@ -136,10 +136,13 @@ header[data-testid="stHeader"] { background: transparent; }
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text);
-  margin: 0 0 1rem 0;
+  margin: 2.5rem 0 1rem 0;
   display: flex;
   align-items: center;
   line-height: 1.25;
+}
+.ia-section-container .ia-section {
+  margin-top: 0 !important;
 }
 
 /* ----- Cards ----- */
