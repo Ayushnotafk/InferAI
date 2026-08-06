@@ -1,0 +1,7 @@
+Baseline,accuracy,macro_precision,macro_recall,macro_f1,latency_s
+Majority class,0.8063,0.2016,0.25,0.2232,0.01
+TF-IDF + LinearSVC,0.9375,0.982,0.8013,0.8657,0.09
+TF-IDF + LogReg,0.8812,0.7179,0.5833,0.6329,0.2
+SBERT + LogReg (ML-only),0.9625,0.9349,0.9349,0.9349,0.68
+Symbolic rules only,0.8063,0.563,0.519,0.5084,0.04
+Hybrid (α=0.9),0.9625,0.9349,0.9349,0.9349,0.58

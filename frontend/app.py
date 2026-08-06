@@ -168,7 +168,7 @@ def _render_diagnostic_comparison(data: dict) -> None:
     if not hybrid_data:
         return
 
-    st.markdown(nx.section_title("Neuro-Symbolic Diagnostic Analysis"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Neuro-Symbolic Diagnostic Analysis", "activity")}</div>', unsafe_allow_html=True)
 
     # 1. Weights display
     weights = hybrid_data.get("weights", {})
@@ -244,7 +244,7 @@ def _render_results(data: dict, include_shap: bool) -> None:
     fallacy_type = data.get("fallacy_type")
     fallacy_explanation = data.get("fallacy_explanation")
 
-    st.markdown(nx.section_title("Results", "sparkles"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Results", "sparkles")}</div>', unsafe_allow_html=True)
     st.markdown(
         nx.metrics_row(
             str(hybrid_label),
@@ -267,22 +267,17 @@ def _render_results(data: dict, include_shap: bool) -> None:
     else:
         st.markdown(nx.fallacy_ok_card(), unsafe_allow_html=True)
 
-    st.markdown(nx.section_title("Explanation", "file-text"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Explanation", "file-text")}</div>', unsafe_allow_html=True)
     st.markdown(
         nx.content_card("Summary", str(explanation), large=True, icon_name="file-text"),
         unsafe_allow_html=True,
     )
 
-<<<<<<< HEAD
-    st.markdown(nx.section_title("Extracted structure", "layers"), unsafe_allow_html=True)
-    c_claim, c_evi = st.columns(2, gap="large")
-=======
     # Diagnostic views
     _render_diagnostic_comparison(data)
 
-    st.markdown(nx.section_title("Extracted structure"), unsafe_allow_html=True)
-    c_claim, c_evi = st.columns(2, gap="medium")
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Extracted structure", "layers")}</div>', unsafe_allow_html=True)
+    c_claim, c_evi = st.columns(2, gap="large")
     with c_claim:
         st.markdown(
             nx.content_card("Claim", str(claim), icon_name="message"),
@@ -307,13 +302,8 @@ def _render_results(data: dict, include_shap: bool) -> None:
 
 def main() -> None:
     st.set_page_config(
-<<<<<<< HEAD
-        page_title="InferAI",
-        page_icon=None,
-=======
         page_title="InferAI Diagnostic Tool",
         page_icon="⚖️",
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -331,14 +321,6 @@ def main() -> None:
     if "last_response_data" not in st.session_state:
         st.session_state["last_response_data"] = None
 
-<<<<<<< HEAD
-    _, main_col, _ = st.columns([0.05, 1.0, 0.05], gap="small")
-    with main_col:
-        st.markdown(nx.header_block(), unsafe_allow_html=True)
-
-        st.markdown(nx.section_title("Input", "message"), unsafe_allow_html=True)
-        st.markdown(nx.examples_label(), unsafe_allow_html=True)
-=======
     # Sidebar: Diagnostic Settings Panel
     st.sidebar.markdown(
         '<p class="nyx-section-title" style="margin-top: 0.5rem; margin-bottom: 0.8rem; font-size: 0.82rem;">🛠️ Diagnostic Settings</p>',
@@ -382,8 +364,10 @@ def main() -> None:
 
     _, main_col, _ = st.columns([0.05, 1.0, 0.05], gap="small")
     with main_col:
-        st.markdown(nx.hero_block(), unsafe_allow_html=True)
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
+        st.markdown(nx.header_block(), unsafe_allow_html=True)
+
+        st.markdown(nx.section_title("Input", "message"), unsafe_allow_html=True)
+        st.markdown(nx.examples_label(), unsafe_allow_html=True)
 
         d1, d2, d3, d4 = st.columns(4, gap="small")
         with d1:
@@ -413,21 +397,11 @@ def main() -> None:
             key=ARG_KEY,
         )
 
-<<<<<<< HEAD
-        include_shap = st.checkbox(
-            "Include contribution chart (SHAP)",
-            value=False,
-            help="Optional embedding-level attribution chart. First run may take longer.",
-        )
-
         st.markdown(nx.spacer("md"), unsafe_allow_html=True)
 
         _, btn_col, _ = st.columns([0.9, 1.4, 0.9])
         with btn_col:
             run = st.button("Analyze", type="primary", use_container_width=True)
-=======
-        run = st.button("Analyze", type="primary", use_container_width=True)
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 
         # Interaction / execution logic
         should_analyze = False
@@ -438,15 +412,8 @@ def main() -> None:
             if not text.strip():
                 st.warning("Please enter text to analyze.")
             else:
-<<<<<<< HEAD
-                with st.spinner("Analyzing…"):
-                    try:
-                        data = analyze(text.strip(), DEFAULT_API, include_shap)
-                        _render_results(data, include_shap)
-=======
                 should_analyze = True
                 target_text = text.strip()
->>>>>>> 7fa6014e8b1ce70575677496d1136adac2916b14
 
         # 2. Interactive updates: user changed parameters on a previously analyzed text
         elif (

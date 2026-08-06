@@ -1,0 +1,46 @@
+{
+  "timestamp_utc": "2026-08-06T10:25:12.142026+00:00",
+  "test_csv": "dataset\\clean_final_test.csv",
+  "test_csv_md5": "7a9a187e23ca77efc8298ec3b408fded",
+  "model_pkl_md5": "38d32efab198eb85abda9ebbfb0a035d",
+  "alpha": 0.9,
+  "temperature_T": 0.39293186073056063,
+  "results": {
+    "ml_uncalibrated": {
+      "label": "SBERT+LR (uncalibrated)",
+      "accuracy": 0.8917,
+      "acc_ci_lo": 0.8344,
+      "acc_ci_hi": 0.9363,
+      "macro_precision": 0.8475,
+      "macro_recall": 0.7466,
+      "macro_f1": 0.774,
+      "f1_ci_lo": 0.6136,
+      "f1_ci_hi": 0.8716,
+      "ece": 0.1044
+    },
+    "ml_temp_scaled": {
+      "label": "SBERT+LR (T=0.39)",
+      "accuracy": 0.8917,
+      "acc_ci_lo": 0.8344,
+      "acc_ci_hi": 0.9363,
+      "macro_precision": 0.8475,
+      "macro_recall": 0.7466,
+      "macro_f1": 0.774,
+      "f1_ci_lo": 0.6136,
+      "f1_ci_hi": 0.8716,
+      "ece": 0.0554
+    },
+    "hybrid": {
+      "label": "Hybrid \u03b1=0.9 (T=0.39)",
+      "accuracy": 0.8917,
+      "acc_ci_lo": 0.8344,
+      "acc_ci_hi": 0.9363,
+      "macro_precision": 0.8475,
+      "macro_recall": 0.7466,
+      "macro_f1": 0.774,
+      "f1_ci_lo": 0.6136,
+      "f1_ci_hi": 0.8716
+    }
+  },
+  "note": "This is the single frozen final evaluation. These results are the canonical numbers for the paper. Do not re-run for further model selection."
+}
