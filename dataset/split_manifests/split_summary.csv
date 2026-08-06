@@ -1,0 +1,10 @@
+split,source,rows
+test,aaec_reviewed,35
+test,ibm_reviewed,103
+test,nyaya_synthetic,19
+train,aaec_reviewed,175
+train,ibm_reviewed,395
+train,nyaya_synthetic,574
+val,aaec_reviewed,40
+val,ibm_reviewed,102
+val,nyaya_synthetic,18
