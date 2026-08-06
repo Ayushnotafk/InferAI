@@ -168,7 +168,7 @@ def _render_diagnostic_comparison(data: dict) -> None:
     if not hybrid_data:
         return
 
-    st.markdown(nx.section_title("Neuro-Symbolic Diagnostic Analysis"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Neuro-Symbolic Diagnostic Analysis", "activity")}</div>', unsafe_allow_html=True)
 
     # 1. Weights display
     weights = hybrid_data.get("weights", {})
@@ -244,7 +244,7 @@ def _render_results(data: dict, include_shap: bool) -> None:
     fallacy_type = data.get("fallacy_type")
     fallacy_explanation = data.get("fallacy_explanation")
 
-    st.markdown(nx.section_title("Results", "sparkles"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Results", "sparkles")}</div>', unsafe_allow_html=True)
     st.markdown(
         nx.metrics_row(
             str(hybrid_label),
@@ -267,7 +267,7 @@ def _render_results(data: dict, include_shap: bool) -> None:
     else:
         st.markdown(nx.fallacy_ok_card(), unsafe_allow_html=True)
 
-    st.markdown(nx.section_title("Explanation", "file-text"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Explanation", "file-text")}</div>', unsafe_allow_html=True)
     st.markdown(
         nx.content_card("Summary", str(explanation), large=True, icon_name="file-text"),
         unsafe_allow_html=True,
@@ -276,7 +276,7 @@ def _render_results(data: dict, include_shap: bool) -> None:
     # Diagnostic views
     _render_diagnostic_comparison(data)
 
-    st.markdown(nx.section_title("Extracted structure", "layers"), unsafe_allow_html=True)
+    st.markdown(f'<div class="ia-section-container">{nx.section_title("Extracted structure", "layers")}</div>', unsafe_allow_html=True)
     c_claim, c_evi = st.columns(2, gap="large")
     with c_claim:
         st.markdown(
