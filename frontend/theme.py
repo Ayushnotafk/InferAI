@@ -118,12 +118,12 @@ header[data-testid="stHeader"] { background: transparent; }
   letter-spacing: -0.01em;
 }
 .ia-sub {
-  font-size: 14.5px;
-  color: var(--text-secondary);
-  margin: 0 auto;
-  line-height: 1.6;
-  max-width: 38rem;
-  text-align: center;
+  font-size: 14.5px !important;
+  color: var(--text-secondary) !important;
+  margin: 0 auto !important;
+  line-height: 1.6 !important;
+  max-width: 38rem !important;
+  text-align: center !important;
 }
 
 /* ----- Section labels ----- */
