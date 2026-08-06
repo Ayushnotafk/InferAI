@@ -2,7 +2,6 @@ import spacy
 
 nlp = spacy.load("en_core_web_sm")
 
-# Common lexical negation cues
 NEGATION_WORDS = {
     "no",
     "not",
