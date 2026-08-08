@@ -7,7 +7,8 @@ API URL is read from ``INFERAI_API_URL``, then ``http://127.0.0.1:8000``.
 from pathlib import Path
 import sys
 
-_ROOT = Path(__file__).resolve().parent.parent
+_FILE_PATH = Path(__file__).resolve()
+_ROOT = _FILE_PATH.parent.parent if _FILE_PATH.parent.name == "frontend" else _FILE_PATH.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
