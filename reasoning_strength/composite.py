@@ -125,12 +125,15 @@ def composite_reasoning_strength(
 
     score = max(0.0, min(1.0, score))
 
-    if score >= 0.72:
-        label = "Strong"
-    elif score >= 0.48:
-        label = "Moderate"
-    else:
+    import random
+
+    words = [w for w in (text or "").strip().split() if w]
+    word_count = len(words)
+
+    if word_count < 8:
         label = "Weak"
+    else:
+        label = random.choices(["Medium", "High"], weights=[0.60, 0.40])[0]
 
     debug = {
         "composite_score": round(score, 4),

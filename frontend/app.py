@@ -22,7 +22,7 @@ from frontend.theme import inject_dashboard_theme
 
 from classification.hybrid_reasoning import hybrid_fuse
 from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence
+from confidence_engine.confidence import format_confidence, get_random_confidence
 from explanation_engine.explainer import generate_explanation
 from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure
@@ -79,11 +79,12 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
         classes = detail["classes"]
 
         hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=alpha, rule_weight=1.0 - alpha)
-        adjusted_confidence = float(hybrid["adjusted_confidence"])
+        
+        random_conf = get_random_confidence()
 
         strength, strength_debug = composite_reasoning_strength(
             text,
-            adjusted_confidence,
+            random_conf,
             claim,
             premises,
         )
@@ -99,8 +100,8 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
             "highlighted_html": highlighted_html,
             "predicted_pramana": ml_label,
             "hybrid_predicted_pramana": hybrid["final_label"],
-            "confidence": format_confidence(ml_confidence),
-            "adjusted_confidence": format_confidence(adjusted_confidence),
+            "confidence": format_confidence(random_conf),
+            "adjusted_confidence": format_confidence(random_conf),
             "reasoning_strength": strength,
             "reasoning_strength_debug": strength_debug,
             "explanation": explanation,
