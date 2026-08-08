@@ -7,7 +7,7 @@ from typing import Any
 from classification.adaptive_router import DEFAULT_ALPHA, resolve_alpha
 from classification.hybrid_reasoning import hybrid_fuse, score_weighted_rules
 from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence, get_random_confidence
+from confidence_engine.confidence import format_confidence
 from explanation_engine.explainer import generate_explanation
 from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure
@@ -67,12 +67,11 @@ def run_analysis(
         routing_mode=routing_mode,
         routing_reason=routing_reason,
     )
-
-    random_conf = get_random_confidence()
+    adjusted_confidence = float(hybrid["adjusted_confidence"])
 
     strength, strength_debug = composite_reasoning_strength(
         text,
-        random_conf,
+        adjusted_confidence,
         claim,
         premises,
     )
@@ -94,8 +93,8 @@ def run_analysis(
         "highlighted_html": highlighted_html,
         "predicted_pramana": ml_label,
         "hybrid_predicted_pramana": hybrid["final_label"],
-        "confidence": format_confidence(random_conf),
-        "adjusted_confidence": format_confidence(random_conf),
+        "confidence": format_confidence(ml_confidence),
+        "adjusted_confidence": format_confidence(adjusted_confidence),
         "reasoning_strength": strength,
         "reasoning_strength_debug": strength_debug,
         "explanation": explanation,

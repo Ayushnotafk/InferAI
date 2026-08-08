@@ -7,8 +7,7 @@ API URL is read from ``INFERAI_API_URL``, then ``http://127.0.0.1:8000``.
 from pathlib import Path
 import sys
 
-_FILE_PATH = Path(__file__).resolve()
-_ROOT = _FILE_PATH.parent.parent if _FILE_PATH.parent.name == "frontend" else _FILE_PATH.parent
+_ROOT = Path(__file__).resolve().parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
@@ -23,7 +22,7 @@ from frontend.theme import inject_dashboard_theme
 
 from classification.hybrid_reasoning import hybrid_fuse
 from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence, get_random_confidence
+from confidence_engine.confidence import format_confidence
 from explanation_engine.explainer import generate_explanation
 from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure
@@ -80,12 +79,11 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
         classes = detail["classes"]
 
         hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=alpha, rule_weight=1.0 - alpha)
-        
-        random_conf = get_random_confidence()
+        adjusted_confidence = float(hybrid["adjusted_confidence"])
 
         strength, strength_debug = composite_reasoning_strength(
             text,
-            random_conf,
+            adjusted_confidence,
             claim,
             premises,
         )
@@ -101,8 +99,8 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
             "highlighted_html": highlighted_html,
             "predicted_pramana": ml_label,
             "hybrid_predicted_pramana": hybrid["final_label"],
-            "confidence": format_confidence(random_conf),
-            "adjusted_confidence": format_confidence(random_conf),
+            "confidence": format_confidence(ml_confidence),
+            "adjusted_confidence": format_confidence(adjusted_confidence),
             "reasoning_strength": strength,
             "reasoning_strength_debug": strength_debug,
             "explanation": explanation,
