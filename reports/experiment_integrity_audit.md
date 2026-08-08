@@ -21,8 +21,8 @@ This document constitutes the single source of truth for all split sizes, group 
 
 ## Hyperparameter selection
 
-- **Alpha (fusion weight):** 0.9 — selected on VAL set only.
-- **Criterion:** macro_f1
+- **Alpha (fusion weight):** None — selected on VAL set only.
+- **Criterion:** None
 - **Calibration T:** fit by minimising NLL on VAL set.
 - **Test partition:** never used for any selection decision.
 
