@@ -215,3 +215,22 @@ Optional: set **`INFERAI_API_URL`** (or legacy **`NYAYAX_API_URL`**) if the API 
 ## End-to-end workflow
 
 Input text → structured extraction (claim / premises / indicators / highlights) → Sentence-BERT embeddings → logistic regression → **hybrid fusion** (fixed or adaptive alpha) → fallacy screening → composite strength → explanation → JSON (optional SHAP).
+
+
+
+
+
+
+how to run the infer ai 
+
+
+Terminal 1 (Backend API ke liye):
+(InferAI) 
+powershell
+uvicorn api.app:app --reload
+
+Terminal 2 (Streamlit UI ke liye):
+(InferAI) 
+
+powershell
+streamlit run frontend/app.py
