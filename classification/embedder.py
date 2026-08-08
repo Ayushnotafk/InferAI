@@ -1,8 +1,15 @@
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+_model = None
+
+
+def _get_model():
+    global _model
+    if _model is None:
+        _model = SentenceTransformer('all-MiniLM-L6-v2')
+    return _model
 
 
 def generate_embeddings(texts):
-    embeddings = model.encode(texts)
+    embeddings = _get_model().encode(texts)
     return embeddings

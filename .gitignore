@@ -41,8 +41,8 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# Streamlit local config
-.streamlit/
+# Streamlit local credentials only (config.toml IS committed for Cloud deployment)
+.streamlit/secrets.toml
 
 # Generated dataset and artifacts
 dataset/raw/
