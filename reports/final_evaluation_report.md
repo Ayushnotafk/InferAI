@@ -1,41 +1,41 @@
 # InferAI — Final Evaluation Report
 This report summarizes quantitative metrics produced during training and a small qualitative review on the held-out `dataset/test_set.csv`.
 ## Quantitative summary
-- **Train accuracy:** 0.9985119047619048
-- **Test accuracy (20% random holdout from training table):** 0.9964285714285714
-- **Macro precision:** 0.9958791208791209
-- **Macro recall:** 0.9969361702127659
-- **Macro F1:** 0.9963853725683613
+- **Train accuracy:** 0.9572769953051643
+- **Test accuracy (20% random holdout from training table):** 0.9287054409005628
+- **Macro precision:** 0.9484478114853369
+- **Macro recall:** 0.9197847902060158
+- **Macro F1:** 0.9326173449425448
 
 ## Held-out curated test set
-- **Accuracy on `dataset/test_set.csv`:** 0.76
+- **Accuracy on `dataset/test_set.csv`:** 0.6
 
 ### Classification report (held-out)
 ```text
 precision    recall  f1-score   support
 
-     Anumana     1.0000    0.7273    0.8421        44
-  Pratyaksha     0.6034    0.7609    0.6731        46
-      Shabda     0.7273    0.5614    0.6337        57
-     Upamana     0.8030    1.0000    0.8908        53
+     Anumana     0.4889    0.5000    0.4944        44
+  Pratyaksha     0.4268    0.7609    0.5469        46
+      Shabda     0.6774    0.3684    0.4773        57
+     Upamana     1.0000    0.7925    0.8842        53
 
-    accuracy                         0.7600       200
-   macro avg     0.7834    0.7624    0.7599       200
-weighted avg     0.7789    0.7600    0.7567       200
+    accuracy                         0.6000       200
+   macro avg     0.6483    0.6054    0.6007       200
+weighted avg     0.6638    0.6000    0.6049       200
 ```
 
 ## Sklearn report (random holdout)
 ```text
 precision    recall  f1-score   support
 
-     Anumana     1.0000    0.9957    0.9979       235
-  Pratyaksha     1.0000    1.0000    1.0000       176
-      Shabda     1.0000    0.9920    0.9960       250
-     Upamana     0.9835    1.0000    0.9917       179
+     Anumana     0.8863    0.9617    0.9224       235
+  Pratyaksha     0.9885    0.9663    0.9773        89
+      Shabda     0.9890    0.8738    0.9278       103
+     Upamana     0.9300    0.8774    0.9029       106
 
-    accuracy                         0.9964       840
-   macro avg     0.9959    0.9969    0.9964       840
-weighted avg     0.9965    0.9964    0.9964       840
+    accuracy                         0.9287       533
+   macro avg     0.9484    0.9198    0.9326       533
+weighted avg     0.9319    0.9287    0.9288       533
 ```
 
 ## Confusion matrices (artifacts)

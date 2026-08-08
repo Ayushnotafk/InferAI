@@ -1,631 +1,3210 @@
-version: 2.0
-total_rules: 77
-generated_from: "classification/hybrid_reasoning.py::_RULE_SPECS (WeightedRule(pattern, weight, pramana, cue))"
-date: "2026-07-07"
-
-# NOTE: This YAML documents the existing symbolic cue base used by the hybrid fusion layer.
-# It does not change inference logic. Patterns are the exact regex strings from `_RULE_SPECS`.
-
+version: '2.0'
+total_rules: 400
+generated_from: classification/hybrid_reasoning.py::_RULE_SPECS
+date: '2026-08-08'
 Pratyaksha:
-  - id: PRATYAKSHA_001
-    pramana: Pratyaksha
-    cue_type: observed
-    weight: 1.6
-    pattern: "\\bobserved\\b"
-    description: Direct perception cue via explicit observation wording.
-    example_trigger: "We observed a clear increase in brightness."
-    example_non_trigger: "We inferred a clear increase in brightness."
-  - id: PRATYAKSHA_002
-    pramana: Pratyaksha
-    cue_type: measured
-    weight: 1.8
-    pattern: "\\bmeasured\\b"
-    description: Measurement cue indicating instrumented or quantified perception.
-    example_trigger: "The voltage was measured at 3.3V."
-    example_non_trigger: "The voltage seems high."
-  - id: PRATYAKSHA_003
-    pramana: Pratyaksha
-    cue_type: recorded
-    weight: 1.5
-    pattern: "\\brecorded\\b"
-    description: Recorded-data cue suggesting observation logged in a record.
-    example_trigger: "The system recorded 120 events in the log."
-    example_non_trigger: "The system probably saw 120 events."
-  - id: PRATYAKSHA_004
-    pramana: Pratyaksha
-    cue_type: detected
-    weight: 1.6
-    pattern: "\\bdetected\\b"
-    description: Detection cue typically used with sensors/instruments.
-    example_trigger: "The device detected a signal spike."
-    example_non_trigger: "We assume there was a signal spike."
-  - id: PRATYAKSHA_005
-    pramana: Pratyaksha
-    cue_type: sensor
-    weight: 2.0
-    pattern: "\\bsensor(?:s| data)?\\b"
-    description: Sensor-based perception cue.
-    example_trigger: "Sensor data shows a sudden drop in pressure."
-    example_non_trigger: "The report shows a sudden drop in pressure."
-  - id: PRATYAKSHA_006
-    pramana: Pratyaksha
-    cue_type: temperature
-    weight: 1.4
-    pattern: "\\btemperature(?:s)?\\b"
-    description: Physical-measurement vocabulary cue (temperature).
-    example_trigger: "The temperature increased by 5 degrees."
-    example_non_trigger: "The mood temperature increased in the room."
-  - id: PRATYAKSHA_007
-    pramana: Pratyaksha
-    cue_type: pressure
-    weight: 1.4
-    pattern: "\\bpressure(?:s)?\\b"
-    description: Physical-measurement vocabulary cue (pressure).
-    example_trigger: "Pressure readings remained stable overnight."
-    example_non_trigger: "Social pressure remained stable overnight."
-  - id: PRATYAKSHA_008
-    pramana: Pratyaksha
-    cue_type: laboratory
-    weight: 2.2
-    pattern: "\\blaborator(?:y|ies)\\b"
-    description: Laboratory context cue suggesting empirical observation.
-    example_trigger: "In the laboratory, the sample was tested."
-    example_non_trigger: "In the library, the sample was described."
-  - id: PRATYAKSHA_009
-    pramana: Pratyaksha
-    cue_type: experiment
-    weight: 2.1
-    pattern: "\\bexperiment(?:s|al)?\\b"
-    description: Experimental context cue for empirical procedure.
-    example_trigger: "The experiment produced consistent readings."
-    example_non_trigger: "The argument is an experiment in rhetoric."
-  - id: PRATYAKSHA_010
-    pramana: Pratyaksha
-    cue_type: sample
-    weight: 1.7
-    pattern: "\\bsample(?:s)?\\b"
-    description: Sampling vocabulary cue in measurement/observation contexts.
-    example_trigger: "We took samples from the river."
-    example_non_trigger: "This is a sample explanation."
-  - id: PRATYAKSHA_011
-    pramana: Pratyaksha
-    cue_type: microscope
-    weight: 2.3
-    pattern: "\\bmicroscope\\b"
-    description: Instrument cue indicating direct inspection.
-    example_trigger: "Under the microscope, the cells appeared intact."
-    example_non_trigger: "Under scrutiny, the plan appeared intact."
-  - id: PRATYAKSHA_012
-    pramana: Pratyaksha
-    cue_type: evidence collected
-    weight: 2.0
-    pattern: "\\bevidence collected\\b"
-    description: Explicit evidence-collection phrasing as observational grounding.
-    example_trigger: "Evidence collected at the scene confirms damage."
-    example_non_trigger: "Evidence suggests the scene was damaged."
-  - id: PRATYAKSHA_013
-    pramana: Pratyaksha
-    cue_type: survey results
-    weight: 1.9
-    pattern: "\\bsurvey results\\b"
-    description: Survey-result phrasing indicating recorded observations.
-    example_trigger: "Survey results show a majority supports the change."
-    example_non_trigger: "Survey questions suggest a majority supports the change."
-  - id: PRATYAKSHA_014
-    pramana: Pratyaksha
-    cue_type: statistics
-    weight: 1.6
-    pattern: "\\bstatistics\\b"
-    description: Statistical-reporting cue as observational/recorded evidence.
-    example_trigger: "The statistics indicate a downward trend."
-    example_non_trigger: "Statistically, it might be a downward trend."
-  - id: PRATYAKSHA_015
-    pramana: Pratyaksha
-    cue_type: measured values
-    weight: 2.2
-    pattern: "\\bmeasured values\\b"
-    description: Explicit phrase indicating quantitative observation.
-    example_trigger: "The measured values are within tolerance."
-    example_non_trigger: "The expected values are within tolerance."
-  - id: PRATYAKSHA_016
-    pramana: Pratyaksha
-    cue_type: inspection
-    weight: 1.5
-    pattern: "\\binspection\\b"
-    description: Inspection vocabulary cue for direct examination.
-    example_trigger: "Inspection revealed cracks in the casing."
-    example_non_trigger: "Prediction revealed cracks in the casing."
-  - id: PRATYAKSHA_017
-    pramana: Pratyaksha
-    cue_type: monitoring
-    weight: 1.5
-    pattern: "\\bmonitoring\\b"
-    description: Monitoring vocabulary cue suggesting observation over time.
-    example_trigger: "Continuous monitoring showed no anomalies."
-    example_non_trigger: "Continuous reasoning showed no anomalies."
-  - id: PRATYAKSHA_018
-    pramana: Pratyaksha
-    cue_type: first-person observation
-    weight: 1.8
-    pattern: "\\bi (?:saw|heard|observed|noticed|smelled|felt)\\b"
-    description: First-person sensory report cue.
-    example_trigger: "I heard a loud crack before the failure."
-    example_non_trigger: "I think there was a loud crack before the failure."
-  - id: PRATYAKSHA_019
-    pramana: Pratyaksha
-    cue_type: instrument reading
-    weight: 1.7
-    pattern: "\\bthe (?:sensor|display|log|image|recording)\\b"
-    description: Reference to an instrument or recorded artifact.
-    example_trigger: "The log shows the process exited early."
-    example_non_trigger: "The story shows the process exited early."
-  - id: PRATYAKSHA_020
-    pramana: Pratyaksha
-    cue_type: we measured
-    weight: 2.0
-    pattern: "\\bwe measured\\b"
-    description: Team-reported measurement phrasing.
-    example_trigger: "We measured the concentration at 2 mg/L."
-    example_non_trigger: "We estimated the concentration at 2 mg/L."
-  - id: PRATYAKSHA_021
-    pramana: Pratyaksha
-    cue_type: telemetry
-    weight: 1.8
-    pattern: "\\btelemetry\\b"
-    description: Telemetry vocabulary cue indicating instrumented observation.
-    example_trigger: "Telemetry confirmed the motor overheated."
-    example_non_trigger: "Testimony confirmed the motor overheated."
-  - id: PRATYAKSHA_022
-    pramana: Pratyaksha
-    cue_type: field notes
-    weight: 1.6
-    pattern: "\\bfield notes\\b"
-    description: Field-notes phrasing suggesting observed records.
-    example_trigger: "Field notes describe visible discoloration."
-    example_non_trigger: "Theory notes describe visible discoloration."
-  - id: PRATYAKSHA_023
-    pramana: Pratyaksha
-    cue_type: visible/audible
-    weight: 1.4
-    pattern: "\\bvisible\\b|\\baudible\\b"
-    description: Sensory adjectives indicating direct perception.
-    example_trigger: "The defect was visible to the naked eye."
-    example_non_trigger: "The defect was plausible to the naked eye."
-
-Anumana:
-  - id: ANUMANA_001
-    pramana: Anumana
-    cue_type: because
-    weight: 2.0
-    pattern: "\\bbecause\\b"
-    description: Causal/inferential connective cue.
-    example_trigger: "It must be raining because the street is wet."
-    example_non_trigger: "It must be raining; the street is wet."
-  - id: ANUMANA_002
-    pramana: Anumana
-    cue_type: therefore
-    weight: 2.3
-    pattern: "\\btherefore\\b"
-    description: Conclusion marker indicating inference.
-    example_trigger: "The premises are true; therefore the claim follows."
-    example_non_trigger: "The premises are true; the claim follows."
-  - id: ANUMANA_003
-    pramana: Anumana
-    cue_type: thus
-    weight: 2.0
-    pattern: "\\bthus\\b"
-    description: Conclusion marker indicating inference.
-    example_trigger: "The engine has no fuel, thus it cannot start."
-    example_non_trigger: "The engine has no fuel; it cannot start."
-  - id: ANUMANA_004
-    pramana: Anumana
-    cue_type: hence
-    weight: 2.1
-    pattern: "\\bhence\\b"
-    description: Conclusion marker indicating inference.
-    example_trigger: "The lights are off, hence nobody is home."
-    example_non_trigger: "The lights are off; nobody is home."
-  - id: ANUMANA_005
-    pramana: Anumana
-    cue_type: consequently
-    weight: 2.2
-    pattern: "\\bconsequently\\b"
-    description: Consequence marker used in inferential chains.
-    example_trigger: "The supply is cut; consequently production stops."
-    example_non_trigger: "The supply is cut; production stops."
-  - id: ANUMANA_006
-    pramana: Anumana
-    cue_type: implies
-    weight: 2.1
-    pattern: "\\bimplies\\b"
-    description: Logical implication cue.
-    example_trigger: "A rising fever implies an infection."
-    example_non_trigger: "A rising fever describes an infection."
-  - id: ANUMANA_007
-    pramana: Anumana
-    cue_type: suggests
-    weight: 1.6
-    pattern: "\\bsuggests\\b"
-    description: Suggestive inference cue (weaker than explicit therefore).
-    example_trigger: "The pattern suggests a systemic issue."
-    example_non_trigger: "The pattern shows a systemic issue."
-  - id: ANUMANA_008
-    pramana: Anumana
-    cue_type: likely
-    weight: 1.5
-    pattern: "\\blikely\\b"
-    description: Probabilistic inference cue.
-    example_trigger: "It is likely the server is overloaded."
-    example_non_trigger: "It is the server that is overloaded."
-  - id: ANUMANA_009
-    pramana: Anumana
-    cue_type: causes
-    weight: 2.0
-    pattern: "\\bcauses\\b"
-    description: Explicit causal claim cue.
-    example_trigger: "Smoking causes respiratory problems."
-    example_non_trigger: "Smoking correlates with respiratory problems."
-  - id: ANUMANA_010
-    pramana: Anumana
-    cue_type: if...then
-    weight: 2.4
-    pattern: "\\bif\\b.{0,40}\\bthen\\b"
-    description: Conditional reasoning cue within a bounded span.
-    example_trigger: "If the alarm is armed then the door cannot open."
-    example_non_trigger: "If the alarm is armed, the door cannot open."
-  - id: ANUMANA_011
-    pramana: Anumana
-    cue_type: due to
-    weight: 2.0
-    pattern: "\\bdue to\\b"
-    description: Causal attribution cue.
-    example_trigger: "The delay occurred due to network congestion."
-    example_non_trigger: "The delay occurred during network congestion."
-  - id: ANUMANA_012
-    pramana: Anumana
-    cue_type: results in
-    weight: 2.1
-    pattern: "\\bresults in\\b"
-    description: Consequence phrasing cue.
-    example_trigger: "Lack of sleep results in poor attention."
-    example_non_trigger: "Lack of sleep is linked to poor attention."
-  - id: ANUMANA_013
-    pramana: Anumana
-    cue_type: leads to
-    weight: 2.1
-    pattern: "\\bleads to\\b"
-    description: Consequence phrasing cue.
-    example_trigger: "Overheating leads to system shutdowns."
-    example_non_trigger: "Overheating is associated with shutdowns."
-  - id: ANUMANA_014
-    pramana: Anumana
-    cue_type: therefore it follows
-    weight: 2.5
-    pattern: "\\btherefore it follows\\b"
-    description: Strong explicit inferential phrase.
-    example_trigger: "All metals expand when heated; therefore it follows this rod will expand."
-    example_non_trigger: "All metals expand when heated; this rod will expand."
-  - id: ANUMANA_015
-    pramana: Anumana
-    cue_type: since
-    weight: 1.7
-    pattern: "\\bsince\\b"
-    description: Premise-introducing cue used for inference.
-    example_trigger: "Since the battery is dead, the car will not start."
-    example_non_trigger: "Since yesterday, the battery is dead."
-  - id: ANUMANA_016
-    pramana: Anumana
-    cue_type: which suggests
-    weight: 1.9
-    pattern: "\\bwhich suggests\\b"
-    description: Phrase indicating an interpretive inference from evidence.
-    example_trigger: "The results were inconsistent, which suggests measurement error."
-    example_non_trigger: "The results were inconsistent, which shows measurement error."
-  - id: ANUMANA_017
-    pramana: Anumana
-    cue_type: most likely
-    weight: 1.8
-    pattern: "\\bmost likely\\b"
-    description: Stronger probabilistic inference cue.
-    example_trigger: "The cause is most likely a short circuit."
-    example_non_trigger: "The cause is a short circuit."
-
-Upamana:
-  - id: UPAMANA_001
-    pramana: Upamana
-    cue_type: similar to
-    weight: 2.4
-    pattern: "\\bsimilar to\\b"
-    description: Analogy cue via explicit similarity phrasing.
-    example_trigger: "The mechanism is similar to a lock and key."
-    example_non_trigger: "The mechanism is simple to use."
-  - id: UPAMANA_002
-    pramana: Upamana
-    cue_type: just as
-    weight: 2.3
-    pattern: "\\bjust as\\b"
-    description: Analogy cue via parallel construction ("just as ... so ...").
-    example_trigger: "Just as fire spreads, so does misinformation."
-    example_non_trigger: "Just as a reminder, please submit the form."
-  - id: UPAMANA_003
-    pramana: Upamana
-    cue_type: acts like
-    weight: 2.5
-    pattern: "\\bacts like\\b"
-    description: Analogy cue indicating functional similarity.
-    example_trigger: "This enzyme acts like a catalyst in the reaction."
-    example_non_trigger: "This enzyme acts quickly in the reaction."
-  - id: UPAMANA_004
-    pramana: Upamana
-    cue_type: works like
-    weight: 2.5
-    pattern: "\\bworks like\\b"
-    description: Analogy cue indicating functional similarity.
-    example_trigger: "The scheduler works like a queue."
-    example_non_trigger: "The scheduler works reliably."
-  - id: UPAMANA_005
-    pramana: Upamana
-    cue_type: resembles
-    weight: 2.4
-    pattern: "\\bresembles\\b"
-    description: Analogy cue via resemblance verb.
-    example_trigger: "The pattern resembles a fractal."
-    example_non_trigger: "The pattern results from a fractal."
-  - id: UPAMANA_006
-    pramana: Upamana
-    cue_type: analogous to
-    weight: 2.6
-    pattern: "\\banalogous to\\b"
-    description: Strong analogy marker ("analogous to").
-    example_trigger: "This is analogous to balancing a budget."
-    example_non_trigger: "This is identical to balancing a budget."
-  - id: UPAMANA_007
-    pramana: Upamana
-    cue_type: compared with/to
-    weight: 2.2
-    pattern: "\\bcompared with\\b|\\bcompared to\\b"
-    description: Explicit comparison phrasing.
-    example_trigger: "Compared to last year, the risk is lower."
-    example_non_trigger: "According to last year, the risk is lower."
-  - id: UPAMANA_008
-    pramana: Upamana
-    cue_type: comparison
-    weight: 1.8
-    pattern: "\\bcomparison\\b"
-    description: Comparison noun cue used in analogical framing.
-    example_trigger: "A comparison to the earlier case clarifies the point."
-    example_non_trigger: "A conclusion to the earlier case clarifies the point."
-  - id: UPAMANA_009
-    pramana: Upamana
-    cue_type: metaphor
-    weight: 2.3
-    pattern: "\\bmetaphor\\b"
-    description: Metaphor vocabulary cue.
-    example_trigger: "This is a metaphor for societal collapse."
-    example_non_trigger: "This is a model for societal collapse."
-  - id: UPAMANA_010
-    pramana: Upamana
-    cue_type: in the same way
-    weight: 2.4
-    pattern: "\\bin the same way\\b"
-    description: Analogy cue via "in the same way" phrasing.
-    example_trigger: "In the same way a seed grows, ideas can grow."
-    example_non_trigger: "In the same day a seed grows, ideas can grow."
-  - id: UPAMANA_011
-    pramana: Upamana
-    cue_type: as if
-    weight: 2.2
-    pattern: "\\bas if\\b"
-    description: Simile-like framing cue via "as if".
-    example_trigger: "He spoke as if he were an expert."
-    example_non_trigger: "He spoke as he was an expert."
-  - id: UPAMANA_012
-    pramana: Upamana
-    cue_type: is like
-    weight: 2.4
-    pattern: "\\bis like\\b"
-    description: Direct simile phrase ("is like").
-    example_trigger: "Their strategy is like building on sand."
-    example_non_trigger: "Their strategy is building on sand."
-  - id: UPAMANA_013
-    pramana: Upamana
-    cue_type: like a/an
-    weight: 2.0
-    pattern: "\\blike a\\b|\\blike an\\b"
-    description: Phrase-level simile cue ("like a/an"), with false-positive suppression in code for "I like X".
-    example_trigger: "The mind is like a mirror."
-    example_non_trigger: "I like football."
-
+- id: PRATYAKSHA_001
+  pramana: Pratyaksha
+  cue_type: observed
+  weight: 1.6
+  pattern: \bobserved\b
+  description: Symbolic cue pattern for Pratyaksha (observed).
+  example_trigger: Example sentence containing observed.
+  example_non_trigger: Example sentence without observed.
+- id: PRATYAKSHA_002
+  pramana: Pratyaksha
+  cue_type: measured
+  weight: 1.8
+  pattern: \bmeasured\b
+  description: Symbolic cue pattern for Pratyaksha (measured).
+  example_trigger: Example sentence containing measured.
+  example_non_trigger: Example sentence without measured.
+- id: PRATYAKSHA_003
+  pramana: Pratyaksha
+  cue_type: recorded
+  weight: 1.5
+  pattern: \brecorded\b
+  description: Symbolic cue pattern for Pratyaksha (recorded).
+  example_trigger: Example sentence containing recorded.
+  example_non_trigger: Example sentence without recorded.
+- id: PRATYAKSHA_004
+  pramana: Pratyaksha
+  cue_type: detected
+  weight: 1.6
+  pattern: \bdetected\b
+  description: Symbolic cue pattern for Pratyaksha (detected).
+  example_trigger: Example sentence containing detected.
+  example_non_trigger: Example sentence without detected.
+- id: PRATYAKSHA_005
+  pramana: Pratyaksha
+  cue_type: sensor
+  weight: 2.0
+  pattern: \bsensor(?:s| data)?\b
+  description: Symbolic cue pattern for Pratyaksha (sensor).
+  example_trigger: Example sentence containing sensor.
+  example_non_trigger: Example sentence without sensor.
+- id: PRATYAKSHA_006
+  pramana: Pratyaksha
+  cue_type: temperature
+  weight: 1.4
+  pattern: \btemperature(?:s)?\b
+  description: Symbolic cue pattern for Pratyaksha (temperature).
+  example_trigger: Example sentence containing temperature.
+  example_non_trigger: Example sentence without temperature.
+- id: PRATYAKSHA_007
+  pramana: Pratyaksha
+  cue_type: pressure
+  weight: 1.4
+  pattern: \bpressure(?:s)?\b
+  description: Symbolic cue pattern for Pratyaksha (pressure).
+  example_trigger: Example sentence containing pressure.
+  example_non_trigger: Example sentence without pressure.
+- id: PRATYAKSHA_008
+  pramana: Pratyaksha
+  cue_type: laboratory
+  weight: 2.2
+  pattern: \blaborator(?:y|ies)\b
+  description: Symbolic cue pattern for Pratyaksha (laboratory).
+  example_trigger: Example sentence containing laboratory.
+  example_non_trigger: Example sentence without laboratory.
+- id: PRATYAKSHA_009
+  pramana: Pratyaksha
+  cue_type: experiment
+  weight: 2.1
+  pattern: \bexperiment(?:s|al)?\b
+  description: Symbolic cue pattern for Pratyaksha (experiment).
+  example_trigger: Example sentence containing experiment.
+  example_non_trigger: Example sentence without experiment.
+- id: PRATYAKSHA_010
+  pramana: Pratyaksha
+  cue_type: sample
+  weight: 1.7
+  pattern: \bsample(?:s)?\b
+  description: Symbolic cue pattern for Pratyaksha (sample).
+  example_trigger: Example sentence containing sample.
+  example_non_trigger: Example sentence without sample.
+- id: PRATYAKSHA_011
+  pramana: Pratyaksha
+  cue_type: microscope
+  weight: 2.3
+  pattern: \bmicroscope\b
+  description: Symbolic cue pattern for Pratyaksha (microscope).
+  example_trigger: Example sentence containing microscope.
+  example_non_trigger: Example sentence without microscope.
+- id: PRATYAKSHA_012
+  pramana: Pratyaksha
+  cue_type: evidence collected
+  weight: 2.0
+  pattern: \bevidence collected\b
+  description: Symbolic cue pattern for Pratyaksha (evidence collected).
+  example_trigger: Example sentence containing evidence collected.
+  example_non_trigger: Example sentence without evidence collected.
+- id: PRATYAKSHA_013
+  pramana: Pratyaksha
+  cue_type: survey results
+  weight: 1.9
+  pattern: \bsurvey results\b
+  description: Symbolic cue pattern for Pratyaksha (survey results).
+  example_trigger: Example sentence containing survey results.
+  example_non_trigger: Example sentence without survey results.
+- id: PRATYAKSHA_014
+  pramana: Pratyaksha
+  cue_type: statistics
+  weight: 1.6
+  pattern: \bstatistics\b
+  description: Symbolic cue pattern for Pratyaksha (statistics).
+  example_trigger: Example sentence containing statistics.
+  example_non_trigger: Example sentence without statistics.
+- id: PRATYAKSHA_015
+  pramana: Pratyaksha
+  cue_type: measured values
+  weight: 2.2
+  pattern: \bmeasured values\b
+  description: Symbolic cue pattern for Pratyaksha (measured values).
+  example_trigger: Example sentence containing measured values.
+  example_non_trigger: Example sentence without measured values.
+- id: PRATYAKSHA_016
+  pramana: Pratyaksha
+  cue_type: inspection
+  weight: 1.5
+  pattern: \binspection\b
+  description: Symbolic cue pattern for Pratyaksha (inspection).
+  example_trigger: Example sentence containing inspection.
+  example_non_trigger: Example sentence without inspection.
+- id: PRATYAKSHA_017
+  pramana: Pratyaksha
+  cue_type: monitoring
+  weight: 1.5
+  pattern: \bmonitoring\b
+  description: Symbolic cue pattern for Pratyaksha (monitoring).
+  example_trigger: Example sentence containing monitoring.
+  example_non_trigger: Example sentence without monitoring.
+- id: PRATYAKSHA_018
+  pramana: Pratyaksha
+  cue_type: first-person observation
+  weight: 1.8
+  pattern: \bi (?:saw|heard|observed|noticed|smelled|felt)\b
+  description: Symbolic cue pattern for Pratyaksha (first-person observation).
+  example_trigger: Example sentence containing first-person observation.
+  example_non_trigger: Example sentence without first-person observation.
+- id: PRATYAKSHA_019
+  pramana: Pratyaksha
+  cue_type: instrument reading
+  weight: 1.7
+  pattern: \bthe (?:sensor|display|log|image|recording)\b
+  description: Symbolic cue pattern for Pratyaksha (instrument reading).
+  example_trigger: Example sentence containing instrument reading.
+  example_non_trigger: Example sentence without instrument reading.
+- id: PRATYAKSHA_020
+  pramana: Pratyaksha
+  cue_type: we measured
+  weight: 2.0
+  pattern: \bwe measured\b
+  description: Symbolic cue pattern for Pratyaksha (we measured).
+  example_trigger: Example sentence containing we measured.
+  example_non_trigger: Example sentence without we measured.
+- id: PRATYAKSHA_021
+  pramana: Pratyaksha
+  cue_type: telemetry
+  weight: 1.8
+  pattern: \btelemetry\b
+  description: Symbolic cue pattern for Pratyaksha (telemetry).
+  example_trigger: Example sentence containing telemetry.
+  example_non_trigger: Example sentence without telemetry.
+- id: PRATYAKSHA_022
+  pramana: Pratyaksha
+  cue_type: field notes
+  weight: 1.6
+  pattern: \bfield notes\b
+  description: Symbolic cue pattern for Pratyaksha (field notes).
+  example_trigger: Example sentence containing field notes.
+  example_non_trigger: Example sentence without field notes.
+- id: PRATYAKSHA_023
+  pramana: Pratyaksha
+  cue_type: visible/audible
+  weight: 1.4
+  pattern: \bvisible\b|\baudible\b
+  description: Symbolic cue pattern for Pratyaksha (visible/audible).
+  example_trigger: Example sentence containing visible/audible.
+  example_non_trigger: Example sentence without visible/audible.
+- id: PRATYAKSHA_024
+  pramana: Pratyaksha
+  cue_type: photometer
+  weight: 2.2
+  pattern: \bphotometer\b
+  description: Symbolic cue pattern for Pratyaksha (photometer).
+  example_trigger: Example sentence containing photometer.
+  example_non_trigger: Example sentence without photometer.
+- id: PRATYAKSHA_025
+  pramana: Pratyaksha
+  cue_type: spectrometer
+  weight: 2.3
+  pattern: \bspectrometer\b
+  description: Symbolic cue pattern for Pratyaksha (spectrometer).
+  example_trigger: Example sentence containing spectrometer.
+  example_non_trigger: Example sentence without spectrometer.
+- id: PRATYAKSHA_026
+  pramana: Pratyaksha
+  cue_type: barometer
+  weight: 2.2
+  pattern: \bbarometer\b
+  description: Symbolic cue pattern for Pratyaksha (barometer).
+  example_trigger: Example sentence containing barometer.
+  example_non_trigger: Example sentence without barometer.
+- id: PRATYAKSHA_027
+  pramana: Pratyaksha
+  cue_type: altimeter
+  weight: 2.1
+  pattern: \baltimeter\b
+  description: Symbolic cue pattern for Pratyaksha (altimeter).
+  example_trigger: Example sentence containing altimeter.
+  example_non_trigger: Example sentence without altimeter.
+- id: PRATYAKSHA_028
+  pramana: Pratyaksha
+  cue_type: oscilloscope
+  weight: 2.3
+  pattern: \boscilloscope\b
+  description: Symbolic cue pattern for Pratyaksha (oscilloscope).
+  example_trigger: Example sentence containing oscilloscope.
+  example_non_trigger: Example sentence without oscilloscope.
+- id: PRATYAKSHA_029
+  pramana: Pratyaksha
+  cue_type: thermometer
+  weight: 2.2
+  pattern: \bthermometer\b
+  description: Symbolic cue pattern for Pratyaksha (thermometer).
+  example_trigger: Example sentence containing thermometer.
+  example_non_trigger: Example sentence without thermometer.
+- id: PRATYAKSHA_030
+  pramana: Pratyaksha
+  cue_type: voltmeter
+  weight: 2.1
+  pattern: \bvoltmeter\b
+  description: Symbolic cue pattern for Pratyaksha (voltmeter).
+  example_trigger: Example sentence containing voltmeter.
+  example_non_trigger: Example sentence without voltmeter.
+- id: PRATYAKSHA_031
+  pramana: Pratyaksha
+  cue_type: gauge reading
+  weight: 2.0
+  pattern: \bgauge reading\b
+  description: Symbolic cue pattern for Pratyaksha (gauge reading).
+  example_trigger: Example sentence containing gauge reading.
+  example_non_trigger: Example sentence without gauge reading.
+- id: PRATYAKSHA_032
+  pramana: Pratyaksha
+  cue_type: live feed
+  weight: 1.8
+  pattern: \blive feed\b
+  description: Symbolic cue pattern for Pratyaksha (live feed).
+  example_trigger: Example sentence containing live feed.
+  example_non_trigger: Example sentence without live feed.
+- id: PRATYAKSHA_033
+  pramana: Pratyaksha
+  cue_type: direct observation
+  weight: 2.4
+  pattern: \bdirect observation\b
+  description: Symbolic cue pattern for Pratyaksha (direct observation).
+  example_trigger: Example sentence containing direct observation.
+  example_non_trigger: Example sentence without direct observation.
+- id: PRATYAKSHA_034
+  pramana: Pratyaksha
+  cue_type: eyewitness
+  weight: 2.2
+  pattern: \beyewitness\b
+  description: Symbolic cue pattern for Pratyaksha (eyewitness).
+  example_trigger: Example sentence containing eyewitness.
+  example_non_trigger: Example sentence without eyewitness.
+- id: PRATYAKSHA_035
+  pramana: Pratyaksha
+  cue_type: empirical readout
+  weight: 2.3
+  pattern: \bempirical readout\b
+  description: Symbolic cue pattern for Pratyaksha (empirical readout).
+  example_trigger: Example sentence containing empirical readout.
+  example_non_trigger: Example sentence without empirical readout.
+- id: PRATYAKSHA_036
+  pramana: Pratyaksha
+  cue_type: physical sample
+  weight: 2.0
+  pattern: \bphysical sample\b
+  description: Symbolic cue pattern for Pratyaksha (physical sample).
+  example_trigger: Example sentence containing physical sample.
+  example_non_trigger: Example sentence without physical sample.
+- id: PRATYAKSHA_037
+  pramana: Pratyaksha
+  cue_type: quantified data
+  weight: 1.9
+  pattern: \bquantified data\b
+  description: Symbolic cue pattern for Pratyaksha (quantified data).
+  example_trigger: Example sentence containing quantified data.
+  example_non_trigger: Example sentence without quantified data.
+- id: PRATYAKSHA_038
+  pramana: Pratyaksha
+  cue_type: calibrated
+  weight: 1.8
+  pattern: \bcalibrated\b
+  description: Symbolic cue pattern for Pratyaksha (calibrated).
+  example_trigger: Example sentence containing calibrated.
+  example_non_trigger: Example sentence without calibrated.
+- id: PRATYAKSHA_039
+  pramana: Pratyaksha
+  cue_type: camera footage
+  weight: 2.1
+  pattern: \bcamera footage\b
+  description: Symbolic cue pattern for Pratyaksha (camera footage).
+  example_trigger: Example sentence containing camera footage.
+  example_non_trigger: Example sentence without camera footage.
+- id: PRATYAKSHA_040
+  pramana: Pratyaksha
+  cue_type: video recording
+  weight: 2.0
+  pattern: \bvideo recording\b
+  description: Symbolic cue pattern for Pratyaksha (video recording).
+  example_trigger: Example sentence containing video recording.
+  example_non_trigger: Example sentence without video recording.
+- id: PRATYAKSHA_041
+  pramana: Pratyaksha
+  cue_type: audio recording
+  weight: 1.9
+  pattern: \baudio recording\b
+  description: Symbolic cue pattern for Pratyaksha (audio recording).
+  example_trigger: Example sentence containing audio recording.
+  example_non_trigger: Example sentence without audio recording.
+- id: PRATYAKSHA_042
+  pramana: Pratyaksha
+  cue_type: satellite imagery
+  weight: 2.2
+  pattern: \bsatellite imagery\b
+  description: Symbolic cue pattern for Pratyaksha (satellite imagery).
+  example_trigger: Example sentence containing satellite imagery.
+  example_non_trigger: Example sentence without satellite imagery.
+- id: PRATYAKSHA_043
+  pramana: Pratyaksha
+  cue_type: radar readout
+  weight: 2.1
+  pattern: \bradar readout\b
+  description: Symbolic cue pattern for Pratyaksha (radar readout).
+  example_trigger: Example sentence containing radar readout.
+  example_non_trigger: Example sentence without radar readout.
+- id: PRATYAKSHA_044
+  pramana: Pratyaksha
+  cue_type: sonar signal
+  weight: 2.1
+  pattern: \bsonar signal\b
+  description: Symbolic cue pattern for Pratyaksha (sonar signal).
+  example_trigger: Example sentence containing sonar signal.
+  example_non_trigger: Example sentence without sonar signal.
+- id: PRATYAKSHA_045
+  pramana: Pratyaksha
+  cue_type: biosensor
+  weight: 2.2
+  pattern: \bbiosensor\b
+  description: Symbolic cue pattern for Pratyaksha (biosensor).
+  example_trigger: Example sentence containing biosensor.
+  example_non_trigger: Example sentence without biosensor.
+- id: PRATYAKSHA_046
+  pramana: Pratyaksha
+  cue_type: seismograph
+  weight: 2.3
+  pattern: \bseismograph\b
+  description: Symbolic cue pattern for Pratyaksha (seismograph).
+  example_trigger: Example sentence containing seismograph.
+  example_non_trigger: Example sentence without seismograph.
+- id: PRATYAKSHA_047
+  pramana: Pratyaksha
+  cue_type: chromatography
+  weight: 2.4
+  pattern: \bchromatography\b
+  description: Symbolic cue pattern for Pratyaksha (chromatography).
+  example_trigger: Example sentence containing chromatography.
+  example_non_trigger: Example sentence without chromatography.
+- id: PRATYAKSHA_048
+  pramana: Pratyaksha
+  cue_type: thermal camera
+  weight: 2.2
+  pattern: \bthermal camera\b
+  description: Symbolic cue pattern for Pratyaksha (thermal camera).
+  example_trigger: Example sentence containing thermal camera.
+  example_non_trigger: Example sentence without thermal camera.
+- id: PRATYAKSHA_049
+  pramana: Pratyaksha
+  cue_type: infrared sensor
+  weight: 2.2
+  pattern: \binfrared sensor\b
+  description: Symbolic cue pattern for Pratyaksha (infrared sensor).
+  example_trigger: Example sentence containing infrared sensor.
+  example_non_trigger: Example sentence without infrared sensor.
+- id: PRATYAKSHA_050
+  pramana: Pratyaksha
+  cue_type: photographic evidence
+  weight: 2.3
+  pattern: \bphotographic evidence\b
+  description: Symbolic cue pattern for Pratyaksha (photographic evidence).
+  example_trigger: Example sentence containing photographic evidence.
+  example_non_trigger: Example sentence without photographic evidence.
+- id: PRATYAKSHA_051
+  pramana: Pratyaksha
+  cue_type: visual inspection
+  weight: 2.1
+  pattern: \bvisual inspection\b
+  description: Symbolic cue pattern for Pratyaksha (visual inspection).
+  example_trigger: Example sentence containing visual inspection.
+  example_non_trigger: Example sentence without visual inspection.
+- id: PRATYAKSHA_052
+  pramana: Pratyaksha
+  cue_type: auditory signal
+  weight: 1.8
+  pattern: \bauditory signal\b
+  description: Symbolic cue pattern for Pratyaksha (auditory signal).
+  example_trigger: Example sentence containing auditory signal.
+  example_non_trigger: Example sentence without auditory signal.
+- id: PRATYAKSHA_053
+  pramana: Pratyaksha
+  cue_type: tactile feedback
+  weight: 1.7
+  pattern: \btactile feedback\b
+  description: Symbolic cue pattern for Pratyaksha (tactile feedback).
+  example_trigger: Example sentence containing tactile feedback.
+  example_non_trigger: Example sentence without tactile feedback.
+- id: PRATYAKSHA_054
+  pramana: Pratyaksha
+  cue_type: olfactory detection
+  weight: 1.8
+  pattern: \bolfactory detection\b
+  description: Symbolic cue pattern for Pratyaksha (olfactory detection).
+  example_trigger: Example sentence containing olfactory detection.
+  example_non_trigger: Example sentence without olfactory detection.
+- id: PRATYAKSHA_055
+  pramana: Pratyaksha
+  cue_type: sensory perception
+  weight: 2.0
+  pattern: \bsensory perception\b
+  description: Symbolic cue pattern for Pratyaksha (sensory perception).
+  example_trigger: Example sentence containing sensory perception.
+  example_non_trigger: Example sentence without sensory perception.
+- id: PRATYAKSHA_056
+  pramana: Pratyaksha
+  cue_type: direct measurement
+  weight: 2.3
+  pattern: \bdirect measurement\b
+  description: Symbolic cue pattern for Pratyaksha (direct measurement).
+  example_trigger: Example sentence containing direct measurement.
+  example_non_trigger: Example sentence without direct measurement.
+- id: PRATYAKSHA_057
+  pramana: Pratyaksha
+  cue_type: instrumentation readout
+  weight: 2.1
+  pattern: \binstrumentation readout\b
+  description: Symbolic cue pattern for Pratyaksha (instrumentation readout).
+  example_trigger: Example sentence containing instrumentation readout.
+  example_non_trigger: Example sentence without instrumentation readout.
+- id: PRATYAKSHA_058
+  pramana: Pratyaksha
+  cue_type: field assay
+  weight: 2.0
+  pattern: \bfield assay\b
+  description: Symbolic cue pattern for Pratyaksha (field assay).
+  example_trigger: Example sentence containing field assay.
+  example_non_trigger: Example sentence without field assay.
+- id: PRATYAKSHA_059
+  pramana: Pratyaksha
+  cue_type: clinical assay
+  weight: 2.1
+  pattern: \bclinical assay\b
+  description: Symbolic cue pattern for Pratyaksha (clinical assay).
+  example_trigger: Example sentence containing clinical assay.
+  example_non_trigger: Example sentence without clinical assay.
+- id: PRATYAKSHA_060
+  pramana: Pratyaksha
+  cue_type: lab results
+  weight: 2.2
+  pattern: \blab result(?:s)?\b
+  description: Symbolic cue pattern for Pratyaksha (lab results).
+  example_trigger: Example sentence containing lab results.
+  example_non_trigger: Example sentence without lab results.
+- id: PRATYAKSHA_061
+  pramana: Pratyaksha
+  cue_type: blood panel
+  weight: 2.0
+  pattern: \bblood panel\b
+  description: Symbolic cue pattern for Pratyaksha (blood panel).
+  example_trigger: Example sentence containing blood panel.
+  example_non_trigger: Example sentence without blood panel.
+- id: PRATYAKSHA_062
+  pramana: Pratyaksha
+  cue_type: biopsy sample
+  weight: 2.2
+  pattern: \bbiopsy sample\b
+  description: Symbolic cue pattern for Pratyaksha (biopsy sample).
+  example_trigger: Example sentence containing biopsy sample.
+  example_non_trigger: Example sentence without biopsy sample.
+- id: PRATYAKSHA_063
+  pramana: Pratyaksha
+  cue_type: petri dish
+  weight: 1.9
+  pattern: \bpetri dish\b
+  description: Symbolic cue pattern for Pratyaksha (petri dish).
+  example_trigger: Example sentence containing petri dish.
+  example_non_trigger: Example sentence without petri dish.
+- id: PRATYAKSHA_064
+  pramana: Pratyaksha
+  cue_type: test strip
+  weight: 1.8
+  pattern: \btest strip\b
+  description: Symbolic cue pattern for Pratyaksha (test strip).
+  example_trigger: Example sentence containing test strip.
+  example_non_trigger: Example sentence without test strip.
+- id: PRATYAKSHA_065
+  pramana: Pratyaksha
+  cue_type: digital display
+  weight: 1.6
+  pattern: \bdigital display\b
+  description: Symbolic cue pattern for Pratyaksha (digital display).
+  example_trigger: Example sentence containing digital display.
+  example_non_trigger: Example sentence without digital display.
+- id: PRATYAKSHA_066
+  pramana: Pratyaksha
+  cue_type: screen reading
+  weight: 1.7
+  pattern: \bscreen reading\b
+  description: Symbolic cue pattern for Pratyaksha (screen reading).
+  example_trigger: Example sentence containing screen reading.
+  example_non_trigger: Example sentence without screen reading.
+- id: PRATYAKSHA_067
+  pramana: Pratyaksha
+  cue_type: live telemetry
+  weight: 2.1
+  pattern: \blive telemetry\b
+  description: Symbolic cue pattern for Pratyaksha (live telemetry).
+  example_trigger: Example sentence containing live telemetry.
+  example_non_trigger: Example sentence without live telemetry.
+- id: PRATYAKSHA_068
+  pramana: Pratyaksha
+  cue_type: real-time monitoring
+  weight: 2.0
+  pattern: \breal-time monitoring\b
+  description: Symbolic cue pattern for Pratyaksha (real-time monitoring).
+  example_trigger: Example sentence containing real-time monitoring.
+  example_non_trigger: Example sentence without real-time monitoring.
+- id: PRATYAKSHA_069
+  pramana: Pratyaksha
+  cue_type: waveform analysis
+  weight: 1.9
+  pattern: \bwaveform analysis\b
+  description: Symbolic cue pattern for Pratyaksha (waveform analysis).
+  example_trigger: Example sentence containing waveform analysis.
+  example_non_trigger: Example sentence without waveform analysis.
+- id: PRATYAKSHA_070
+  pramana: Pratyaksha
+  cue_type: spectrogram
+  weight: 2.2
+  pattern: \bspectrogram\b
+  description: Symbolic cue pattern for Pratyaksha (spectrogram).
+  example_trigger: Example sentence containing spectrogram.
+  example_non_trigger: Example sentence without spectrogram.
+- id: PRATYAKSHA_071
+  pramana: Pratyaksha
+  cue_type: histology slide
+  weight: 2.1
+  pattern: \bhistology slide\b
+  description: Symbolic cue pattern for Pratyaksha (histology slide).
+  example_trigger: Example sentence containing histology slide.
+  example_non_trigger: Example sentence without histology slide.
+- id: PRATYAKSHA_072
+  pramana: Pratyaksha
+  cue_type: radiograph
+  weight: 2.2
+  pattern: \bradiograph\b
+  description: Symbolic cue pattern for Pratyaksha (radiograph).
+  example_trigger: Example sentence containing radiograph.
+  example_non_trigger: Example sentence without radiograph.
+- id: PRATYAKSHA_073
+  pramana: Pratyaksha
+  cue_type: x-ray image
+  weight: 2.2
+  pattern: \bx-ray image\b
+  description: Symbolic cue pattern for Pratyaksha (x-ray image).
+  example_trigger: Example sentence containing x-ray image.
+  example_non_trigger: Example sentence without x-ray image.
+- id: PRATYAKSHA_074
+  pramana: Pratyaksha
+  cue_type: mri scan
+  weight: 2.3
+  pattern: \bmri scan\b
+  description: Symbolic cue pattern for Pratyaksha (mri scan).
+  example_trigger: Example sentence containing mri scan.
+  example_non_trigger: Example sentence without mri scan.
+- id: PRATYAKSHA_075
+  pramana: Pratyaksha
+  cue_type: ct scan
+  weight: 2.2
+  pattern: \bct scan\b
+  description: Symbolic cue pattern for Pratyaksha (ct scan).
+  example_trigger: Example sentence containing ct scan.
+  example_non_trigger: Example sentence without ct scan.
+- id: PRATYAKSHA_076
+  pramana: Pratyaksha
+  cue_type: ultrasound image
+  weight: 2.1
+  pattern: \bultrasound image\b
+  description: Symbolic cue pattern for Pratyaksha (ultrasound image).
+  example_trigger: Example sentence containing ultrasound image.
+  example_non_trigger: Example sentence without ultrasound image.
+- id: PRATYAKSHA_077
+  pramana: Pratyaksha
+  cue_type: echocardiogram
+  weight: 2.2
+  pattern: \bechocardiogram\b
+  description: Symbolic cue pattern for Pratyaksha (echocardiogram).
+  example_trigger: Example sentence containing echocardiogram.
+  example_non_trigger: Example sentence without echocardiogram.
+- id: PRATYAKSHA_078
+  pramana: Pratyaksha
+  cue_type: eeg readout
+  weight: 2.2
+  pattern: \beeg readout\b
+  description: Symbolic cue pattern for Pratyaksha (eeg readout).
+  example_trigger: Example sentence containing eeg readout.
+  example_non_trigger: Example sentence without eeg readout.
+- id: PRATYAKSHA_079
+  pramana: Pratyaksha
+  cue_type: ecg trace
+  weight: 2.1
+  pattern: \becg trace\b
+  description: Symbolic cue pattern for Pratyaksha (ecg trace).
+  example_trigger: Example sentence containing ecg trace.
+  example_non_trigger: Example sentence without ecg trace.
+- id: PRATYAKSHA_080
+  pramana: Pratyaksha
+  cue_type: flowmeter
+  weight: 2.0
+  pattern: \bflowmeter\b
+  description: Symbolic cue pattern for Pratyaksha (flowmeter).
+  example_trigger: Example sentence containing flowmeter.
+  example_non_trigger: Example sentence without flowmeter.
+- id: PRATYAKSHA_081
+  pramana: Pratyaksha
+  cue_type: hydrometer
+  weight: 2.0
+  pattern: \bhydrometer\b
+  description: Symbolic cue pattern for Pratyaksha (hydrometer).
+  example_trigger: Example sentence containing hydrometer.
+  example_non_trigger: Example sentence without hydrometer.
+- id: PRATYAKSHA_082
+  pramana: Pratyaksha
+  cue_type: goniometer
+  weight: 2.0
+  pattern: \bgoniometer\b
+  description: Symbolic cue pattern for Pratyaksha (goniometer).
+  example_trigger: Example sentence containing goniometer.
+  example_non_trigger: Example sentence without goniometer.
+- id: PRATYAKSHA_083
+  pramana: Pratyaksha
+  cue_type: densitometer
+  weight: 2.1
+  pattern: \bdensitometer\b
+  description: Symbolic cue pattern for Pratyaksha (densitometer).
+  example_trigger: Example sentence containing densitometer.
+  example_non_trigger: Example sentence without densitometer.
+- id: PRATYAKSHA_084
+  pramana: Pratyaksha
+  cue_type: lux meter
+  weight: 1.9
+  pattern: \blux meter\b
+  description: Symbolic cue pattern for Pratyaksha (lux meter).
+  example_trigger: Example sentence containing lux meter.
+  example_non_trigger: Example sentence without lux meter.
+- id: PRATYAKSHA_085
+  pramana: Pratyaksha
+  cue_type: dosimeter
+  weight: 2.1
+  pattern: \bdosimeter\b
+  description: Symbolic cue pattern for Pratyaksha (dosimeter).
+  example_trigger: Example sentence containing dosimeter.
+  example_non_trigger: Example sentence without dosimeter.
+- id: PRATYAKSHA_086
+  pramana: Pratyaksha
+  cue_type: geiger counter
+  weight: 2.3
+  pattern: \bgeiger counter\b
+  description: Symbolic cue pattern for Pratyaksha (geiger counter).
+  example_trigger: Example sentence containing geiger counter.
+  example_non_trigger: Example sentence without geiger counter.
+- id: PRATYAKSHA_087
+  pramana: Pratyaksha
+  cue_type: chromatogram
+  weight: 2.1
+  pattern: \bchromatogram\b
+  description: Symbolic cue pattern for Pratyaksha (chromatogram).
+  example_trigger: Example sentence containing chromatogram.
+  example_non_trigger: Example sentence without chromatogram.
+- id: PRATYAKSHA_088
+  pramana: Pratyaksha
+  cue_type: microscopic observation
+  weight: 2.2
+  pattern: \bmicroscopic observation\b
+  description: Symbolic cue pattern for Pratyaksha (microscopic observation).
+  example_trigger: Example sentence containing microscopic observation.
+  example_non_trigger: Example sentence without microscopic observation.
+- id: PRATYAKSHA_089
+  pramana: Pratyaksha
+  cue_type: field notes log
+  weight: 1.8
+  pattern: \bfield notes log\b
+  description: Symbolic cue pattern for Pratyaksha (field notes log).
+  example_trigger: Example sentence containing field notes log.
+  example_non_trigger: Example sentence without field notes log.
+- id: PRATYAKSHA_090
+  pramana: Pratyaksha
+  cue_type: telescopic image
+  weight: 2.1
+  pattern: \btelescopic image\b
+  description: Symbolic cue pattern for Pratyaksha (telescopic image).
+  example_trigger: Example sentence containing telescopic image.
+  example_non_trigger: Example sentence without telescopic image.
+- id: PRATYAKSHA_091
+  pramana: Pratyaksha
+  cue_type: sonar map
+  weight: 2.0
+  pattern: \bsonar map\b
+  description: Symbolic cue pattern for Pratyaksha (sonar map).
+  example_trigger: Example sentence containing sonar map.
+  example_non_trigger: Example sentence without sonar map.
+- id: PRATYAKSHA_092
+  pramana: Pratyaksha
+  cue_type: lidar scan
+  weight: 2.2
+  pattern: \blidar scan\b
+  description: Symbolic cue pattern for Pratyaksha (lidar scan).
+  example_trigger: Example sentence containing lidar scan.
+  example_non_trigger: Example sentence without lidar scan.
+- id: PRATYAKSHA_093
+  pramana: Pratyaksha
+  cue_type: thermal trace
+  weight: 1.9
+  pattern: \bthermal trace\b
+  description: Symbolic cue pattern for Pratyaksha (thermal trace).
+  example_trigger: Example sentence containing thermal trace.
+  example_non_trigger: Example sentence without thermal trace.
+- id: PRATYAKSHA_094
+  pramana: Pratyaksha
+  cue_type: physical evidence
+  weight: 2.0
+  pattern: \bphysical evidence\b
+  description: Symbolic cue pattern for Pratyaksha (physical evidence).
+  example_trigger: Example sentence containing physical evidence.
+  example_non_trigger: Example sentence without physical evidence.
+- id: PRATYAKSHA_095
+  pramana: Pratyaksha
+  cue_type: empirical measurement
+  weight: 2.2
+  pattern: \bempirical measurement\b
+  description: Symbolic cue pattern for Pratyaksha (empirical measurement).
+  example_trigger: Example sentence containing empirical measurement.
+  example_non_trigger: Example sentence without empirical measurement.
+- id: PRATYAKSHA_096
+  pramana: Pratyaksha
+  cue_type: calibrated gauge
+  weight: 2.0
+  pattern: \bcalibrated gauge\b
+  description: Symbolic cue pattern for Pratyaksha (calibrated gauge).
+  example_trigger: Example sentence containing calibrated gauge.
+  example_non_trigger: Example sentence without calibrated gauge.
+- id: PRATYAKSHA_097
+  pramana: Pratyaksha
+  cue_type: benchmarking log
+  weight: 1.8
+  pattern: \bbenchmarking log\b
+  description: Symbolic cue pattern for Pratyaksha (benchmarking log).
+  example_trigger: Example sentence containing benchmarking log.
+  example_non_trigger: Example sentence without benchmarking log.
+- id: PRATYAKSHA_098
+  pramana: Pratyaksha
+  cue_type: data logger
+  weight: 1.9
+  pattern: \bdata logger\b
+  description: Symbolic cue pattern for Pratyaksha (data logger).
+  example_trigger: Example sentence containing data logger.
+  example_non_trigger: Example sentence without data logger.
+- id: PRATYAKSHA_099
+  pramana: Pratyaksha
+  cue_type: observed count
+  weight: 1.8
+  pattern: \bobserved count\b
+  description: Symbolic cue pattern for Pratyaksha (observed count).
+  example_trigger: Example sentence containing observed count.
+  example_non_trigger: Example sentence without observed count.
+- id: PRATYAKSHA_100
+  pramana: Pratyaksha
+  cue_type: empirical count
+  weight: 1.9
+  pattern: \bempirical count\b
+  description: Symbolic cue pattern for Pratyaksha (empirical count).
+  example_trigger: Example sentence containing empirical count.
+  example_non_trigger: Example sentence without empirical count.
 Shabda:
-  - id: SHABDA_001
-    pramana: Shabda
-    cue_type: according to official body
-    weight: 3.4
-    pattern: "\\baccording to\\s+(?:who|world health organization|cdc|unesco|fda|nasa|the government|government|official report|court judgement|court judgment)\\b"
-    description: Tiered "according to" for official institutions or legal/official documents.
-    example_trigger: "According to WHO, vaccines are effective."
-    example_non_trigger: "According to my friend, vaccines are effective."
-  - id: SHABDA_002
-    pramana: Shabda
-    cue_type: according to expert/study
-    weight: 2.7
-    pattern: "\\baccording to\\s+(?:experts?|researchers?|scientists?|the study|a study|research|medical guidelines?|journal|published)\\b"
-    description: Tiered "according to" for experts, studies, or research context.
-    example_trigger: "According to researchers, the method reduces error."
-    example_non_trigger: "According to my mom, the method reduces error."
-  - id: SHABDA_003
-    pramana: Shabda
-    cue_type: according to informal source
-    weight: 0.7
-    pattern: "\\baccording to\\s+(?:my friend|my mom|my dad|a friend|some guy)\\b"
-    description: Informal testimony marker; treated as weak Shabda.
-    example_trigger: "According to my friend, this works every time."
-    example_non_trigger: "We measured that this works every time."
-  - id: SHABDA_004
-    pramana: Shabda
-    cue_type: according to (general)
-    weight: 1.5
-    pattern: "\\baccording to\\b"
-    description: General testimony marker; in code it is suppressed if a more specific tier matched.
-    example_trigger: "According to the report, the trend is rising."
-    example_non_trigger: "Therefore, the trend is rising."
-  - id: SHABDA_005
-    pramana: Shabda
-    cue_type: reported by
-    weight: 2.0
-    pattern: "\\breported by\\b"
-    description: Attribution phrasing to a reporting source.
-    example_trigger: "It was reported by the journal last week."
-    example_non_trigger: "It was observed by the team last week."
-  - id: SHABDA_006
-    pramana: Shabda
-    cue_type: research shows
-    weight: 2.5
-    pattern: "\\bresearch shows\\b"
-    description: Research-as-authority phrasing.
-    example_trigger: "Research shows the intervention helps."
-    example_non_trigger: "Experience shows the intervention helps."
-  - id: SHABDA_007
-    pramana: Shabda
-    cue_type: study found
-    weight: 2.5
-    pattern: "\\bstudy found\\b"
-    description: Study-result testimony phrasing.
-    example_trigger: "The study found no significant effect."
-    example_non_trigger: "The experiment detected no significant effect."
-  - id: SHABDA_008
-    pramana: Shabda
-    cue_type: journal
-    weight: 2.0
-    pattern: "\\bjournal\\b"
-    description: Academic publication context cue.
-    example_trigger: "A journal article reported the findings."
-    example_non_trigger: "A personal blog reported the findings."
-  - id: SHABDA_009
-    pramana: Shabda
-    cue_type: published
-    weight: 1.9
-    pattern: "\\bpublished\\b"
-    description: Publication marker in testimony context.
-    example_trigger: "The results were published in 2024."
-    example_non_trigger: "The results were measured in 2024."
-  - id: SHABDA_010
-    pramana: Shabda
-    cue_type: WHO
-    weight: 3.2
-    pattern: "\\bWHO\\b"
-    description: Explicit WHO mention as strong authority cue.
-    example_trigger: "WHO issued updated guidance."
-    example_non_trigger: "They issued updated guidance."
-  - id: SHABDA_011
-    pramana: Shabda
-    cue_type: UNESCO
-    weight: 3.0
-    pattern: "\\bUNESCO\\b"
-    description: Explicit UNESCO mention as authority cue.
-    example_trigger: "UNESCO guidelines recommend preservation."
-    example_non_trigger: "Local guidelines recommend preservation."
-  - id: SHABDA_012
-    pramana: Shabda
-    cue_type: CDC
-    weight: 3.0
-    pattern: "\\bCDC\\b"
-    description: Explicit CDC mention as authority cue.
-    example_trigger: "CDC reports a reduction in cases."
-    example_non_trigger: "Reports show a reduction in cases."
-  - id: SHABDA_013
-    pramana: Shabda
-    cue_type: government
-    weight: 2.4
-    pattern: "\\bgovernment\\b"
-    description: Government source cue for testimony/authority.
-    example_trigger: "The government announced new regulations."
-    example_non_trigger: "The committee announced new regulations."
-  - id: SHABDA_014
-    pramana: Shabda
-    cue_type: official report
-    weight: 2.6
-    pattern: "\\bofficial report\\b"
-    description: Official-report phrasing as authority cue.
-    example_trigger: "An official report states the policy changed."
-    example_non_trigger: "An informal note states the policy changed."
-  - id: SHABDA_015
-    pramana: Shabda
-    cue_type: court judgement
-    weight: 2.7
-    pattern: "\\bcourt judg(?:e)?ment\\b"
-    description: Legal authority cue via court judgement/judgment mention.
-    example_trigger: "The court judgment established the precedent."
-    example_non_trigger: "The court hearing established the precedent."
-  - id: SHABDA_016
-    pramana: Shabda
-    cue_type: experts
-    weight: 2.0
-    pattern: "\\bexperts?\\b"
-    description: Expert-authority vocabulary cue.
-    example_trigger: "Experts agree the risk is minimal."
-    example_non_trigger: "Participants agree the risk is minimal."
-  - id: SHABDA_017
-    pramana: Shabda
-    cue_type: scientists
-    weight: 2.1
-    pattern: "\\bscientists?\\b"
-    description: Scientific authority vocabulary cue.
-    example_trigger: "Scientists report a new discovery."
-    example_non_trigger: "Engineers report a new discovery."
-  - id: SHABDA_018
-    pramana: Shabda
-    cue_type: researchers
-    weight: 2.0
-    pattern: "\\bresearchers?\\b"
-    description: Researcher-authority vocabulary cue.
-    example_trigger: "Researchers conclude the method is robust."
-    example_non_trigger: "Users conclude the method is robust."
-  - id: SHABDA_019
-    pramana: Shabda
-    cue_type: medical guidelines
-    weight: 2.5
-    pattern: "\\bmedical guidelines?\\b"
-    description: Medical guideline authority cue.
-    example_trigger: "Medical guidelines recommend vaccination."
-    example_non_trigger: "Personal guidelines recommend vaccination."
-  - id: SHABDA_020
-    pramana: Shabda
-    cue_type: evidence suggests
-    weight: 2.2
-    pattern: "\\bevidence suggests\\b"
-    description: Evidence-as-testimony phrasing (treated as Shabda in this engine).
-    example_trigger: "Evidence suggests the treatment is effective."
-    example_non_trigger: "Evidence collected shows the treatment is effective."
-  - id: SHABDA_021
-    pramana: Shabda
-    cue_type: study/studies
-    weight: 1.6
-    pattern: "\\bstud(?:y|ies)\\b"
-    description: Study/studies vocabulary cue; code suppresses informal "he studies biology" unless research context is present.
-    example_trigger: "Several studies indicate a benefit."
-    example_non_trigger: "He studies biology at the university."
-  - id: SHABDA_022
-    pramana: Shabda
-    cue_type: report/reported
-    weight: 1.5
-    pattern: "\\breport(?:ed|s)?\\b"
-    description: Reporting vocabulary cue.
-    example_trigger: "The report states the hazard is severe."
-    example_non_trigger: "The measurement states the hazard is severe."
-  - id: SHABDA_023
-    pramana: Shabda
-    cue_type: authoritative document
-    weight: 2.0
-    pattern: "\\bthe (?:handbook|manual|court|statute)\\b"
-    description: Authority cue via reference to formal documents.
-    example_trigger: "The statute defines the requirement."
-    example_non_trigger: "The story defines the requirement."
-  - id: SHABDA_024
-    pramana: Shabda
-    cue_type: professor/teacher
-    weight: 1.4
-    pattern: "\\bprofessor\\b|\\bteacher\\b"
-    description: Instructional authority vocabulary cue.
-    example_trigger: "My professor said the theorem holds."
-    example_non_trigger: "My friend said the theorem holds."
+- id: SHABDA_001
+  pramana: Shabda
+  cue_type: according to official body
+  weight: 3.4
+  pattern: \baccording to\s+(?:who|world health organization|cdc|unesco|fda|nasa|the
+    government|government|official report|court judgement|court judgment)\b
+  description: Symbolic cue pattern for Shabda (according to official body).
+  example_trigger: Example sentence containing according to official body.
+  example_non_trigger: Example sentence without according to official body.
+- id: SHABDA_002
+  pramana: Shabda
+  cue_type: according to expert/study
+  weight: 2.7
+  pattern: \baccording to\s+(?:experts?|researchers?|scientists?|the study|a study|research|medical
+    guidelines?|journal|published)\b
+  description: Symbolic cue pattern for Shabda (according to expert/study).
+  example_trigger: Example sentence containing according to expert/study.
+  example_non_trigger: Example sentence without according to expert/study.
+- id: SHABDA_003
+  pramana: Shabda
+  cue_type: according to informal source
+  weight: 0.7
+  pattern: \baccording to\s+(?:my friend|my mom|my dad|a friend|some guy)\b
+  description: Symbolic cue pattern for Shabda (according to informal source).
+  example_trigger: Example sentence containing according to informal source.
+  example_non_trigger: Example sentence without according to informal source.
+- id: SHABDA_004
+  pramana: Shabda
+  cue_type: according to (general)
+  weight: 1.5
+  pattern: \baccording to\b
+  description: Symbolic cue pattern for Shabda (according to (general)).
+  example_trigger: Example sentence containing according to (general).
+  example_non_trigger: Example sentence without according to (general).
+- id: SHABDA_005
+  pramana: Shabda
+  cue_type: reported by
+  weight: 2.0
+  pattern: \breported by\b
+  description: Symbolic cue pattern for Shabda (reported by).
+  example_trigger: Example sentence containing reported by.
+  example_non_trigger: Example sentence without reported by.
+- id: SHABDA_006
+  pramana: Shabda
+  cue_type: research shows
+  weight: 2.5
+  pattern: \bresearch shows\b
+  description: Symbolic cue pattern for Shabda (research shows).
+  example_trigger: Example sentence containing research shows.
+  example_non_trigger: Example sentence without research shows.
+- id: SHABDA_007
+  pramana: Shabda
+  cue_type: study found
+  weight: 2.5
+  pattern: \bstudy found\b
+  description: Symbolic cue pattern for Shabda (study found).
+  example_trigger: Example sentence containing study found.
+  example_non_trigger: Example sentence without study found.
+- id: SHABDA_008
+  pramana: Shabda
+  cue_type: journal
+  weight: 2.0
+  pattern: \bjournal\b
+  description: Symbolic cue pattern for Shabda (journal).
+  example_trigger: Example sentence containing journal.
+  example_non_trigger: Example sentence without journal.
+- id: SHABDA_009
+  pramana: Shabda
+  cue_type: published
+  weight: 1.9
+  pattern: \bpublished\b
+  description: Symbolic cue pattern for Shabda (published).
+  example_trigger: Example sentence containing published.
+  example_non_trigger: Example sentence without published.
+- id: SHABDA_010
+  pramana: Shabda
+  cue_type: WHO
+  weight: 3.2
+  pattern: \bWHO\b
+  description: Symbolic cue pattern for Shabda (WHO).
+  example_trigger: Example sentence containing WHO.
+  example_non_trigger: Example sentence without WHO.
+- id: SHABDA_011
+  pramana: Shabda
+  cue_type: UNESCO
+  weight: 3.0
+  pattern: \bUNESCO\b
+  description: Symbolic cue pattern for Shabda (UNESCO).
+  example_trigger: Example sentence containing UNESCO.
+  example_non_trigger: Example sentence without UNESCO.
+- id: SHABDA_012
+  pramana: Shabda
+  cue_type: CDC
+  weight: 3.0
+  pattern: \bCDC\b
+  description: Symbolic cue pattern for Shabda (CDC).
+  example_trigger: Example sentence containing CDC.
+  example_non_trigger: Example sentence without CDC.
+- id: SHABDA_013
+  pramana: Shabda
+  cue_type: government
+  weight: 2.4
+  pattern: \bgovernment\b
+  description: Symbolic cue pattern for Shabda (government).
+  example_trigger: Example sentence containing government.
+  example_non_trigger: Example sentence without government.
+- id: SHABDA_014
+  pramana: Shabda
+  cue_type: official report
+  weight: 2.6
+  pattern: \bofficial report\b
+  description: Symbolic cue pattern for Shabda (official report).
+  example_trigger: Example sentence containing official report.
+  example_non_trigger: Example sentence without official report.
+- id: SHABDA_015
+  pramana: Shabda
+  cue_type: court judgement
+  weight: 2.7
+  pattern: \bcourt judg(?:e)?ment\b
+  description: Symbolic cue pattern for Shabda (court judgement).
+  example_trigger: Example sentence containing court judgement.
+  example_non_trigger: Example sentence without court judgement.
+- id: SHABDA_016
+  pramana: Shabda
+  cue_type: experts
+  weight: 2.0
+  pattern: \bexperts?\b
+  description: Symbolic cue pattern for Shabda (experts).
+  example_trigger: Example sentence containing experts.
+  example_non_trigger: Example sentence without experts.
+- id: SHABDA_017
+  pramana: Shabda
+  cue_type: scientists
+  weight: 2.1
+  pattern: \bscientists?\b
+  description: Symbolic cue pattern for Shabda (scientists).
+  example_trigger: Example sentence containing scientists.
+  example_non_trigger: Example sentence without scientists.
+- id: SHABDA_018
+  pramana: Shabda
+  cue_type: researchers
+  weight: 2.0
+  pattern: \bresearchers?\b
+  description: Symbolic cue pattern for Shabda (researchers).
+  example_trigger: Example sentence containing researchers.
+  example_non_trigger: Example sentence without researchers.
+- id: SHABDA_019
+  pramana: Shabda
+  cue_type: medical guidelines
+  weight: 2.5
+  pattern: \bmedical guidelines?\b
+  description: Symbolic cue pattern for Shabda (medical guidelines).
+  example_trigger: Example sentence containing medical guidelines.
+  example_non_trigger: Example sentence without medical guidelines.
+- id: SHABDA_020
+  pramana: Shabda
+  cue_type: evidence suggests
+  weight: 2.2
+  pattern: \bevidence suggests\b
+  description: Symbolic cue pattern for Shabda (evidence suggests).
+  example_trigger: Example sentence containing evidence suggests.
+  example_non_trigger: Example sentence without evidence suggests.
+- id: SHABDA_021
+  pramana: Shabda
+  cue_type: study/studies
+  weight: 1.6
+  pattern: \bstud(?:y|ies)\b
+  description: Symbolic cue pattern for Shabda (study/studies).
+  example_trigger: Example sentence containing study/studies.
+  example_non_trigger: Example sentence without study/studies.
+- id: SHABDA_022
+  pramana: Shabda
+  cue_type: report/reported
+  weight: 1.5
+  pattern: \breport(?:ed|s)?\b
+  description: Symbolic cue pattern for Shabda (report/reported).
+  example_trigger: Example sentence containing report/reported.
+  example_non_trigger: Example sentence without report/reported.
+- id: SHABDA_023
+  pramana: Shabda
+  cue_type: authoritative document
+  weight: 2.0
+  pattern: \bthe (?:handbook|manual|court|statute)\b
+  description: Symbolic cue pattern for Shabda (authoritative document).
+  example_trigger: Example sentence containing authoritative document.
+  example_non_trigger: Example sentence without authoritative document.
+- id: SHABDA_024
+  pramana: Shabda
+  cue_type: professor/teacher
+  weight: 1.4
+  pattern: \bprofessor\b|\bteacher\b
+  description: Symbolic cue pattern for Shabda (professor/teacher).
+  example_trigger: Example sentence containing professor/teacher.
+  example_non_trigger: Example sentence without professor/teacher.
+- id: SHABDA_025
+  pramana: Shabda
+  cue_type: FDA
+  weight: 3.1
+  pattern: \bFDA\b
+  description: Symbolic cue pattern for Shabda (FDA).
+  example_trigger: Example sentence containing FDA.
+  example_non_trigger: Example sentence without FDA.
+- id: SHABDA_026
+  pramana: Shabda
+  cue_type: NASA
+  weight: 3.1
+  pattern: \bNASA\b
+  description: Symbolic cue pattern for Shabda (NASA).
+  example_trigger: Example sentence containing NASA.
+  example_non_trigger: Example sentence without NASA.
+- id: SHABDA_027
+  pramana: Shabda
+  cue_type: EPA
+  weight: 3.0
+  pattern: \bEPA\b
+  description: Symbolic cue pattern for Shabda (EPA).
+  example_trigger: Example sentence containing EPA.
+  example_non_trigger: Example sentence without EPA.
+- id: SHABDA_028
+  pramana: Shabda
+  cue_type: NIH
+  weight: 3.1
+  pattern: \bNIH\b
+  description: Symbolic cue pattern for Shabda (NIH).
+  example_trigger: Example sentence containing NIH.
+  example_non_trigger: Example sentence without NIH.
+- id: SHABDA_029
+  pramana: Shabda
+  cue_type: United Nations
+  weight: 3.0
+  pattern: \bUN\b|\bUnited Nations\b
+  description: Symbolic cue pattern for Shabda (United Nations).
+  example_trigger: Example sentence containing United Nations.
+  example_non_trigger: Example sentence without United Nations.
+- id: SHABDA_030
+  pramana: Shabda
+  cue_type: Supreme Court
+  weight: 3.2
+  pattern: \bSupreme Court\b
+  description: Symbolic cue pattern for Shabda (Supreme Court).
+  example_trigger: Example sentence containing Supreme Court.
+  example_non_trigger: Example sentence without Supreme Court.
+- id: SHABDA_031
+  pramana: Shabda
+  cue_type: peer-reviewed
+  weight: 2.8
+  pattern: \bpeer-reviewed\b
+  description: Symbolic cue pattern for Shabda (peer-reviewed).
+  example_trigger: Example sentence containing peer-reviewed.
+  example_non_trigger: Example sentence without peer-reviewed.
+- id: SHABDA_032
+  pramana: Shabda
+  cue_type: academic
+  weight: 2.0
+  pattern: \bacadem(?:ic|ia)\b
+  description: Symbolic cue pattern for Shabda (academic).
+  example_trigger: Example sentence containing academic.
+  example_non_trigger: Example sentence without academic.
+- id: SHABDA_033
+  pramana: Shabda
+  cue_type: whitepaper
+  weight: 2.3
+  pattern: \bwhitepaper\b
+  description: Symbolic cue pattern for Shabda (whitepaper).
+  example_trigger: Example sentence containing whitepaper.
+  example_non_trigger: Example sentence without whitepaper.
+- id: SHABDA_034
+  pramana: Shabda
+  cue_type: textbook
+  weight: 2.2
+  pattern: \btextbook\b
+  description: Symbolic cue pattern for Shabda (textbook).
+  example_trigger: Example sentence containing textbook.
+  example_non_trigger: Example sentence without textbook.
+- id: SHABDA_035
+  pramana: Shabda
+  cue_type: literature review
+  weight: 2.6
+  pattern: \bliterature review\b
+  description: Symbolic cue pattern for Shabda (literature review).
+  example_trigger: Example sentence containing literature review.
+  example_non_trigger: Example sentence without literature review.
+- id: SHABDA_036
+  pramana: Shabda
+  cue_type: official mandate
+  weight: 2.5
+  pattern: \bofficial mandate\b
+  description: Symbolic cue pattern for Shabda (official mandate).
+  example_trigger: Example sentence containing official mandate.
+  example_non_trigger: Example sentence without official mandate.
+- id: SHABDA_037
+  pramana: Shabda
+  cue_type: regulatory policy
+  weight: 2.4
+  pattern: \bregulatory policy\b
+  description: Symbolic cue pattern for Shabda (regulatory policy).
+  example_trigger: Example sentence containing regulatory policy.
+  example_non_trigger: Example sentence without regulatory policy.
+- id: SHABDA_038
+  pramana: Shabda
+  cue_type: cited by
+  weight: 2.3
+  pattern: \bcited by\b
+  description: Symbolic cue pattern for Shabda (cited by).
+  example_trigger: Example sentence containing cited by.
+  example_non_trigger: Example sentence without cited by.
+- id: SHABDA_039
+  pramana: Shabda
+  cue_type: citation
+  weight: 2.1
+  pattern: \bcitation\b
+  description: Symbolic cue pattern for Shabda (citation).
+  example_trigger: Example sentence containing citation.
+  example_non_trigger: Example sentence without citation.
+- id: SHABDA_040
+  pramana: Shabda
+  cue_type: testified that
+  weight: 2.7
+  pattern: \btestified that\b
+  description: Symbolic cue pattern for Shabda (testified that).
+  example_trigger: Example sentence containing testified that.
+  example_non_trigger: Example sentence without testified that.
+- id: SHABDA_041
+  pramana: Shabda
+  cue_type: sworn testimony
+  weight: 3.0
+  pattern: \bsworn testimony\b
+  description: Symbolic cue pattern for Shabda (sworn testimony).
+  example_trigger: Example sentence containing sworn testimony.
+  example_non_trigger: Example sentence without sworn testimony.
+- id: SHABDA_042
+  pramana: Shabda
+  cue_type: expert testimony
+  weight: 3.1
+  pattern: \bexpert testimony\b
+  description: Symbolic cue pattern for Shabda (expert testimony).
+  example_trigger: Example sentence containing expert testimony.
+  example_non_trigger: Example sentence without expert testimony.
+- id: SHABDA_043
+  pramana: Shabda
+  cue_type: affidavit
+  weight: 2.8
+  pattern: \baffidavit\b
+  description: Symbolic cue pattern for Shabda (affidavit).
+  example_trigger: Example sentence containing affidavit.
+  example_non_trigger: Example sentence without affidavit.
+- id: SHABDA_044
+  pramana: Shabda
+  cue_type: proceedings
+  weight: 2.0
+  pattern: \bproceedings\b
+  description: Symbolic cue pattern for Shabda (proceedings).
+  example_trigger: Example sentence containing proceedings.
+  example_non_trigger: Example sentence without proceedings.
+- id: SHABDA_045
+  pramana: Shabda
+  cue_type: authoritative source
+  weight: 2.7
+  pattern: \bauthoritative source\b
+  description: Symbolic cue pattern for Shabda (authoritative source).
+  example_trigger: Example sentence containing authoritative source.
+  example_non_trigger: Example sentence without authoritative source.
+- id: SHABDA_046
+  pramana: Shabda
+  cue_type: expert opinion
+  weight: 2.5
+  pattern: \bexpert opinion\b
+  description: Symbolic cue pattern for Shabda (expert opinion).
+  example_trigger: Example sentence containing expert opinion.
+  example_non_trigger: Example sentence without expert opinion.
+- id: SHABDA_047
+  pramana: Shabda
+  cue_type: specialists confirm
+  weight: 2.6
+  pattern: \bspecialists confirm\b
+  description: Symbolic cue pattern for Shabda (specialists confirm).
+  example_trigger: Example sentence containing specialists confirm.
+  example_non_trigger: Example sentence without specialists confirm.
+- id: SHABDA_048
+  pramana: Shabda
+  cue_type: analysts note
+  weight: 2.2
+  pattern: \banalysts note\b
+  description: Symbolic cue pattern for Shabda (analysts note).
+  example_trigger: Example sentence containing analysts note.
+  example_non_trigger: Example sentence without analysts note.
+- id: SHABDA_049
+  pramana: Shabda
+  cue_type: economists report
+  weight: 2.4
+  pattern: \beconomists? report\b
+  description: Symbolic cue pattern for Shabda (economists report).
+  example_trigger: Example sentence containing economists report.
+  example_non_trigger: Example sentence without economists report.
+- id: SHABDA_050
+  pramana: Shabda
+  cue_type: statute states
+  weight: 2.6
+  pattern: \bstatute states\b
+  description: Symbolic cue pattern for Shabda (statute states).
+  example_trigger: Example sentence containing statute states.
+  example_non_trigger: Example sentence without statute states.
+- id: SHABDA_051
+  pramana: Shabda
+  cue_type: legal doctrine
+  weight: 2.4
+  pattern: \blegal doctrine\b
+  description: Symbolic cue pattern for Shabda (legal doctrine).
+  example_trigger: Example sentence containing legal doctrine.
+  example_non_trigger: Example sentence without legal doctrine.
+- id: SHABDA_052
+  pramana: Shabda
+  cue_type: constitutional clause
+  weight: 2.7
+  pattern: \bconstitutional clause\b
+  description: Symbolic cue pattern for Shabda (constitutional clause).
+  example_trigger: Example sentence containing constitutional clause.
+  example_non_trigger: Example sentence without constitutional clause.
+- id: SHABDA_053
+  pramana: Shabda
+  cue_type: executive summary
+  weight: 2.1
+  pattern: \bexecutive summary\b
+  description: Symbolic cue pattern for Shabda (executive summary).
+  example_trigger: Example sentence containing executive summary.
+  example_non_trigger: Example sentence without executive summary.
+- id: SHABDA_054
+  pramana: Shabda
+  cue_type: press release
+  weight: 1.8
+  pattern: \bpress release\b
+  description: Symbolic cue pattern for Shabda (press release).
+  example_trigger: Example sentence containing press release.
+  example_non_trigger: Example sentence without press release.
+- id: SHABDA_055
+  pramana: Shabda
+  cue_type: official bulletin
+  weight: 2.3
+  pattern: \bofficial bulletin\b
+  description: Symbolic cue pattern for Shabda (official bulletin).
+  example_trigger: Example sentence containing official bulletin.
+  example_non_trigger: Example sentence without official bulletin.
+- id: SHABDA_056
+  pramana: Shabda
+  cue_type: encyclopedia
+  weight: 2.2
+  pattern: \bencyclopedia\b
+  description: Symbolic cue pattern for Shabda (encyclopedia).
+  example_trigger: Example sentence containing encyclopedia.
+  example_non_trigger: Example sentence without encyclopedia.
+- id: SHABDA_057
+  pramana: Shabda
+  cue_type: dictionary definition
+  weight: 2.0
+  pattern: \bdictionary definition\b
+  description: Symbolic cue pattern for Shabda (dictionary definition).
+  example_trigger: Example sentence containing dictionary definition.
+  example_non_trigger: Example sentence without dictionary definition.
+- id: SHABDA_058
+  pramana: Shabda
+  cue_type: archival record
+  weight: 2.3
+  pattern: \barchival record\b
+  description: Symbolic cue pattern for Shabda (archival record).
+  example_trigger: Example sentence containing archival record.
+  example_non_trigger: Example sentence without archival record.
+- id: SHABDA_059
+  pramana: Shabda
+  cue_type: historical document
+  weight: 2.4
+  pattern: \bhistorical document\b
+  description: Symbolic cue pattern for Shabda (historical document).
+  example_trigger: Example sentence containing historical document.
+  example_non_trigger: Example sentence without historical document.
+- id: SHABDA_060
+  pramana: Shabda
+  cue_type: scripture
+  weight: 2.5
+  pattern: \bscripture\b
+  description: Symbolic cue pattern for Shabda (scripture).
+  example_trigger: Example sentence containing scripture.
+  example_non_trigger: Example sentence without scripture.
+- id: SHABDA_061
+  pramana: Shabda
+  cue_type: canonical text
+  weight: 2.4
+  pattern: \bcanonical text\b
+  description: Symbolic cue pattern for Shabda (canonical text).
+  example_trigger: Example sentence containing canonical text.
+  example_non_trigger: Example sentence without canonical text.
+- id: SHABDA_062
+  pramana: Shabda
+  cue_type: trademarks regulation
+  weight: 2.1
+  pattern: \btrademarks regulation\b
+  description: Symbolic cue pattern for Shabda (trademarks regulation).
+  example_trigger: Example sentence containing trademarks regulation.
+  example_non_trigger: Example sentence without trademarks regulation.
+- id: SHABDA_063
+  pramana: Shabda
+  cue_type: iso standard
+  weight: 2.7
+  pattern: \biso standard\b
+  description: Symbolic cue pattern for Shabda (iso standard).
+  example_trigger: Example sentence containing iso standard.
+  example_non_trigger: Example sentence without iso standard.
+- id: SHABDA_064
+  pramana: Shabda
+  cue_type: ieee standard
+  weight: 2.7
+  pattern: \bieee standard\b
+  description: Symbolic cue pattern for Shabda (ieee standard).
+  example_trigger: Example sentence containing ieee standard.
+  example_non_trigger: Example sentence without ieee standard.
+- id: SHABDA_065
+  pramana: Shabda
+  cue_type: rfc specification
+  weight: 2.6
+  pattern: \brfc specification\b
+  description: Symbolic cue pattern for Shabda (rfc specification).
+  example_trigger: Example sentence containing rfc specification.
+  example_non_trigger: Example sentence without rfc specification.
+- id: SHABDA_066
+  pramana: Shabda
+  cue_type: clinical trial registry
+  weight: 2.8
+  pattern: \bclinical trials? registry\b
+  description: Symbolic cue pattern for Shabda (clinical trial registry).
+  example_trigger: Example sentence containing clinical trial registry.
+  example_non_trigger: Example sentence without clinical trial registry.
+- id: SHABDA_067
+  pramana: Shabda
+  cue_type: meta-analysis shows
+  weight: 2.9
+  pattern: \bmeta-analysis shows\b
+  description: Symbolic cue pattern for Shabda (meta-analysis shows).
+  example_trigger: Example sentence containing meta-analysis shows.
+  example_non_trigger: Example sentence without meta-analysis shows.
+- id: SHABDA_068
+  pramana: Shabda
+  cue_type: systematic review
+  weight: 2.8
+  pattern: \bsystematic review\b
+  description: Symbolic cue pattern for Shabda (systematic review).
+  example_trigger: Example sentence containing systematic review.
+  example_non_trigger: Example sentence without systematic review.
+- id: SHABDA_069
+  pramana: Shabda
+  cue_type: consensus statement
+  weight: 2.7
+  pattern: \bconsensus statement\b
+  description: Symbolic cue pattern for Shabda (consensus statement).
+  example_trigger: Example sentence containing consensus statement.
+  example_non_trigger: Example sentence without consensus statement.
+- id: SHABDA_070
+  pramana: Shabda
+  cue_type: panel of experts
+  weight: 2.6
+  pattern: \bpanel of experts\b
+  description: Symbolic cue pattern for Shabda (panel of experts).
+  example_trigger: Example sentence containing panel of experts.
+  example_non_trigger: Example sentence without panel of experts.
+- id: SHABDA_071
+  pramana: Shabda
+  cue_type: keynote address
+  weight: 1.9
+  pattern: \bkeynote address\b
+  description: Symbolic cue pattern for Shabda (keynote address).
+  example_trigger: Example sentence containing keynote address.
+  example_non_trigger: Example sentence without keynote address.
+- id: SHABDA_072
+  pramana: Shabda
+  cue_type: official transcript
+  weight: 2.3
+  pattern: \bofficial transcript\b
+  description: Symbolic cue pattern for Shabda (official transcript).
+  example_trigger: Example sentence containing official transcript.
+  example_non_trigger: Example sentence without official transcript.
+- id: SHABDA_073
+  pramana: Shabda
+  cue_type: monograph
+  weight: 2.2
+  pattern: \bmonograph\b
+  description: Symbolic cue pattern for Shabda (monograph).
+  example_trigger: Example sentence containing monograph.
+  example_non_trigger: Example sentence without monograph.
+- id: SHABDA_074
+  pramana: Shabda
+  cue_type: dissertation
+  weight: 2.1
+  pattern: \bdissertation\b
+  description: Symbolic cue pattern for Shabda (dissertation).
+  example_trigger: Example sentence containing dissertation.
+  example_non_trigger: Example sentence without dissertation.
+- id: SHABDA_075
+  pramana: Shabda
+  cue_type: patent filing
+  weight: 2.4
+  pattern: \bpatent filing\b
+  description: Symbolic cue pattern for Shabda (patent filing).
+  example_trigger: Example sentence containing patent filing.
+  example_non_trigger: Example sentence without patent filing.
+- id: SHABDA_076
+  pramana: Shabda
+  cue_type: statutory guideline
+  weight: 2.5
+  pattern: \bstatutory guideline\b
+  description: Symbolic cue pattern for Shabda (statutory guideline).
+  example_trigger: Example sentence containing statutory guideline.
+  example_non_trigger: Example sentence without statutory guideline.
+- id: SHABDA_077
+  pramana: Shabda
+  cue_type: policy brief
+  weight: 2.2
+  pattern: \bpolicy brief\b
+  description: Symbolic cue pattern for Shabda (policy brief).
+  example_trigger: Example sentence containing policy brief.
+  example_non_trigger: Example sentence without policy brief.
+- id: SHABDA_078
+  pramana: Shabda
+  cue_type: audit report
+  weight: 2.3
+  pattern: \baudit report\b
+  description: Symbolic cue pattern for Shabda (audit report).
+  example_trigger: Example sentence containing audit report.
+  example_non_trigger: Example sentence without audit report.
+- id: SHABDA_079
+  pramana: Shabda
+  cue_type: commission findings
+  weight: 2.6
+  pattern: \bcommission findings\b
+  description: Symbolic cue pattern for Shabda (commission findings).
+  example_trigger: Example sentence containing commission findings.
+  example_non_trigger: Example sentence without commission findings.
+- id: SHABDA_080
+  pramana: Shabda
+  cue_type: investigation summary
+  weight: 2.3
+  pattern: \binvestigation summary\b
+  description: Symbolic cue pattern for Shabda (investigation summary).
+  example_trigger: Example sentence containing investigation summary.
+  example_non_trigger: Example sentence without investigation summary.
+- id: SHABDA_081
+  pramana: Shabda
+  cue_type: scholarly opinion
+  weight: 2.4
+  pattern: \bscholar(?:ly)? opinion\b
+  description: Symbolic cue pattern for Shabda (scholarly opinion).
+  example_trigger: Example sentence containing scholarly opinion.
+  example_non_trigger: Example sentence without scholarly opinion.
+- id: SHABDA_082
+  pramana: Shabda
+  cue_type: peer review
+  weight: 2.5
+  pattern: \bpeer review\b
+  description: Symbolic cue pattern for Shabda (peer review).
+  example_trigger: Example sentence containing peer review.
+  example_non_trigger: Example sentence without peer review.
+- id: SHABDA_083
+  pramana: Shabda
+  cue_type: clinical guidelines
+  weight: 2.6
+  pattern: \bclinical guidelines\b
+  description: Symbolic cue pattern for Shabda (clinical guidelines).
+  example_trigger: Example sentence containing clinical guidelines.
+  example_non_trigger: Example sentence without clinical guidelines.
+- id: SHABDA_084
+  pramana: Shabda
+  cue_type: whistleblower report
+  weight: 2.1
+  pattern: \bwhistleblower report\b
+  description: Symbolic cue pattern for Shabda (whistleblower report).
+  example_trigger: Example sentence containing whistleblower report.
+  example_non_trigger: Example sentence without whistleblower report.
+- id: SHABDA_085
+  pramana: Shabda
+  cue_type: expert panel
+  weight: 2.5
+  pattern: \bexpert panel\b
+  description: Symbolic cue pattern for Shabda (expert panel).
+  example_trigger: Example sentence containing expert panel.
+  example_non_trigger: Example sentence without expert panel.
+- id: SHABDA_086
+  pramana: Shabda
+  cue_type: news release
+  weight: 1.7
+  pattern: \bnews release\b
+  description: Symbolic cue pattern for Shabda (news release).
+  example_trigger: Example sentence containing news release.
+  example_non_trigger: Example sentence without news release.
+- id: SHABDA_087
+  pramana: Shabda
+  cue_type: spokesperson stated
+  weight: 2.2
+  pattern: \bspokesperson stated\b
+  description: Symbolic cue pattern for Shabda (spokesperson stated).
+  example_trigger: Example sentence containing spokesperson stated.
+  example_non_trigger: Example sentence without spokesperson stated.
+- id: SHABDA_088
+  pramana: Shabda
+  cue_type: memorandum
+  weight: 2.0
+  pattern: \bmemorandum\b
+  description: Symbolic cue pattern for Shabda (memorandum).
+  example_trigger: Example sentence containing memorandum.
+  example_non_trigger: Example sentence without memorandum.
+- id: SHABDA_089
+  pramana: Shabda
+  cue_type: official decree
+  weight: 2.6
+  pattern: \bofficial decree\b
+  description: Symbolic cue pattern for Shabda (official decree).
+  example_trigger: Example sentence containing official decree.
+  example_non_trigger: Example sentence without official decree.
+- id: SHABDA_090
+  pramana: Shabda
+  cue_type: parliamentary record
+  weight: 2.4
+  pattern: \bparliamentary record\b
+  description: Symbolic cue pattern for Shabda (parliamentary record).
+  example_trigger: Example sentence containing parliamentary record.
+  example_non_trigger: Example sentence without parliamentary record.
+- id: SHABDA_091
+  pramana: Shabda
+  cue_type: congressional testimony
+  weight: 2.8
+  pattern: \bcongressional testimony\b
+  description: Symbolic cue pattern for Shabda (congressional testimony).
+  example_trigger: Example sentence containing congressional testimony.
+  example_non_trigger: Example sentence without congressional testimony.
+- id: SHABDA_092
+  pramana: Shabda
+  cue_type: judge ruled
+  weight: 2.7
+  pattern: \bjudge ruled\b
+  description: Symbolic cue pattern for Shabda (judge ruled).
+  example_trigger: Example sentence containing judge ruled.
+  example_non_trigger: Example sentence without judge ruled.
+- id: SHABDA_093
+  pramana: Shabda
+  cue_type: arbitration award
+  weight: 2.4
+  pattern: \barbitration award\b
+  description: Symbolic cue pattern for Shabda (arbitration award).
+  example_trigger: Example sentence containing arbitration award.
+  example_non_trigger: Example sentence without arbitration award.
+- id: SHABDA_094
+  pramana: Shabda
+  cue_type: treaty clause
+  weight: 2.5
+  pattern: \btreaty clause\b
+  description: Symbolic cue pattern for Shabda (treaty clause).
+  example_trigger: Example sentence containing treaty clause.
+  example_non_trigger: Example sentence without treaty clause.
+- id: SHABDA_095
+  pramana: Shabda
+  cue_type: codified law
+  weight: 2.6
+  pattern: \bcodified law\b
+  description: Symbolic cue pattern for Shabda (codified law).
+  example_trigger: Example sentence containing codified law.
+  example_non_trigger: Example sentence without codified law.
+- id: SHABDA_096
+  pramana: Shabda
+  cue_type: reference manual
+  weight: 2.1
+  pattern: \breference manual\b
+  description: Symbolic cue pattern for Shabda (reference manual).
+  example_trigger: Example sentence containing reference manual.
+  example_non_trigger: Example sentence without reference manual.
+- id: SHABDA_097
+  pramana: Shabda
+  cue_type: safety bulletin
+  weight: 2.2
+  pattern: \bsafety bulletin\b
+  description: Symbolic cue pattern for Shabda (safety bulletin).
+  example_trigger: Example sentence containing safety bulletin.
+  example_non_trigger: Example sentence without safety bulletin.
+- id: SHABDA_098
+  pramana: Shabda
+  cue_type: technical documentation
+  weight: 2.2
+  pattern: \btechnical documentation\b
+  description: Symbolic cue pattern for Shabda (technical documentation).
+  example_trigger: Example sentence containing technical documentation.
+  example_non_trigger: Example sentence without technical documentation.
+- id: SHABDA_099
+  pramana: Shabda
+  cue_type: user manual states
+  weight: 2.1
+  pattern: \buser manual states\b
+  description: Symbolic cue pattern for Shabda (user manual states).
+  example_trigger: Example sentence containing user manual states.
+  example_non_trigger: Example sentence without user manual states.
+- id: SHABDA_100
+  pramana: Shabda
+  cue_type: archival evidence
+  weight: 2.2
+  pattern: \barchival evidence\b
+  description: Symbolic cue pattern for Shabda (archival evidence).
+  example_trigger: Example sentence containing archival evidence.
+  example_non_trigger: Example sentence without archival evidence.
+Upamana:
+- id: UPAMANA_001
+  pramana: Upamana
+  cue_type: similar to
+  weight: 2.4
+  pattern: \bsimilar to\b
+  description: Symbolic cue pattern for Upamana (similar to).
+  example_trigger: Example sentence containing similar to.
+  example_non_trigger: Example sentence without similar to.
+- id: UPAMANA_002
+  pramana: Upamana
+  cue_type: just as
+  weight: 2.3
+  pattern: \bjust as\b
+  description: Symbolic cue pattern for Upamana (just as).
+  example_trigger: Example sentence containing just as.
+  example_non_trigger: Example sentence without just as.
+- id: UPAMANA_003
+  pramana: Upamana
+  cue_type: acts like
+  weight: 2.5
+  pattern: \bacts like\b
+  description: Symbolic cue pattern for Upamana (acts like).
+  example_trigger: Example sentence containing acts like.
+  example_non_trigger: Example sentence without acts like.
+- id: UPAMANA_004
+  pramana: Upamana
+  cue_type: works like
+  weight: 2.5
+  pattern: \bworks like\b
+  description: Symbolic cue pattern for Upamana (works like).
+  example_trigger: Example sentence containing works like.
+  example_non_trigger: Example sentence without works like.
+- id: UPAMANA_005
+  pramana: Upamana
+  cue_type: resembles
+  weight: 2.4
+  pattern: \bresembles\b
+  description: Symbolic cue pattern for Upamana (resembles).
+  example_trigger: Example sentence containing resembles.
+  example_non_trigger: Example sentence without resembles.
+- id: UPAMANA_006
+  pramana: Upamana
+  cue_type: analogous to
+  weight: 2.6
+  pattern: \banalogous to\b
+  description: Symbolic cue pattern for Upamana (analogous to).
+  example_trigger: Example sentence containing analogous to.
+  example_non_trigger: Example sentence without analogous to.
+- id: UPAMANA_007
+  pramana: Upamana
+  cue_type: compared with/to
+  weight: 2.2
+  pattern: \bcompared with\b|\bcompared to\b
+  description: Symbolic cue pattern for Upamana (compared with/to).
+  example_trigger: Example sentence containing compared with/to.
+  example_non_trigger: Example sentence without compared with/to.
+- id: UPAMANA_008
+  pramana: Upamana
+  cue_type: comparison
+  weight: 1.8
+  pattern: \bcomparison\b
+  description: Symbolic cue pattern for Upamana (comparison).
+  example_trigger: Example sentence containing comparison.
+  example_non_trigger: Example sentence without comparison.
+- id: UPAMANA_009
+  pramana: Upamana
+  cue_type: metaphor
+  weight: 2.3
+  pattern: \bmetaphor\b
+  description: Symbolic cue pattern for Upamana (metaphor).
+  example_trigger: Example sentence containing metaphor.
+  example_non_trigger: Example sentence without metaphor.
+- id: UPAMANA_010
+  pramana: Upamana
+  cue_type: in the same way
+  weight: 2.4
+  pattern: \bin the same way\b
+  description: Symbolic cue pattern for Upamana (in the same way).
+  example_trigger: Example sentence containing in the same way.
+  example_non_trigger: Example sentence without in the same way.
+- id: UPAMANA_011
+  pramana: Upamana
+  cue_type: as if
+  weight: 2.2
+  pattern: \bas if\b
+  description: Symbolic cue pattern for Upamana (as if).
+  example_trigger: Example sentence containing as if.
+  example_non_trigger: Example sentence without as if.
+- id: UPAMANA_012
+  pramana: Upamana
+  cue_type: is like
+  weight: 2.4
+  pattern: \bis like\b
+  description: Symbolic cue pattern for Upamana (is like).
+  example_trigger: Example sentence containing is like.
+  example_non_trigger: Example sentence without is like.
+- id: UPAMANA_013
+  pramana: Upamana
+  cue_type: like a/an
+  weight: 2.0
+  pattern: \blike a\b|\blike an\b
+  description: Symbolic cue pattern for Upamana (like a/an).
+  example_trigger: Example sentence containing like a/an.
+  example_non_trigger: Example sentence without like a/an.
+- id: UPAMANA_014
+  pramana: Upamana
+  cue_type: akin to
+  weight: 2.5
+  pattern: \bakin to\b
+  description: Symbolic cue pattern for Upamana (akin to).
+  example_trigger: Example sentence containing akin to.
+  example_non_trigger: Example sentence without akin to.
+- id: UPAMANA_015
+  pramana: Upamana
+  cue_type: parallel to
+  weight: 2.4
+  pattern: \bparallel to\b
+  description: Symbolic cue pattern for Upamana (parallel to).
+  example_trigger: Example sentence containing parallel to.
+  example_non_trigger: Example sentence without parallel to.
+- id: UPAMANA_016
+  pramana: Upamana
+  cue_type: counterpart of
+  weight: 2.3
+  pattern: \bcounterpart of\b
+  description: Symbolic cue pattern for Upamana (counterpart of).
+  example_trigger: Example sentence containing counterpart of.
+  example_non_trigger: Example sentence without counterpart of.
+- id: UPAMANA_017
+  pramana: Upamana
+  cue_type: equivalent to
+  weight: 2.2
+  pattern: \bequivalent to\b
+  description: Symbolic cue pattern for Upamana (equivalent to).
+  example_trigger: Example sentence containing equivalent to.
+  example_non_trigger: Example sentence without equivalent to.
+- id: UPAMANA_018
+  pramana: Upamana
+  cue_type: mirrors
+  weight: 2.3
+  pattern: \bmirrors\b
+  description: Symbolic cue pattern for Upamana (mirrors).
+  example_trigger: Example sentence containing mirrors.
+  example_non_trigger: Example sentence without mirrors.
+- id: UPAMANA_019
+  pramana: Upamana
+  cue_type: echoes
+  weight: 2.0
+  pattern: \bechoes\b
+  description: Symbolic cue pattern for Upamana (echoes).
+  example_trigger: Example sentence containing echoes.
+  example_non_trigger: Example sentence without echoes.
+- id: UPAMANA_020
+  pramana: Upamana
+  cue_type: in the same vein
+  weight: 2.2
+  pattern: \bin the same vein\b
+  description: Symbolic cue pattern for Upamana (in the same vein).
+  example_trigger: Example sentence containing in the same vein.
+  example_non_trigger: Example sentence without in the same vein.
+- id: UPAMANA_021
+  pramana: Upamana
+  cue_type: along the same lines
+  weight: 2.2
+  pattern: \balong the same lines\b
+  description: Symbolic cue pattern for Upamana (along the same lines).
+  example_trigger: Example sentence containing along the same lines.
+  example_non_trigger: Example sentence without along the same lines.
+- id: UPAMANA_022
+  pramana: Upamana
+  cue_type: serves the same role as
+  weight: 2.6
+  pattern: \bserves the same role as\b
+  description: Symbolic cue pattern for Upamana (serves the same role as).
+  example_trigger: Example sentence containing serves the same role as.
+  example_non_trigger: Example sentence without serves the same role as.
+- id: UPAMANA_023
+  pramana: Upamana
+  cue_type: performs the function of
+  weight: 2.5
+  pattern: \bperforms the function of\b
+  description: Symbolic cue pattern for Upamana (performs the function of).
+  example_trigger: Example sentence containing performs the function of.
+  example_non_trigger: Example sentence without performs the function of.
+- id: UPAMANA_024
+  pramana: Upamana
+  cue_type: corresponds to
+  weight: 2.3
+  pattern: \bcorresponds to\b
+  description: Symbolic cue pattern for Upamana (corresponds to).
+  example_trigger: Example sentence containing corresponds to.
+  example_non_trigger: Example sentence without corresponds to.
+- id: UPAMANA_025
+  pramana: Upamana
+  cue_type: behaves like
+  weight: 2.4
+  pattern: \bbehaves like\b
+  description: Symbolic cue pattern for Upamana (behaves like).
+  example_trigger: Example sentence containing behaves like.
+  example_non_trigger: Example sentence without behaves like.
+- id: UPAMANA_026
+  pramana: Upamana
+  cue_type: behaves as
+  weight: 2.2
+  pattern: \bbehaves as\b
+  description: Symbolic cue pattern for Upamana (behaves as).
+  example_trigger: Example sentence containing behaves as.
+  example_non_trigger: Example sentence without behaves as.
+- id: UPAMANA_027
+  pramana: Upamana
+  cue_type: matches the structure of
+  weight: 2.5
+  pattern: \bmatches the structure of\b
+  description: Symbolic cue pattern for Upamana (matches the structure of).
+  example_trigger: Example sentence containing matches the structure of.
+  example_non_trigger: Example sentence without matches the structure of.
+- id: UPAMANA_028
+  pramana: Upamana
+  cue_type: much like
+  weight: 2.3
+  pattern: \bmuch like\b
+  description: Symbolic cue pattern for Upamana (much like).
+  example_trigger: Example sentence containing much like.
+  example_non_trigger: Example sentence without much like.
+- id: UPAMANA_029
+  pramana: Upamana
+  cue_type: modeled after
+  weight: 2.4
+  pattern: \bmodeled after\b
+  description: Symbolic cue pattern for Upamana (modeled after).
+  example_trigger: Example sentence containing modeled after.
+  example_non_trigger: Example sentence without modeled after.
+- id: UPAMANA_030
+  pramana: Upamana
+  cue_type: patterned on
+  weight: 2.3
+  pattern: \bpatterned on\b
+  description: Symbolic cue pattern for Upamana (patterned on).
+  example_trigger: Example sentence containing patterned on.
+  example_non_trigger: Example sentence without patterned on.
+- id: UPAMANA_031
+  pramana: Upamana
+  cue_type: inspired by the structure of
+  weight: 2.4
+  pattern: \binspired by the structure of\b
+  description: Symbolic cue pattern for Upamana (inspired by the structure of).
+  example_trigger: Example sentence containing inspired by the structure of.
+  example_non_trigger: Example sentence without inspired by the structure of.
+- id: UPAMANA_032
+  pramana: Upamana
+  cue_type: draws an analogy
+  weight: 2.6
+  pattern: \bdraws an analogy\b
+  description: Symbolic cue pattern for Upamana (draws an analogy).
+  example_trigger: Example sentence containing draws an analogy.
+  example_non_trigger: Example sentence without draws an analogy.
+- id: UPAMANA_033
+  pramana: Upamana
+  cue_type: analogous structural role
+  weight: 2.7
+  pattern: \banalogous structural role\b
+  description: Symbolic cue pattern for Upamana (analogous structural role).
+  example_trigger: Example sentence containing analogous structural role.
+  example_non_trigger: Example sentence without analogous structural role.
+- id: UPAMANA_034
+  pramana: Upamana
+  cue_type: homologous to
+  weight: 2.6
+  pattern: \bhomologous to\b
+  description: Symbolic cue pattern for Upamana (homologous to).
+  example_trigger: Example sentence containing homologous to.
+  example_non_trigger: Example sentence without homologous to.
+- id: UPAMANA_035
+  pramana: Upamana
+  cue_type: is comparable to
+  weight: 2.4
+  pattern: \bis comparable to\b
+  description: Symbolic cue pattern for Upamana (is comparable to).
+  example_trigger: Example sentence containing is comparable to.
+  example_non_trigger: Example sentence without is comparable to.
+- id: UPAMANA_036
+  pramana: Upamana
+  cue_type: shares similarities with
+  weight: 2.3
+  pattern: \bshares similarities with\b
+  description: Symbolic cue pattern for Upamana (shares similarities with).
+  example_trigger: Example sentence containing shares similarities with.
+  example_non_trigger: Example sentence without shares similarities with.
+- id: UPAMANA_037
+  pramana: Upamana
+  cue_type: shares a similar mechanism
+  weight: 2.5
+  pattern: \bshares a similar mechanism\b
+  description: Symbolic cue pattern for Upamana (shares a similar mechanism).
+  example_trigger: Example sentence containing shares a similar mechanism.
+  example_non_trigger: Example sentence without shares a similar mechanism.
+- id: UPAMANA_038
+  pramana: Upamana
+  cue_type: functions in much the same manner
+  weight: 2.5
+  pattern: \bfunctions in much the same manner\b
+  description: Symbolic cue pattern for Upamana (functions in much the same manner).
+  example_trigger: Example sentence containing functions in much the same manner.
+  example_non_trigger: Example sentence without functions in much the same manner.
+- id: UPAMANA_039
+  pramana: Upamana
+  cue_type: operates on the same principle
+  weight: 2.5
+  pattern: \boperates on the same principle\b
+  description: Symbolic cue pattern for Upamana (operates on the same principle).
+  example_trigger: Example sentence containing operates on the same principle.
+  example_non_trigger: Example sentence without operates on the same principle.
+- id: UPAMANA_040
+  pramana: Upamana
+  cue_type: has the same effect as
+  weight: 2.2
+  pattern: \bhas the same effect as\b
+  description: Symbolic cue pattern for Upamana (has the same effect as).
+  example_trigger: Example sentence containing has the same effect as.
+  example_non_trigger: Example sentence without has the same effect as.
+- id: UPAMANA_041
+  pramana: Upamana
+  cue_type: bears resemblance to
+  weight: 2.4
+  pattern: \bbears resemblance to\b
+  description: Symbolic cue pattern for Upamana (bears resemblance to).
+  example_trigger: Example sentence containing bears resemblance to.
+  example_non_trigger: Example sentence without bears resemblance to.
+- id: UPAMANA_042
+  pramana: Upamana
+  cue_type: striking resemblance
+  weight: 2.3
+  pattern: \bstriking resemblance\b
+  description: Symbolic cue pattern for Upamana (striking resemblance).
+  example_trigger: Example sentence containing striking resemblance.
+  example_non_trigger: Example sentence without striking resemblance.
+- id: UPAMANA_043
+  pramana: Upamana
+  cue_type: conceptual twin of
+  weight: 2.5
+  pattern: \bconceptual twin of\b
+  description: Symbolic cue pattern for Upamana (conceptual twin of).
+  example_trigger: Example sentence containing conceptual twin of.
+  example_non_trigger: Example sentence without conceptual twin of.
+- id: UPAMANA_044
+  pramana: Upamana
+  cue_type: functional equivalent
+  weight: 2.6
+  pattern: \bfunctional equivalent\b
+  description: Symbolic cue pattern for Upamana (functional equivalent).
+  example_trigger: Example sentence containing functional equivalent.
+  example_non_trigger: Example sentence without functional equivalent.
+- id: UPAMANA_045
+  pramana: Upamana
+  cue_type: structural parallel
+  weight: 2.6
+  pattern: \bstructural parallel\b
+  description: Symbolic cue pattern for Upamana (structural parallel).
+  example_trigger: Example sentence containing structural parallel.
+  example_non_trigger: Example sentence without structural parallel.
+- id: UPAMANA_046
+  pramana: Upamana
+  cue_type: metaphorical link
+  weight: 2.2
+  pattern: \bmetaphorical link\b
+  description: Symbolic cue pattern for Upamana (metaphorical link).
+  example_trigger: Example sentence containing metaphorical link.
+  example_non_trigger: Example sentence without metaphorical link.
+- id: UPAMANA_047
+  pramana: Upamana
+  cue_type: allegory for
+  weight: 2.4
+  pattern: \ballegory for\b
+  description: Symbolic cue pattern for Upamana (allegory for).
+  example_trigger: Example sentence containing allegory for.
+  example_non_trigger: Example sentence without allegory for.
+- id: UPAMANA_048
+  pramana: Upamana
+  cue_type: simile
+  weight: 2.1
+  pattern: \bsimile\b
+  description: Symbolic cue pattern for Upamana (simile).
+  example_trigger: Example sentence containing simile.
+  example_non_trigger: Example sentence without simile.
+- id: UPAMANA_049
+  pramana: Upamana
+  cue_type: has a twin role in
+  weight: 2.3
+  pattern: \bhas a twin role in\b
+  description: Symbolic cue pattern for Upamana (has a twin role in).
+  example_trigger: Example sentence containing has a twin role in.
+  example_non_trigger: Example sentence without has a twin role in.
+- id: UPAMANA_050
+  pramana: Upamana
+  cue_type: carbon copy of
+  weight: 2.2
+  pattern: \bcarbon copy of\b
+  description: Symbolic cue pattern for Upamana (carbon copy of).
+  example_trigger: Example sentence containing carbon copy of.
+  example_non_trigger: Example sentence without carbon copy of.
+- id: UPAMANA_051
+  pramana: Upamana
+  cue_type: is the counterpart to
+  weight: 2.4
+  pattern: \bis the counterpart to\b
+  description: Symbolic cue pattern for Upamana (is the counterpart to).
+  example_trigger: Example sentence containing is the counterpart to.
+  example_non_trigger: Example sentence without is the counterpart to.
+- id: UPAMANA_052
+  pramana: Upamana
+  cue_type: acts in a manner analogous
+  weight: 2.5
+  pattern: \bacts in a manner analogous\b
+  description: Symbolic cue pattern for Upamana (acts in a manner analogous).
+  example_trigger: Example sentence containing acts in a manner analogous.
+  example_non_trigger: Example sentence without acts in a manner analogous.
+- id: UPAMANA_053
+  pramana: Upamana
+  cue_type: aligns with the pattern of
+  weight: 2.2
+  pattern: \baligns with the pattern of\b
+  description: Symbolic cue pattern for Upamana (aligns with the pattern of).
+  example_trigger: Example sentence containing aligns with the pattern of.
+  example_non_trigger: Example sentence without aligns with the pattern of.
+- id: UPAMANA_054
+  pramana: Upamana
+  cue_type: follows the template of
+  weight: 2.3
+  pattern: \bfollows the template of\b
+  description: Symbolic cue pattern for Upamana (follows the template of).
+  example_trigger: Example sentence containing follows the template of.
+  example_non_trigger: Example sentence without follows the template of.
+- id: UPAMANA_055
+  pramana: Upamana
+  cue_type: blueprint is similar to
+  weight: 2.4
+  pattern: \bblueprint is similar to\b
+  description: Symbolic cue pattern for Upamana (blueprint is similar to).
+  example_trigger: Example sentence containing blueprint is similar to.
+  example_non_trigger: Example sentence without blueprint is similar to.
+- id: UPAMANA_056
+  pramana: Upamana
+  cue_type: similarly structured
+  weight: 2.3
+  pattern: \bsimilarly structured\b
+  description: Symbolic cue pattern for Upamana (similarly structured).
+  example_trigger: Example sentence containing similarly structured.
+  example_non_trigger: Example sentence without similarly structured.
+- id: UPAMANA_057
+  pramana: Upamana
+  cue_type: comparable framework
+  weight: 2.3
+  pattern: \bcomparable framework\b
+  description: Symbolic cue pattern for Upamana (comparable framework).
+  example_trigger: Example sentence containing comparable framework.
+  example_non_trigger: Example sentence without comparable framework.
+- id: UPAMANA_058
+  pramana: Upamana
+  cue_type: matching dynamic
+  weight: 2.1
+  pattern: \bmatching dynamic\b
+  description: Symbolic cue pattern for Upamana (matching dynamic).
+  example_trigger: Example sentence containing matching dynamic.
+  example_non_trigger: Example sentence without matching dynamic.
+- id: UPAMANA_059
+  pramana: Upamana
+  cue_type: kin to
+  weight: 2.2
+  pattern: \bkin to\b
+  description: Symbolic cue pattern for Upamana (kin to).
+  example_trigger: Example sentence containing kin to.
+  example_non_trigger: Example sentence without kin to.
+- id: UPAMANA_060
+  pramana: Upamana
+  cue_type: reflects the structure of
+  weight: 2.4
+  pattern: \breflects the structure of\b
+  description: Symbolic cue pattern for Upamana (reflects the structure of).
+  example_trigger: Example sentence containing reflects the structure of.
+  example_non_trigger: Example sentence without reflects the structure of.
+- id: UPAMANA_061
+  pramana: Upamana
+  cue_type: mimics
+  weight: 2.3
+  pattern: \bmimics\b
+  description: Symbolic cue pattern for Upamana (mimics).
+  example_trigger: Example sentence containing mimics.
+  example_non_trigger: Example sentence without mimics.
+- id: UPAMANA_062
+  pramana: Upamana
+  cue_type: emulates
+  weight: 2.2
+  pattern: \bemulates\b
+  description: Symbolic cue pattern for Upamana (emulates).
+  example_trigger: Example sentence containing emulates.
+  example_non_trigger: Example sentence without emulates.
+- id: UPAMANA_063
+  pramana: Upamana
+  cue_type: simulates the behavior of
+  weight: 2.3
+  pattern: \bsimulates the behavior of\b
+  description: Symbolic cue pattern for Upamana (simulates the behavior of).
+  example_trigger: Example sentence containing simulates the behavior of.
+  example_non_trigger: Example sentence without simulates the behavior of.
+- id: UPAMANA_064
+  pramana: Upamana
+  cue_type: functions much like
+  weight: 2.4
+  pattern: \bfunctions much like\b
+  description: Symbolic cue pattern for Upamana (functions much like).
+  example_trigger: Example sentence containing functions much like.
+  example_non_trigger: Example sentence without functions much like.
+- id: UPAMANA_065
+  pramana: Upamana
+  cue_type: works much like
+  weight: 2.4
+  pattern: \bworks much like\b
+  description: Symbolic cue pattern for Upamana (works much like).
+  example_trigger: Example sentence containing works much like.
+  example_non_trigger: Example sentence without works much like.
+- id: UPAMANA_066
+  pramana: Upamana
+  cue_type: is structured like
+  weight: 2.5
+  pattern: \bis structured like\b
+  description: Symbolic cue pattern for Upamana (is structured like).
+  example_trigger: Example sentence containing is structured like.
+  example_non_trigger: Example sentence without is structured like.
+- id: UPAMANA_067
+  pramana: Upamana
+  cue_type: is organized like
+  weight: 2.5
+  pattern: \bis organized like\b
+  description: Symbolic cue pattern for Upamana (is organized like).
+  example_trigger: Example sentence containing is organized like.
+  example_non_trigger: Example sentence without is organized like.
+- id: UPAMANA_068
+  pramana: Upamana
+  cue_type: is designed like
+  weight: 2.4
+  pattern: \bis designed like\b
+  description: Symbolic cue pattern for Upamana (is designed like).
+  example_trigger: Example sentence containing is designed like.
+  example_non_trigger: Example sentence without is designed like.
+- id: UPAMANA_069
+  pramana: Upamana
+  cue_type: operates like
+  weight: 2.4
+  pattern: \boperates like\b
+  description: Symbolic cue pattern for Upamana (operates like).
+  example_trigger: Example sentence containing operates like.
+  example_non_trigger: Example sentence without operates like.
+- id: UPAMANA_070
+  pramana: Upamana
+  cue_type: is reminiscent of
+  weight: 2.3
+  pattern: \bis reminiscent of\b
+  description: Symbolic cue pattern for Upamana (is reminiscent of).
+  example_trigger: Example sentence containing is reminiscent of.
+  example_non_trigger: Example sentence without is reminiscent of.
+- id: UPAMANA_071
+  pramana: Upamana
+  cue_type: calls to mind
+  weight: 2.0
+  pattern: \bcalls to mind\b
+  description: Symbolic cue pattern for Upamana (calls to mind).
+  example_trigger: Example sentence containing calls to mind.
+  example_non_trigger: Example sentence without calls to mind.
+- id: UPAMANA_072
+  pramana: Upamana
+  cue_type: erases the difference between
+  weight: 2.1
+  pattern: \berases the difference between\b
+  description: Symbolic cue pattern for Upamana (erases the difference between).
+  example_trigger: Example sentence containing erases the difference between.
+  example_non_trigger: Example sentence without erases the difference between.
+- id: UPAMANA_073
+  pramana: Upamana
+  cue_type: equated with/to
+  weight: 2.2
+  pattern: \bequated with\b|\bequated to\b
+  description: Symbolic cue pattern for Upamana (equated with/to).
+  example_trigger: Example sentence containing equated with/to.
+  example_non_trigger: Example sentence without equated with/to.
+- id: UPAMANA_074
+  pramana: Upamana
+  cue_type: likened to
+  weight: 2.5
+  pattern: \blikened to\b
+  description: Symbolic cue pattern for Upamana (likened to).
+  example_trigger: Example sentence containing likened to.
+  example_non_trigger: Example sentence without likened to.
+- id: UPAMANA_075
+  pramana: Upamana
+  cue_type: draws a parallel
+  weight: 2.5
+  pattern: \bdraws a parallel\b
+  description: Symbolic cue pattern for Upamana (draws a parallel).
+  example_trigger: Example sentence containing draws a parallel.
+  example_non_trigger: Example sentence without draws a parallel.
+- id: UPAMANA_076
+  pramana: Upamana
+  cue_type: cross-domain comparison
+  weight: 2.6
+  pattern: \bcross-domain comparison\b
+  description: Symbolic cue pattern for Upamana (cross-domain comparison).
+  example_trigger: Example sentence containing cross-domain comparison.
+  example_non_trigger: Example sentence without cross-domain comparison.
+- id: UPAMANA_077
+  pramana: Upamana
+  cue_type: metaphorically speaking
+  weight: 2.1
+  pattern: \bmetaphorically speaking\b
+  description: Symbolic cue pattern for Upamana (metaphorically speaking).
+  example_trigger: Example sentence containing metaphorically speaking.
+  example_non_trigger: Example sentence without metaphorically speaking.
+- id: UPAMANA_078
+  pramana: Upamana
+  cue_type: analogy between
+  weight: 2.5
+  pattern: \banalogy between\b
+  description: Symbolic cue pattern for Upamana (analogy between).
+  example_trigger: Example sentence containing analogy between.
+  example_non_trigger: Example sentence without analogy between.
+- id: UPAMANA_079
+  pramana: Upamana
+  cue_type: structural mapping
+  weight: 2.4
+  pattern: \bstructural mapping\b
+  description: Symbolic cue pattern for Upamana (structural mapping).
+  example_trigger: Example sentence containing structural mapping.
+  example_non_trigger: Example sentence without structural mapping.
+- id: UPAMANA_080
+  pramana: Upamana
+  cue_type: functional mapping
+  weight: 2.4
+  pattern: \bfunctional mapping\b
+  description: Symbolic cue pattern for Upamana (functional mapping).
+  example_trigger: Example sentence containing functional mapping.
+  example_non_trigger: Example sentence without functional mapping.
+- id: UPAMANA_081
+  pramana: Upamana
+  cue_type: mirror image of
+  weight: 2.3
+  pattern: \bmirror image of\b
+  description: Symbolic cue pattern for Upamana (mirror image of).
+  example_trigger: Example sentence containing mirror image of.
+  example_non_trigger: Example sentence without mirror image of.
+- id: UPAMANA_082
+  pramana: Upamana
+  cue_type: close resemblance
+  weight: 2.3
+  pattern: \bclose resemblance\b
+  description: Symbolic cue pattern for Upamana (close resemblance).
+  example_trigger: Example sentence containing close resemblance.
+  example_non_trigger: Example sentence without close resemblance.
+- id: UPAMANA_083
+  pramana: Upamana
+  cue_type: strong similarity
+  weight: 2.3
+  pattern: \bstrong similarity\b
+  description: Symbolic cue pattern for Upamana (strong similarity).
+  example_trigger: Example sentence containing strong similarity.
+  example_non_trigger: Example sentence without strong similarity.
+- id: UPAMANA_084
+  pramana: Upamana
+  cue_type: shared characteristics with
+  weight: 2.2
+  pattern: \bshared characteristics with\b
+  description: Symbolic cue pattern for Upamana (shared characteristics with).
+  example_trigger: Example sentence containing shared characteristics with.
+  example_non_trigger: Example sentence without shared characteristics with.
+- id: UPAMANA_085
+  pramana: Upamana
+  cue_type: common features with
+  weight: 2.1
+  pattern: \bcommon features with\b
+  description: Symbolic cue pattern for Upamana (common features with).
+  example_trigger: Example sentence containing common features with.
+  example_non_trigger: Example sentence without common features with.
+- id: UPAMANA_086
+  pramana: Upamana
+  cue_type: overlapping structure
+  weight: 2.2
+  pattern: \boverlapping structure\b
+  description: Symbolic cue pattern for Upamana (overlapping structure).
+  example_trigger: Example sentence containing overlapping structure.
+  example_non_trigger: Example sentence without overlapping structure.
+- id: UPAMANA_087
+  pramana: Upamana
+  cue_type: similar architecture
+  weight: 2.3
+  pattern: \bsimilar architecture\b
+  description: Symbolic cue pattern for Upamana (similar architecture).
+  example_trigger: Example sentence containing similar architecture.
+  example_non_trigger: Example sentence without similar architecture.
+- id: UPAMANA_088
+  pramana: Upamana
+  cue_type: comparable process
+  weight: 2.2
+  pattern: \bcomparable process\b
+  description: Symbolic cue pattern for Upamana (comparable process).
+  example_trigger: Example sentence containing comparable process.
+  example_non_trigger: Example sentence without comparable process.
+- id: UPAMANA_089
+  pramana: Upamana
+  cue_type: similar design pattern
+  weight: 2.4
+  pattern: \bsimilar design pattern\b
+  description: Symbolic cue pattern for Upamana (similar design pattern).
+  example_trigger: Example sentence containing similar design pattern.
+  example_non_trigger: Example sentence without similar design pattern.
+- id: UPAMANA_090
+  pramana: Upamana
+  cue_type: counterpart in
+  weight: 2.2
+  pattern: \bcounterpart in\b
+  description: Symbolic cue pattern for Upamana (counterpart in).
+  example_trigger: Example sentence containing counterpart in.
+  example_non_trigger: Example sentence without counterpart in.
+- id: UPAMANA_091
+  pramana: Upamana
+  cue_type: parallel development
+  weight: 2.1
+  pattern: \bparallel development\b
+  description: Symbolic cue pattern for Upamana (parallel development).
+  example_trigger: Example sentence containing parallel development.
+  example_non_trigger: Example sentence without parallel development.
+- id: UPAMANA_092
+  pramana: Upamana
+  cue_type: same underlying mechanism
+  weight: 2.4
+  pattern: \bsame underlying mechanism\b
+  description: Symbolic cue pattern for Upamana (same underlying mechanism).
+  example_trigger: Example sentence containing same underlying mechanism.
+  example_non_trigger: Example sentence without same underlying mechanism.
+- id: UPAMANA_093
+  pramana: Upamana
+  cue_type: equivalent framework
+  weight: 2.3
+  pattern: \bequivalent framework\b
+  description: Symbolic cue pattern for Upamana (equivalent framework).
+  example_trigger: Example sentence containing equivalent framework.
+  example_non_trigger: Example sentence without equivalent framework.
+- id: UPAMANA_094
+  pramana: Upamana
+  cue_type: like the relationship between
+  weight: 2.5
+  pattern: \blike the relationship between\b
+  description: Symbolic cue pattern for Upamana (like the relationship between).
+  example_trigger: Example sentence containing like the relationship between.
+  example_non_trigger: Example sentence without like the relationship between.
+- id: UPAMANA_095
+  pramana: Upamana
+  cue_type: just as A/the
+  weight: 2.3
+  pattern: \bjust as A\b|\bjust as the\b
+  description: Symbolic cue pattern for Upamana (just as A/the).
+  example_trigger: Example sentence containing just as A/the.
+  example_non_trigger: Example sentence without just as A/the.
+- id: UPAMANA_096
+  pramana: Upamana
+  cue_type: in high resemblance to
+  weight: 2.3
+  pattern: \bin high resemblance to\b
+  description: Symbolic cue pattern for Upamana (in high resemblance to).
+  example_trigger: Example sentence containing in high resemblance to.
+  example_non_trigger: Example sentence without in high resemblance to.
+- id: UPAMANA_097
+  pramana: Upamana
+  cue_type: matches the pattern of
+  weight: 2.3
+  pattern: \bmatches the pattern of\b
+  description: Symbolic cue pattern for Upamana (matches the pattern of).
+  example_trigger: Example sentence containing matches the pattern of.
+  example_non_trigger: Example sentence without matches the pattern of.
+- id: UPAMANA_098
+  pramana: Upamana
+  cue_type: is modeled on
+  weight: 2.3
+  pattern: \bis modeled on\b
+  description: Symbolic cue pattern for Upamana (is modeled on).
+  example_trigger: Example sentence containing is modeled on.
+  example_non_trigger: Example sentence without is modeled on.
+- id: UPAMANA_099
+  pramana: Upamana
+  cue_type: echoes the behavior of
+  weight: 2.4
+  pattern: \bechoes the behavior of\b
+  description: Symbolic cue pattern for Upamana (echoes the behavior of).
+  example_trigger: Example sentence containing echoes the behavior of.
+  example_non_trigger: Example sentence without echoes the behavior of.
+- id: UPAMANA_100
+  pramana: Upamana
+  cue_type: mirrors the process of
+  weight: 2.4
+  pattern: \bmirrors the process of\b
+  description: Symbolic cue pattern for Upamana (mirrors the process of).
+  example_trigger: Example sentence containing mirrors the process of.
+  example_non_trigger: Example sentence without mirrors the process of.
+Anumana:
+- id: ANUMANA_001
+  pramana: Anumana
+  cue_type: because
+  weight: 2.0
+  pattern: \bbecause\b
+  description: Symbolic cue pattern for Anumana (because).
+  example_trigger: Example sentence containing because.
+  example_non_trigger: Example sentence without because.
+- id: ANUMANA_002
+  pramana: Anumana
+  cue_type: therefore
+  weight: 2.3
+  pattern: \btherefore\b
+  description: Symbolic cue pattern for Anumana (therefore).
+  example_trigger: Example sentence containing therefore.
+  example_non_trigger: Example sentence without therefore.
+- id: ANUMANA_003
+  pramana: Anumana
+  cue_type: thus
+  weight: 2.0
+  pattern: \bthus\b
+  description: Symbolic cue pattern for Anumana (thus).
+  example_trigger: Example sentence containing thus.
+  example_non_trigger: Example sentence without thus.
+- id: ANUMANA_004
+  pramana: Anumana
+  cue_type: hence
+  weight: 2.1
+  pattern: \bhence\b
+  description: Symbolic cue pattern for Anumana (hence).
+  example_trigger: Example sentence containing hence.
+  example_non_trigger: Example sentence without hence.
+- id: ANUMANA_005
+  pramana: Anumana
+  cue_type: consequently
+  weight: 2.2
+  pattern: \bconsequently\b
+  description: Symbolic cue pattern for Anumana (consequently).
+  example_trigger: Example sentence containing consequently.
+  example_non_trigger: Example sentence without consequently.
+- id: ANUMANA_006
+  pramana: Anumana
+  cue_type: implies
+  weight: 2.1
+  pattern: \bimplies\b
+  description: Symbolic cue pattern for Anumana (implies).
+  example_trigger: Example sentence containing implies.
+  example_non_trigger: Example sentence without implies.
+- id: ANUMANA_007
+  pramana: Anumana
+  cue_type: suggests
+  weight: 1.6
+  pattern: \bsuggests\b
+  description: Symbolic cue pattern for Anumana (suggests).
+  example_trigger: Example sentence containing suggests.
+  example_non_trigger: Example sentence without suggests.
+- id: ANUMANA_008
+  pramana: Anumana
+  cue_type: likely
+  weight: 1.5
+  pattern: \blikely\b
+  description: Symbolic cue pattern for Anumana (likely).
+  example_trigger: Example sentence containing likely.
+  example_non_trigger: Example sentence without likely.
+- id: ANUMANA_009
+  pramana: Anumana
+  cue_type: causes
+  weight: 2.0
+  pattern: \bcauses\b
+  description: Symbolic cue pattern for Anumana (causes).
+  example_trigger: Example sentence containing causes.
+  example_non_trigger: Example sentence without causes.
+- id: ANUMANA_010
+  pramana: Anumana
+  cue_type: if...then
+  weight: 2.4
+  pattern: \bif\b.{0,40}\bthen\b
+  description: Symbolic cue pattern for Anumana (if...then).
+  example_trigger: Example sentence containing if...then.
+  example_non_trigger: Example sentence without if...then.
+- id: ANUMANA_011
+  pramana: Anumana
+  cue_type: due to
+  weight: 2.0
+  pattern: \bdue to\b
+  description: Symbolic cue pattern for Anumana (due to).
+  example_trigger: Example sentence containing due to.
+  example_non_trigger: Example sentence without due to.
+- id: ANUMANA_012
+  pramana: Anumana
+  cue_type: results in
+  weight: 2.1
+  pattern: \bresults in\b
+  description: Symbolic cue pattern for Anumana (results in).
+  example_trigger: Example sentence containing results in.
+  example_non_trigger: Example sentence without results in.
+- id: ANUMANA_013
+  pramana: Anumana
+  cue_type: leads to
+  weight: 2.1
+  pattern: \bleads to\b
+  description: Symbolic cue pattern for Anumana (leads to).
+  example_trigger: Example sentence containing leads to.
+  example_non_trigger: Example sentence without leads to.
+- id: ANUMANA_014
+  pramana: Anumana
+  cue_type: therefore it follows
+  weight: 2.5
+  pattern: \btherefore it follows\b
+  description: Symbolic cue pattern for Anumana (therefore it follows).
+  example_trigger: Example sentence containing therefore it follows.
+  example_non_trigger: Example sentence without therefore it follows.
+- id: ANUMANA_015
+  pramana: Anumana
+  cue_type: since
+  weight: 1.7
+  pattern: \bsince\b
+  description: Symbolic cue pattern for Anumana (since).
+  example_trigger: Example sentence containing since.
+  example_non_trigger: Example sentence without since.
+- id: ANUMANA_016
+  pramana: Anumana
+  cue_type: which suggests
+  weight: 1.9
+  pattern: \bwhich suggests\b
+  description: Symbolic cue pattern for Anumana (which suggests).
+  example_trigger: Example sentence containing which suggests.
+  example_non_trigger: Example sentence without which suggests.
+- id: ANUMANA_017
+  pramana: Anumana
+  cue_type: most likely
+  weight: 1.8
+  pattern: \bmost likely\b
+  description: Symbolic cue pattern for Anumana (most likely).
+  example_trigger: Example sentence containing most likely.
+  example_non_trigger: Example sentence without most likely.
+- id: ANUMANA_018
+  pramana: Anumana
+  cue_type: deduce
+  weight: 2.3
+  pattern: \bdeduce(?:s|d)?\b
+  description: Symbolic cue pattern for Anumana (deduce).
+  example_trigger: Example sentence containing deduce.
+  example_non_trigger: Example sentence without deduce.
+- id: ANUMANA_019
+  pramana: Anumana
+  cue_type: infer
+  weight: 2.3
+  pattern: \binfer(?:s|red)?\b
+  description: Symbolic cue pattern for Anumana (infer).
+  example_trigger: Example sentence containing infer.
+  example_non_trigger: Example sentence without infer.
+- id: ANUMANA_020
+  pramana: Anumana
+  cue_type: logical conclusion
+  weight: 2.5
+  pattern: \blogical conclusion\b
+  description: Symbolic cue pattern for Anumana (logical conclusion).
+  example_trigger: Example sentence containing logical conclusion.
+  example_non_trigger: Example sentence without logical conclusion.
+- id: ANUMANA_021
+  pramana: Anumana
+  cue_type: proves that
+  weight: 2.2
+  pattern: \bproves that\b
+  description: Symbolic cue pattern for Anumana (proves that).
+  example_trigger: Example sentence containing proves that.
+  example_non_trigger: Example sentence without proves that.
+- id: ANUMANA_022
+  pramana: Anumana
+  cue_type: entails that
+  weight: 2.3
+  pattern: \bentails that\b
+  description: Symbolic cue pattern for Anumana (entails that).
+  example_trigger: Example sentence containing entails that.
+  example_non_trigger: Example sentence without entails that.
+- id: ANUMANA_023
+  pramana: Anumana
+  cue_type: presupposes
+  weight: 2.1
+  pattern: \bpresupposes\b
+  description: Symbolic cue pattern for Anumana (presupposes).
+  example_trigger: Example sentence containing presupposes.
+  example_non_trigger: Example sentence without presupposes.
+- id: ANUMANA_024
+  pramana: Anumana
+  cue_type: accounts for
+  weight: 2.0
+  pattern: \baccounts for\b
+  description: Symbolic cue pattern for Anumana (accounts for).
+  example_trigger: Example sentence containing accounts for.
+  example_non_trigger: Example sentence without accounts for.
+- id: ANUMANA_025
+  pramana: Anumana
+  cue_type: triggers
+  weight: 1.9
+  pattern: \btriggers\b
+  description: Symbolic cue pattern for Anumana (triggers).
+  example_trigger: Example sentence containing triggers.
+  example_non_trigger: Example sentence without triggers.
+- id: ANUMANA_026
+  pramana: Anumana
+  cue_type: brings about
+  weight: 2.1
+  pattern: \bbrings about\b
+  description: Symbolic cue pattern for Anumana (brings about).
+  example_trigger: Example sentence containing brings about.
+  example_non_trigger: Example sentence without brings about.
+- id: ANUMANA_027
+  pramana: Anumana
+  cue_type: stems from
+  weight: 2.0
+  pattern: \bstems from\b
+  description: Symbolic cue pattern for Anumana (stems from).
+  example_trigger: Example sentence containing stems from.
+  example_non_trigger: Example sentence without stems from.
+- id: ANUMANA_028
+  pramana: Anumana
+  cue_type: is attributable to
+  weight: 2.2
+  pattern: \bis attributable to\b
+  description: Symbolic cue pattern for Anumana (is attributable to).
+  example_trigger: Example sentence containing is attributable to.
+  example_non_trigger: Example sentence without is attributable to.
+- id: ANUMANA_029
+  pramana: Anumana
+  cue_type: root cause
+  weight: 2.4
+  pattern: \broot cause\b
+  description: Symbolic cue pattern for Anumana (root cause).
+  example_trigger: Example sentence containing root cause.
+  example_non_trigger: Example sentence without root cause.
+- id: ANUMANA_030
+  pramana: Anumana
+  cue_type: causal link
+  weight: 2.3
+  pattern: \bcausal link\b
+  description: Symbolic cue pattern for Anumana (causal link).
+  example_trigger: Example sentence containing causal link.
+  example_non_trigger: Example sentence without causal link.
+- id: ANUMANA_031
+  pramana: Anumana
+  cue_type: causal factor
+  weight: 2.2
+  pattern: \bcausal factor\b
+  description: Symbolic cue pattern for Anumana (causal factor).
+  example_trigger: Example sentence containing causal factor.
+  example_non_trigger: Example sentence without causal factor.
+- id: ANUMANA_032
+  pramana: Anumana
+  cue_type: indicates that
+  weight: 2.0
+  pattern: \bindicates that\b
+  description: Symbolic cue pattern for Anumana (indicates that).
+  example_trigger: Example sentence containing indicates that.
+  example_non_trigger: Example sentence without indicates that.
+- id: ANUMANA_033
+  pramana: Anumana
+  cue_type: points to
+  weight: 1.9
+  pattern: \bpoints to\b
+  description: Symbolic cue pattern for Anumana (points to).
+  example_trigger: Example sentence containing points to.
+  example_non_trigger: Example sentence without points to.
+- id: ANUMANA_034
+  pramana: Anumana
+  cue_type: signals that
+  weight: 1.9
+  pattern: \bsignals that\b
+  description: Symbolic cue pattern for Anumana (signals that).
+  example_trigger: Example sentence containing signals that.
+  example_non_trigger: Example sentence without signals that.
+- id: ANUMANA_035
+  pramana: Anumana
+  cue_type: explains why
+  weight: 2.1
+  pattern: \bexplains why\b
+  description: Symbolic cue pattern for Anumana (explains why).
+  example_trigger: Example sentence containing explains why.
+  example_non_trigger: Example sentence without explains why.
+- id: ANUMANA_036
+  pramana: Anumana
+  cue_type: best explanation
+  weight: 2.3
+  pattern: \bbest explanation\b
+  description: Symbolic cue pattern for Anumana (best explanation).
+  example_trigger: Example sentence containing best explanation.
+  example_non_trigger: Example sentence without best explanation.
+- id: ANUMANA_037
+  pramana: Anumana
+  cue_type: diagnostic indicator
+  weight: 2.4
+  pattern: \bdiagnostic indicator\b
+  description: Symbolic cue pattern for Anumana (diagnostic indicator).
+  example_trigger: Example sentence containing diagnostic indicator.
+  example_non_trigger: Example sentence without diagnostic indicator.
+- id: ANUMANA_038
+  pramana: Anumana
+  cue_type: strong evidence for
+  weight: 2.2
+  pattern: \bstrong evidence for\b
+  description: Symbolic cue pattern for Anumana (strong evidence for).
+  example_trigger: Example sentence containing strong evidence for.
+  example_non_trigger: Example sentence without strong evidence for.
+- id: ANUMANA_039
+  pramana: Anumana
+  cue_type: highly probable
+  weight: 2.0
+  pattern: \bhighly probable\b
+  description: Symbolic cue pattern for Anumana (highly probable).
+  example_trigger: Example sentence containing highly probable.
+  example_non_trigger: Example sentence without highly probable.
+- id: ANUMANA_040
+  pramana: Anumana
+  cue_type: trend shows
+  weight: 1.9
+  pattern: \btrend shows\b
+  description: Symbolic cue pattern for Anumana (trend shows).
+  example_trigger: Example sentence containing trend shows.
+  example_non_trigger: Example sentence without trend shows.
+- id: ANUMANA_041
+  pramana: Anumana
+  cue_type: trajectory indicates
+  weight: 2.1
+  pattern: \btrajectory indicates\b
+  description: Symbolic cue pattern for Anumana (trajectory indicates).
+  example_trigger: Example sentence containing trajectory indicates.
+  example_non_trigger: Example sentence without trajectory indicates.
+- id: ANUMANA_042
+  pramana: Anumana
+  cue_type: correlates with
+  weight: 1.9
+  pattern: \bcorrelates with\b
+  description: Symbolic cue pattern for Anumana (correlates with).
+  example_trigger: Example sentence containing correlates with.
+  example_non_trigger: Example sentence without correlates with.
+- id: ANUMANA_043
+  pramana: Anumana
+  cue_type: mathematical implication
+  weight: 2.3
+  pattern: \bmathematical implication\b
+  description: Symbolic cue pattern for Anumana (mathematical implication).
+  example_trigger: Example sentence containing mathematical implication.
+  example_non_trigger: Example sentence without mathematical implication.
+- id: ANUMANA_044
+  pramana: Anumana
+  cue_type: by implication
+  weight: 2.1
+  pattern: \bby implication\b
+  description: Symbolic cue pattern for Anumana (by implication).
+  example_trigger: Example sentence containing by implication.
+  example_non_trigger: Example sentence without by implication.
+- id: ANUMANA_045
+  pramana: Anumana
+  cue_type: necessary consequence
+  weight: 2.4
+  pattern: \bnecessary consequence\b
+  description: Symbolic cue pattern for Anumana (necessary consequence).
+  example_trigger: Example sentence containing necessary consequence.
+  example_non_trigger: Example sentence without necessary consequence.
+- id: ANUMANA_046
+  pramana: Anumana
+  cue_type: inevitable result
+  weight: 2.3
+  pattern: \binevitable result\b
+  description: Symbolic cue pattern for Anumana (inevitable result).
+  example_trigger: Example sentence containing inevitable result.
+  example_non_trigger: Example sentence without inevitable result.
+- id: ANUMANA_047
+  pramana: Anumana
+  cue_type: direct consequence
+  weight: 2.2
+  pattern: \bdirect consequence\b
+  description: Symbolic cue pattern for Anumana (direct consequence).
+  example_trigger: Example sentence containing direct consequence.
+  example_non_trigger: Example sentence without direct consequence.
+- id: ANUMANA_048
+  pramana: Anumana
+  cue_type: gives rise to
+  weight: 2.1
+  pattern: \bgives rise to\b
+  description: Symbolic cue pattern for Anumana (gives rise to).
+  example_trigger: Example sentence containing gives rise to.
+  example_non_trigger: Example sentence without gives rise to.
+- id: ANUMANA_049
+  pramana: Anumana
+  cue_type: culminates in
+  weight: 2.1
+  pattern: \bculminates in\b
+  description: Symbolic cue pattern for Anumana (culminates in).
+  example_trigger: Example sentence containing culminates in.
+  example_non_trigger: Example sentence without culminates in.
+- id: ANUMANA_050
+  pramana: Anumana
+  cue_type: drives the outcome
+  weight: 2.2
+  pattern: \bdrives the outcome\b
+  description: Symbolic cue pattern for Anumana (drives the outcome).
+  example_trigger: Example sentence containing drives the outcome.
+  example_non_trigger: Example sentence without drives the outcome.
+- id: ANUMANA_051
+  pramana: Anumana
+  cue_type: underlying cause
+  weight: 2.3
+  pattern: \bunderlying cause\b
+  description: Symbolic cue pattern for Anumana (underlying cause).
+  example_trigger: Example sentence containing underlying cause.
+  example_non_trigger: Example sentence without underlying cause.
+- id: ANUMANA_052
+  pramana: Anumana
+  cue_type: predictable outcome
+  weight: 2.0
+  pattern: \bpredictable outcome\b
+  description: Symbolic cue pattern for Anumana (predictable outcome).
+  example_trigger: Example sentence containing predictable outcome.
+  example_non_trigger: Example sentence without predictable outcome.
+- id: ANUMANA_053
+  pramana: Anumana
+  cue_type: strong predictor
+  weight: 2.1
+  pattern: \bstrong predictor\b
+  description: Symbolic cue pattern for Anumana (strong predictor).
+  example_trigger: Example sentence containing strong predictor.
+  example_non_trigger: Example sentence without strong predictor.
+- id: ANUMANA_054
+  pramana: Anumana
+  cue_type: predicts that
+  weight: 2.0
+  pattern: \bpredicts that\b
+  description: Symbolic cue pattern for Anumana (predicts that).
+  example_trigger: Example sentence containing predicts that.
+  example_non_trigger: Example sentence without predicts that.
+- id: ANUMANA_055
+  pramana: Anumana
+  cue_type: syndrome indicates
+  weight: 2.2
+  pattern: \bsyndrome indicates\b
+  description: Symbolic cue pattern for Anumana (syndrome indicates).
+  example_trigger: Example sentence containing syndrome indicates.
+  example_non_trigger: Example sentence without syndrome indicates.
+- id: ANUMANA_056
+  pramana: Anumana
+  cue_type: symptom of
+  weight: 2.0
+  pattern: \bsymptom of\b
+  description: Symbolic cue pattern for Anumana (symptom of).
+  example_trigger: Example sentence containing symptom of.
+  example_non_trigger: Example sentence without symptom of.
+- id: ANUMANA_057
+  pramana: Anumana
+  cue_type: sign of
+  weight: 1.9
+  pattern: \bsign of\b
+  description: Symbolic cue pattern for Anumana (sign of).
+  example_trigger: Example sentence containing sign of.
+  example_non_trigger: Example sentence without sign of.
+- id: ANUMANA_058
+  pramana: Anumana
+  cue_type: hallmark of
+  weight: 2.1
+  pattern: \bhallmark of\b
+  description: Symbolic cue pattern for Anumana (hallmark of).
+  example_trigger: Example sentence containing hallmark of.
+  example_non_trigger: Example sentence without hallmark of.
+- id: ANUMANA_059
+  pramana: Anumana
+  cue_type: clear sign that
+  weight: 2.1
+  pattern: \bclear sign that\b
+  description: Symbolic cue pattern for Anumana (clear sign that).
+  example_trigger: Example sentence containing clear sign that.
+  example_non_trigger: Example sentence without clear sign that.
+- id: ANUMANA_060
+  pramana: Anumana
+  cue_type: suggestive of
+  weight: 1.9
+  pattern: \bsuggestive of\b
+  description: Symbolic cue pattern for Anumana (suggestive of).
+  example_trigger: Example sentence containing suggestive of.
+  example_non_trigger: Example sentence without suggestive of.
+- id: ANUMANA_061
+  pramana: Anumana
+  cue_type: strong indication
+  weight: 2.1
+  pattern: \bstrong indication\b
+  description: Symbolic cue pattern for Anumana (strong indication).
+  example_trigger: Example sentence containing strong indication.
+  example_non_trigger: Example sentence without strong indication.
+- id: ANUMANA_062
+  pramana: Anumana
+  cue_type: probabilistic inference
+  weight: 2.4
+  pattern: \bprobabilistic inference\b
+  description: Symbolic cue pattern for Anumana (probabilistic inference).
+  example_trigger: Example sentence containing probabilistic inference.
+  example_non_trigger: Example sentence without probabilistic inference.
+- id: ANUMANA_063
+  pramana: Anumana
+  cue_type: deductive proof
+  weight: 2.5
+  pattern: \bdeductive proof\b
+  description: Symbolic cue pattern for Anumana (deductive proof).
+  example_trigger: Example sentence containing deductive proof.
+  example_non_trigger: Example sentence without deductive proof.
+- id: ANUMANA_064
+  pramana: Anumana
+  cue_type: syllogism
+  weight: 2.6
+  pattern: \bsyllogism\b
+  description: Symbolic cue pattern for Anumana (syllogism).
+  example_trigger: Example sentence containing syllogism.
+  example_non_trigger: Example sentence without syllogism.
+- id: ANUMANA_065
+  pramana: Anumana
+  cue_type: premises lead to
+  weight: 2.4
+  pattern: \bpremises lead to\b
+  description: Symbolic cue pattern for Anumana (premises lead to).
+  example_trigger: Example sentence containing premises lead to.
+  example_non_trigger: Example sentence without premises lead to.
+- id: ANUMANA_066
+  pramana: Anumana
+  cue_type: follows logically
+  weight: 2.4
+  pattern: \bfollows logically\b
+  description: Symbolic cue pattern for Anumana (follows logically).
+  example_trigger: Example sentence containing follows logically.
+  example_non_trigger: Example sentence without follows logically.
+- id: ANUMANA_067
+  pramana: Anumana
+  cue_type: its outcome is
+  weight: 1.8
+  pattern: \bits outcome is\b
+  description: Symbolic cue pattern for Anumana (its outcome is).
+  example_trigger: Example sentence containing its outcome is.
+  example_non_trigger: Example sentence without its outcome is.
+- id: ANUMANA_068
+  pramana: Anumana
+  cue_type: as a consequence
+  weight: 2.2
+  pattern: \bas a consequence\b
+  description: Symbolic cue pattern for Anumana (as a consequence).
+  example_trigger: Example sentence containing as a consequence.
+  example_non_trigger: Example sentence without as a consequence.
+- id: ANUMANA_069
+  pramana: Anumana
+  cue_type: on account of
+  weight: 1.9
+  pattern: \bon account of\b
+  description: Symbolic cue pattern for Anumana (on account of).
+  example_trigger: Example sentence containing on account of.
+  example_non_trigger: Example sentence without on account of.
+- id: ANUMANA_070
+  pramana: Anumana
+  cue_type: for this reason
+  weight: 2.0
+  pattern: \bfor this reason\b
+  description: Symbolic cue pattern for Anumana (for this reason).
+  example_trigger: Example sentence containing for this reason.
+  example_non_trigger: Example sentence without for this reason.
+- id: ANUMANA_071
+  pramana: Anumana
+  cue_type: that being so
+  weight: 1.8
+  pattern: \bthat being so\b
+  description: Symbolic cue pattern for Anumana (that being so).
+  example_trigger: Example sentence containing that being so.
+  example_non_trigger: Example sentence without that being so.
+- id: ANUMANA_072
+  pramana: Anumana
+  cue_type: thereby
+  weight: 2.0
+  pattern: \bthereby\b
+  description: Symbolic cue pattern for Anumana (thereby).
+  example_trigger: Example sentence containing thereby.
+  example_non_trigger: Example sentence without thereby.
+- id: ANUMANA_073
+  pramana: Anumana
+  cue_type: whereby
+  weight: 1.9
+  pattern: \bwhereby\b
+  description: Symbolic cue pattern for Anumana (whereby).
+  example_trigger: Example sentence containing whereby.
+  example_non_trigger: Example sentence without whereby.
+- id: ANUMANA_074
+  pramana: Anumana
+  cue_type: which means that
+  weight: 2.0
+  pattern: \bwhich means that\b
+  description: Symbolic cue pattern for Anumana (which means that).
+  example_trigger: Example sentence containing which means that.
+  example_non_trigger: Example sentence without which means that.
+- id: ANUMANA_075
+  pramana: Anumana
+  cue_type: it follows that
+  weight: 2.3
+  pattern: \bit follows that\b
+  description: Symbolic cue pattern for Anumana (it follows that).
+  example_trigger: Example sentence containing it follows that.
+  example_non_trigger: Example sentence without it follows that.
+- id: ANUMANA_076
+  pramana: Anumana
+  cue_type: one can conclude
+  weight: 2.3
+  pattern: \bone can conclude\b
+  description: Symbolic cue pattern for Anumana (one can conclude).
+  example_trigger: Example sentence containing one can conclude.
+  example_non_trigger: Example sentence without one can conclude.
+- id: ANUMANA_077
+  pramana: Anumana
+  cue_type: we can infer
+  weight: 2.4
+  pattern: \bwe can infer\b
+  description: Symbolic cue pattern for Anumana (we can infer).
+  example_trigger: Example sentence containing we can infer.
+  example_non_trigger: Example sentence without we can infer.
+- id: ANUMANA_078
+  pramana: Anumana
+  cue_type: we can deduce
+  weight: 2.4
+  pattern: \bwe can deduce\b
+  description: Symbolic cue pattern for Anumana (we can deduce).
+  example_trigger: Example sentence containing we can deduce.
+  example_non_trigger: Example sentence without we can deduce.
+- id: ANUMANA_079
+  pramana: Anumana
+  cue_type: implies a relationship
+  weight: 2.2
+  pattern: \bimplies a relationship\b
+  description: Symbolic cue pattern for Anumana (implies a relationship).
+  example_trigger: Example sentence containing implies a relationship.
+  example_non_trigger: Example sentence without implies a relationship.
+- id: ANUMANA_080
+  pramana: Anumana
+  cue_type: correlative proof
+  weight: 2.2
+  pattern: \bcorrelative proof\b
+  description: Symbolic cue pattern for Anumana (correlative proof).
+  example_trigger: Example sentence containing correlative proof.
+  example_non_trigger: Example sentence without correlative proof.
+- id: ANUMANA_081
+  pramana: Anumana
+  cue_type: statistical inference
+  weight: 2.4
+  pattern: \bstatistical inference\b
+  description: Symbolic cue pattern for Anumana (statistical inference).
+  example_trigger: Example sentence containing statistical inference.
+  example_non_trigger: Example sentence without statistical inference.
+- id: ANUMANA_082
+  pramana: Anumana
+  cue_type: bayesian probability
+  weight: 2.5
+  pattern: \bbayesian probability\b
+  description: Symbolic cue pattern for Anumana (bayesian probability).
+  example_trigger: Example sentence containing bayesian probability.
+  example_non_trigger: Example sentence without bayesian probability.
+- id: ANUMANA_083
+  pramana: Anumana
+  cue_type: causal mechanism
+  weight: 2.3
+  pattern: \bcausal mechanism\b
+  description: Symbolic cue pattern for Anumana (causal mechanism).
+  example_trigger: Example sentence containing causal mechanism.
+  example_non_trigger: Example sentence without causal mechanism.
+- id: ANUMANA_084
+  pramana: Anumana
+  cue_type: explanatory mechanism
+  weight: 2.3
+  pattern: \bexplanatory mechanism\b
+  description: Symbolic cue pattern for Anumana (explanatory mechanism).
+  example_trigger: Example sentence containing explanatory mechanism.
+  example_non_trigger: Example sentence without explanatory mechanism.
+- id: ANUMANA_085
+  pramana: Anumana
+  cue_type: directly causes
+  weight: 2.2
+  pattern: \bdirectly causes\b
+  description: Symbolic cue pattern for Anumana (directly causes).
+  example_trigger: Example sentence containing directly causes.
+  example_non_trigger: Example sentence without directly causes.
+- id: ANUMANA_086
+  pramana: Anumana
+  cue_type: indirectly causes
+  weight: 2.1
+  pattern: \bindirectly causes\b
+  description: Symbolic cue pattern for Anumana (indirectly causes).
+  example_trigger: Example sentence containing indirectly causes.
+  example_non_trigger: Example sentence without indirectly causes.
+- id: ANUMANA_087
+  pramana: Anumana
+  cue_type: rational consequence
+  weight: 2.2
+  pattern: \brational consequence\b
+  description: Symbolic cue pattern for Anumana (rational consequence).
+  example_trigger: Example sentence containing rational consequence.
+  example_non_trigger: Example sentence without rational consequence.
+- id: ANUMANA_088
+  pramana: Anumana
+  cue_type: derives from
+  weight: 2.0
+  pattern: \bderives from\b
+  description: Symbolic cue pattern for Anumana (derives from).
+  example_trigger: Example sentence containing derives from.
+  example_non_trigger: Example sentence without derives from.
+- id: ANUMANA_089
+  pramana: Anumana
+  cue_type: originates from
+  weight: 1.9
+  pattern: \boriginates from\b
+  description: Symbolic cue pattern for Anumana (originates from).
+  example_trigger: Example sentence containing originates from.
+  example_non_trigger: Example sentence without originates from.
+- id: ANUMANA_090
+  pramana: Anumana
+  cue_type: precursor to
+  weight: 2.0
+  pattern: \bprecursor to\b
+  description: Symbolic cue pattern for Anumana (precursor to).
+  example_trigger: Example sentence containing precursor to.
+  example_non_trigger: Example sentence without precursor to.
+- id: ANUMANA_091
+  pramana: Anumana
+  cue_type: predisposes to
+  weight: 2.0
+  pattern: \bpredisposes to\b
+  description: Symbolic cue pattern for Anumana (predisposes to).
+  example_trigger: Example sentence containing predisposes to.
+  example_non_trigger: Example sentence without predisposes to.
+- id: ANUMANA_092
+  pramana: Anumana
+  cue_type: determines that
+  weight: 2.1
+  pattern: \bdetermines that\b
+  description: Symbolic cue pattern for Anumana (determines that).
+  example_trigger: Example sentence containing determines that.
+  example_non_trigger: Example sentence without determines that.
+- id: ANUMANA_093
+  pramana: Anumana
+  cue_type: substantiates that
+  weight: 2.2
+  pattern: \bsubstantiates that\b
+  description: Symbolic cue pattern for Anumana (substantiates that).
+  example_trigger: Example sentence containing substantiates that.
+  example_non_trigger: Example sentence without substantiates that.
+- id: ANUMANA_094
+  pramana: Anumana
+  cue_type: corroborates the inference
+  weight: 2.3
+  pattern: \bcorroborates the inference\b
+  description: Symbolic cue pattern for Anumana (corroborates the inference).
+  example_trigger: Example sentence containing corroborates the inference.
+  example_non_trigger: Example sentence without corroborates the inference.
+- id: ANUMANA_095
+  pramana: Anumana
+  cue_type: lends support to
+  weight: 1.9
+  pattern: \blends support to\b
+  description: Symbolic cue pattern for Anumana (lends support to).
+  example_trigger: Example sentence containing lends support to.
+  example_non_trigger: Example sentence without lends support to.
+- id: ANUMANA_096
+  pramana: Anumana
+  cue_type: provides rationale for
+  weight: 2.1
+  pattern: \bprovides rationale for\b
+  description: Symbolic cue pattern for Anumana (provides rationale for).
+  example_trigger: Example sentence containing provides rationale for.
+  example_non_trigger: Example sentence without provides rationale for.
+- id: ANUMANA_097
+  pramana: Anumana
+  cue_type: justifies the conclusion
+  weight: 2.4
+  pattern: \bjustifies the conclusion\b
+  description: Symbolic cue pattern for Anumana (justifies the conclusion).
+  example_trigger: Example sentence containing justifies the conclusion.
+  example_non_trigger: Example sentence without justifies the conclusion.
+- id: ANUMANA_098
+  pramana: Anumana
+  cue_type: grounded in the logic that
+  weight: 2.3
+  pattern: \bgrounded in the logic that\b
+  description: Symbolic cue pattern for Anumana (grounded in the logic that).
+  example_trigger: Example sentence containing grounded in the logic that.
+  example_non_trigger: Example sentence without grounded in the logic that.
+- id: ANUMANA_099
+  pramana: Anumana
+  cue_type: proves the thesis that
+  weight: 2.3
+  pattern: \bproves the thesis that\b
+  description: Symbolic cue pattern for Anumana (proves the thesis that).
+  example_trigger: Example sentence containing proves the thesis that.
+  example_non_trigger: Example sentence without proves the thesis that.
+- id: ANUMANA_100
+  pramana: Anumana
+  cue_type: demonstrates that
+  weight: 2.0
+  pattern: \bdemonstrates that\b
+  description: Symbolic cue pattern for Anumana (demonstrates that).
+  example_trigger: Example sentence containing demonstrates that.
+  example_non_trigger: Example sentence without demonstrates that.
