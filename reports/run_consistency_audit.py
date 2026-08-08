@@ -177,6 +177,8 @@ def validate() -> list[str]:
         if path.suffix not in {".md", ".py", ".txt", ".json", ".ipynb", ".tex"}:
             continue
         rel = path.relative_to(_ROOT).as_posix()
+        if ".venv" in rel or ".git" in rel:
+            continue
         if any(skip in rel for skip in skip_validate):
             continue
         if "dataset/external" in rel:

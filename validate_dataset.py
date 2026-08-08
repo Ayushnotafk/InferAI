@@ -29,19 +29,39 @@ def normalize_text(t):
 
 
 def near_duplicate_count(rows):
-    count = 0
-    for i in range(len(rows)):
-        xi = set(re.findall(r"\b[\w-]+\b", rows[i]["text"].lower()))
-        for j in range(i+1, len(rows)):
-            yj = set(re.findall(r"\b[\w-]+\b", rows[j]["text"].lower()))
-            if not xi or not yj:
-                continue
-            inter = len(xi & yj)
-            union = len(xi | yj)
-            sim = inter / union if union else 0.0
-            if sim >= 0.80:
-                count += 1
-    return count
+    import numpy as np
+    from scipy.sparse import csr_matrix
+    
+    vocab = {}
+    indptr = [0]
+    indices = []
+    data = []
+    lengths = []
+    
+    for r in rows:
+        words = set(re.findall(r"\b[\w-]+\b", r["text"].lower()))
+        lengths.append(len(words))
+        for w in words:
+            if w not in vocab:
+                vocab[w] = len(vocab)
+            indices.append(vocab[w])
+            data.append(1)
+        indptr.append(len(indices))
+        
+    X = csr_matrix((data, indices, indptr), dtype=np.float32)
+    intersection = X.dot(X.T)
+    
+    coo = intersection.tocoo()
+    mask = coo.row < coo.col
+    row = coo.row[mask]
+    col = coo.col[mask]
+    val = coo.data[mask]
+    
+    lengths = np.array(lengths, dtype=np.float32)
+    jaccard = val / (lengths[row] + lengths[col] - val)
+    
+    count = np.sum(jaccard >= 0.80)
+    return int(count)
 
 
 def main():
@@ -120,18 +140,22 @@ def main():
                 errors += fail(f"Schema mismatch in {csv_path.name}: expected {REQUIRED_FIELDS}")
 
     # Split validation: deterministic stratified files
+    expected_by_split = {
+        "train": (7000, {label: 1750 for label in VALID_LABELS}),
+        "validation": (1500, {label: 375 for label in VALID_LABELS}),
+        "test": (1500, {label: 375 for label in VALID_LABELS}),
+    }
     for split_name, split_path in {"train": train_csv, "validation": validation_csv, "test": test_csv}.items():
         with open(split_path, "r", encoding="utf-8", newline="") as handle:
             reader = csv.DictReader(handle)
             split_rows = list(reader)
-        if split_name == "train":
-            expected = 7000
-        else:
-            expected = 1500
-        if len(split_rows) != expected:
-            errors += fail(f"Split file {split_name} has {len(split_rows)} rows, expected {expected}")
-        if Counter(r["label"] for r in split_rows).get("Pratyaksha", 0) < 1750:
-            errors += fail(f"Split {split_name} lacks Pratyaksha coverage")
+        expected_count, expected_label_counts = expected_by_split[split_name]
+        if len(split_rows) != expected_count:
+            errors += fail(f"Split file {split_name} has {len(split_rows)} rows, expected {expected_count}")
+        observed_label_counts = Counter(r["label"] for r in split_rows)
+        for label in VALID_LABELS:
+            if observed_label_counts.get(label, 0) != expected_label_counts[label]:
+                errors += fail(f"Split {split_name} has label count {label}={observed_label_counts.get(label, 0)}, expected {expected_label_counts[label]}")
 
     # Leakage check: trivial train/test overlap (normalized text)
     train_rows = []
