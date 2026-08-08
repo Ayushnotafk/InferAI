@@ -1,10 +1,12 @@
+from pathlib import Path
 import joblib
 import numpy as np
 
 from classification.embedder import generate_embeddings
 
-model = joblib.load("models/infer_model.pkl")
-label_encoder = joblib.load("models/label_encoder.pkl")
+_MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
+model = joblib.load(_MODELS_DIR / "infer_model.pkl")
+label_encoder = joblib.load(_MODELS_DIR / "label_encoder.pkl")
 
 
 def _predict_core(text: str):
