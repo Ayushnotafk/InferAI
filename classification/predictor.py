@@ -5,11 +5,22 @@ import numpy as np
 from classification.embedder import generate_embeddings
 
 _MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
-model = joblib.load(_MODELS_DIR / "infer_model.pkl")
-label_encoder = joblib.load(_MODELS_DIR / "label_encoder.pkl")
+
+_model = None
+_label_encoder = None
+
+
+def _get_classifier():
+    global _model, _label_encoder
+    if _model is None:
+        _model = joblib.load(_MODELS_DIR / "infer_model.pkl")
+    if _label_encoder is None:
+        _label_encoder = joblib.load(_MODELS_DIR / "label_encoder.pkl")
+    return _model, _label_encoder
 
 
 def _predict_core(text: str):
+    model, label_encoder = _get_classifier()
     embedding = generate_embeddings([text])
     probabilities = model.predict_proba(embedding)[0]
     prediction = int(np.argmax(probabilities))
@@ -40,3 +51,4 @@ def predict_pramana_detailed(text: str) -> dict:
         "probabilities": np.asarray(proba, dtype=np.float64),
         "classes": classes,
     }
+
