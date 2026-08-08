@@ -249,10 +249,10 @@ function renderStrengthBadge(strength) {
   badge.className = "nyx-badge";
   
   let emoji = "○";
-  if (cleanStr === "strong") {
+  if (cleanStr === "strong" || cleanStr === "high") {
     badge.classList.add("nyx-badge-strong");
     emoji = "◆";
-  } else if (cleanStr === "moderate") {
+  } else if (cleanStr === "moderate" || cleanStr === "medium") {
     badge.classList.add("nyx-badge-moderate");
     emoji = "◇";
   } else {
