@@ -9,4 +9,3 @@ def get_random_confidence() -> float:
 
 # Backward-compatible alias (used by older deployed versions of app.py)
 get_random_confid = get_random_confidence
-

@@ -93,12 +93,11 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
         classes = detail["classes"]
 
         hybrid = hybrid_fuse(proba, text, class_order=classes, ml_weight=alpha, rule_weight=1.0 - alpha)
-        
-        random_conf = get_random_confidence()
+        adjusted_confidence = float(hybrid["adjusted_confidence"])
 
         strength, strength_debug = composite_reasoning_strength(
             text,
-            random_conf,
+            adjusted_confidence,
             claim,
             premises,
         )
@@ -114,8 +113,8 @@ def analyze(text: str, base_url: str, include_shap: bool, alpha: float) -> dict:
             "highlighted_html": highlighted_html,
             "predicted_pramana": ml_label,
             "hybrid_predicted_pramana": hybrid["final_label"],
-            "confidence": format_confidence(random_conf),
-            "adjusted_confidence": format_confidence(random_conf),
+            "confidence": format_confidence(ml_confidence),
+            "adjusted_confidence": format_confidence(adjusted_confidence),
             "reasoning_strength": strength,
             "reasoning_strength_debug": strength_debug,
             "explanation": explanation,
