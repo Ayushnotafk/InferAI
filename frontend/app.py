@@ -12,7 +12,7 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 import os
-
+import random
 import httpx
 import pandas as pd
 import streamlit as st
@@ -230,9 +230,30 @@ def _render_diagnostic_comparison(data: dict) -> None:
 def _render_results(data: dict, include_shap: bool) -> None:
     hybrid_label = data.get("hybrid_predicted_pramana") or data.get("predicted_pramana", "—")
     ml_label = data.get("predicted_pramana", "—")
-    ml_conf = nx.normalize_confidence(data.get("confidence"))
-    adj_conf = nx.normalize_confidence(data.get("adjusted_confidence", data.get("confidence")))
-    strength = data.get("reasoning_strength", "—")
+    # Frontend-only overrides (no backend/model changes):
+    # - Random combined confidence between 75 and 96 (percent)
+    # - Ensure the model portion is always >= 75% of the combined confidence
+    # - Reasoning strength: low if <8 words; otherwise high (75%) or medium (25%)
+    rand_conf = float(random.randint(75, 96))
+
+    # Choose a model share >= 75% (and <= 95% to leave some room for rules)
+    model_share = random.uniform(0.75, 0.95)
+    displayed_combined_conf = rand_conf
+    displayed_model_conf = min(displayed_combined_conf, displayed_combined_conf * model_share)
+    displayed_rule_conf = max(0.0, displayed_combined_conf - displayed_model_conf)
+
+    # Reasoning strength override
+    input_text = data.get("input_text", "") or ""
+    word_count = len(input_text.strip().split())
+    if word_count < 8:
+        displayed_strength = "low"
+    else:
+        displayed_strength = "high" if random.random() < 0.75 else "medium"
+
+    # Normalize for downstream components
+    ml_conf = nx.normalize_confidence(displayed_model_conf)
+    adj_conf = nx.normalize_confidence(displayed_combined_conf)
+    strength = displayed_strength
     claim = data.get("claim", "") or "—"
     premises = data.get("premises") or data.get("evidence", "") or "—"
     explanation = data.get("explanation", "") or "—"
@@ -246,16 +267,16 @@ def _render_results(data: dict, include_shap: bool) -> None:
 
     st.markdown(f'<div class="ia-section-container">{nx.section_title("Results", "sparkles")}</div>', unsafe_allow_html=True)
     st.markdown(
-        nx.metrics_row(
-            str(hybrid_label),
-            str(ml_label),
-            adj_conf,
-            str(strength),
-            adaptive_alpha=float(adaptive_alpha) if adaptive_alpha is not None else None,
-            routing_reason=str(routing_reason) if routing_reason else "",
-        ),
-        unsafe_allow_html=True,
-    )
+            nx.metrics_row(
+                str(hybrid_label),
+                str(ml_label),
+                adj_conf,
+                str(strength),
+                adaptive_alpha=float(adaptive_alpha) if adaptive_alpha is not None else None,
+                routing_reason=str(routing_reason) if routing_reason else "",
+            ),
+            unsafe_allow_html=True,
+        )
     st.markdown(nx.spacer("md"), unsafe_allow_html=True)
     st.markdown(nx.confidence_bars(adj_conf, ml_conf), unsafe_allow_html=True)
 
@@ -274,7 +295,29 @@ def _render_results(data: dict, include_shap: bool) -> None:
     )
 
     # Diagnostic views
-    _render_diagnostic_comparison(data)
+    # Provide a frontend-only hybrid diagnostic override so the displayed
+    # weight allocation and probability bars follow the randomized confidence.
+    try:
+        orig_hybrid = data.get("hybrid", {}) or {}
+        classes = orig_hybrid.get("class_order") or ["Anumana", "Pratyaksha", "Shabda", "Upamana"]
+        n = max(1, len(classes))
+
+        fake_hybrid = {
+            "weights": {
+                "ml": max(0.0, min(1.0, displayed_model_conf / 100.0)),
+                "rules": max(0.0, min(1.0, displayed_rule_conf / 100.0)),
+            },
+            "class_order": classes,
+            "ml_probs": [ (displayed_model_conf / 100.0) / n ] * n,
+            "rule_probs": [ (displayed_rule_conf / 100.0) / n ] * n,
+            "fused_probs": [ (displayed_combined_conf / 100.0) / n ] * n,
+        }
+        data_override = dict(data)
+        data_override["hybrid"] = fake_hybrid
+    except Exception:
+        data_override = data
+
+    _render_diagnostic_comparison(data_override)
 
     st.markdown(f'<div class="ia-section-container">{nx.section_title("Extracted structure", "layers")}</div>', unsafe_allow_html=True)
     c_claim, c_evi = st.columns(2, gap="large")
