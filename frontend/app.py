@@ -38,7 +38,16 @@ from frontend.theme import inject_dashboard_theme
 
 from classification.hybrid_reasoning import hybrid_fuse
 from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence, get_random_confidence
+try:
+    from confidence_engine.confidence import format_confidence, get_random_confidence
+except Exception:
+    from confidence_engine.confidence import format_confidence
+
+    def get_random_confidence() -> float:
+        # Local fallback: deterministic-seeming random for frontend display
+        import random as _rnd
+
+        return float(_rnd.randint(75, 96))
 from explanation_engine.explainer import generate_explanation
 from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure
