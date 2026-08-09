@@ -6,13 +6,31 @@ API URL is read from ``INFERAI_API_URL``, then ``http://127.0.0.1:8000``.
 
 from pathlib import Path
 import sys
-
-_ROOT = Path(__file__).resolve().parent.parent
-if str(_ROOT) not in sys.path:
-    sys.path.insert(0, str(_ROOT))
-
 import os
+<<<<<<< HEAD
 import random
+=======
+
+# --- Robust sys.path setup for Streamlit Cloud + local environments ---
+# Streamlit Cloud runs from /mount/src/<repo>/, cwd may differ from __file__ location.
+# We add every plausible project-root candidate so imports always resolve.
+_FILE_PATH = Path(__file__).resolve()
+
+# Candidate 1: parent of frontend/ (standard layout)
+_ROOT_CANDIDATE_1 = _FILE_PATH.parent.parent if _FILE_PATH.parent.name == "frontend" else _FILE_PATH.parent
+# Candidate 2: current working directory (Streamlit Cloud sets cwd to repo root)
+_ROOT_CANDIDATE_2 = Path(os.getcwd()).resolve()
+# Candidate 3: well-known Streamlit Cloud mount path
+_ROOT_CANDIDATE_3 = Path("/mount/src/inferai")
+
+for _candidate in [_ROOT_CANDIDATE_1, _ROOT_CANDIDATE_2, _ROOT_CANDIDATE_3]:
+    _candidate_str = str(_candidate)
+    if _candidate.exists() and _candidate_str not in sys.path:
+        sys.path.insert(0, _candidate_str)
+
+_ROOT = _ROOT_CANDIDATE_1  # used for any relative file lookups below
+
+>>>>>>> e039a06f93d56e5ed13a9eb2598cd2c55f4d660a
 import httpx
 import pandas as pd
 import streamlit as st
@@ -22,7 +40,7 @@ from frontend.theme import inject_dashboard_theme
 
 from classification.hybrid_reasoning import hybrid_fuse
 from classification.predictor import predict_pramana_detailed
-from confidence_engine.confidence import format_confidence
+from confidence_engine.confidence import format_confidence, get_random_confidence
 from explanation_engine.explainer import generate_explanation
 from explanation_engine.shap_explainer import explain_embedding
 from preprocessing.argument_structure import extract_argument_structure

@@ -1,0 +1,12 @@
+[server]
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = false
+# Disable file watcher — prevents transformers/torchvision ModuleNotFoundError spam
+fileWatcherType = "none"
+# Exclude large ML packages from hot-reload watching
+folderWatchBlacklist = ["transformers", "torch", "torchvision", "sentence_transformers", "shap"]
+
+[browser]
+gatherUsageStats = false
