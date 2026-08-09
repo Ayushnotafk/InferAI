@@ -86,7 +86,10 @@ The API returns `adaptive_alpha` and `routing_reason` for explainability.
 
 ### Fallacy detection
 
-`reasoning/fallacy_detector.py` applies heuristic Nyāya-inspired checks (contradiction, unstated premise, weak inference, weak analogy, weak authority). Results appear as `fallacy_detected`, `fallacy_type`, and `fallacy_explanation`. Gold evaluation set: `dataset/gold/fallacy_gold.jsonl`.
+`reasoning/fallacy_detector.py` applies heuristic checks for common fallacies focused on `Anumana`-style inferences. The fallacy module is intentionally rule-based and modular; it returns a rich `fallacy_analysis` object in API responses (see `api/inference.py`) while keeping legacy fields for backward compatibility.
+
+Dataset: a separate fallacy dataset lives under `dataset/fallacy/` and must not be mixed with the primary Pramana corpus. Human validation is required before examples are treated as gold-standard. See `dataset/fallacy/README.md` and `dataset/fallacy/ANNOTATION_GUIDELINES.md` for details.
+
 
 ### Benchmark framework
 

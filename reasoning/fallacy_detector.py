@@ -70,11 +70,11 @@ def detect_fallacies(
         ):
             return {
                 "fallacy_detected": True,
-                "fallacy_type": "Contradiction",
-                "fallacy_explanation": (
-                    "Premise and claim appear mutually inconsistent "
-                    "(wet/dry or rain/no-rain opposition)."
-                ),
+                "fallacy_label": "contradiction",
+                "confidence": 0.9,
+                "evidence": "lexical_polarity_wet_dry",
+                "reason": "Premise and claim show opposing polarity (wet vs dry).",
+                "rules_triggered": ["contradiction_polarity"],
             }
 
     # 2. Missing / unstated premise.
@@ -84,44 +84,53 @@ def detect_fallacies(
     if has_inference and (not prem_n or len(prem_n) < _MIN_PREMISE_CHARS):
         return {
             "fallacy_detected": True,
-            "fallacy_type": "Unstated Premise",
-            "fallacy_explanation": (
-                "An inferential connector is present but no substantive premise was extracted."
-            ),
+            "fallacy_label": "unstated_premise",
+            "confidence": 0.7,
+            "evidence": "short_or_missing_premise",
+            "reason": "Inference connector present but premises are missing or too short.",
+            "rules_triggered": ["unstated_premise_length"],
         }
 
     # 3. Weak inference.
     if has_inference and prem_n and claim_n and _weak_similarity(claim_n, prem_n):
         return {
             "fallacy_detected": True,
-            "fallacy_type": "Weak Inference",
-            "fallacy_explanation": (
-                "Inference cue detected with very weak lexical connection between premise and claim."
-            ),
+            "fallacy_label": "weak_inference",
+            "confidence": 0.65,
+            "evidence": "low_lexical_overlap",
+            "reason": "Low lexical overlap between premise and claim despite inference cue.",
+            "rules_triggered": ["weak_inference_overlap"],
         }
 
     # 4. Unsupported analogy.
     if _ANALOGY.search(full) and _weak_similarity(claim_n, prem_n or full):
         return {
             "fallacy_detected": True,
-            "fallacy_type": "Weak Analogy",
-            "fallacy_explanation": (
-                "Analogy connector present without clear semantic overlap between compared ideas."
-            ),
+            "fallacy_label": "weak_analogy",
+            "confidence": 0.6,
+            "evidence": "analogy_keyword_no_overlap",
+            "reason": "Analogy language used but semantic overlap is weak.",
+            "rules_triggered": ["weak_analogy_keyword_overlap"],
         }
 
     # 5. Unsupported authority.
     if _AUTHORITY.search(full) and not _NAMED_SOURCE.search(full):
         return {
             "fallacy_detected": True,
-            "fallacy_type": "Weak Authority",
-            "fallacy_explanation": (
-                "Authority phrasing ('according to') without an identifiable institutional or expert source."
-            ),
+            "fallacy_label": "weak_authority",
+            "confidence": 0.6,
+            "evidence": "authority_phrase_no_named_source",
+            "reason": "Authority phrasing present without identifiable/credible source.",
+            "rules_triggered": ["weak_authority_phrase"],
         }
 
     return {
         "fallacy_detected": False,
-        "fallacy_type": None,
-        "fallacy_explanation": None,
+        "fallacy_label": "none",
+        "confidence": 0.0,
+        "evidence": None,
+        "reason": None,
+        "rules_triggered": [],
     }
+
+

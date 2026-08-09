@@ -7,9 +7,8 @@ API URL is read from ``INFERAI_API_URL``, then ``http://127.0.0.1:8000``.
 from pathlib import Path
 import sys
 import os
-<<<<<<< HEAD
 import random
-=======
+
 
 # --- Robust sys.path setup for Streamlit Cloud + local environments ---
 # Streamlit Cloud runs from /mount/src/<repo>/, cwd may differ from __file__ location.
@@ -30,7 +29,6 @@ for _candidate in [_ROOT_CANDIDATE_1, _ROOT_CANDIDATE_2, _ROOT_CANDIDATE_3]:
 
 _ROOT = _ROOT_CANDIDATE_1  # used for any relative file lookups below
 
->>>>>>> e039a06f93d56e5ed13a9eb2598cd2c55f4d660a
 import httpx
 import pandas as pd
 import streamlit as st
@@ -311,6 +309,33 @@ def _render_results(data: dict, include_shap: bool) -> None:
         nx.content_card("Summary", str(explanation), large=True, icon_name="file-text"),
         unsafe_allow_html=True,
     )
+
+    # Reasoning Validity / Fallacy section
+    fall_consumer = data.get("fallacy_analysis") or {
+        "applicable": True,
+        "fallacy_detected": data.get("fallacy_detected", False),
+        "label": data.get("fallacy_type") or data.get("fallacy_label"),
+        "confidence": None,
+        "reason": data.get("fallacy_explanation") or data.get("fallacy_explanation"),
+        "evidence": None,
+        "rules_triggered": [],
+    }
+
+    if fall_consumer.get("applicable"):
+        fa_label = fall_consumer.get("label") or "none"
+        fa_detected = fall_consumer.get("fallacy_detected", False)
+        fa_conf = nx.normalize_confidence(fall_consumer.get("confidence") or 0.0)
+        fa_reason = fall_consumer.get("reason") or ""
+        fa_evidence = fall_consumer.get("evidence") or ""
+        fa_rules = fall_consumer.get("rules_triggered") or []
+
+        st.markdown(f'<div class="ia-section-container">{nx.section_title("Reasoning Validity", "layers")}</div>', unsafe_allow_html=True)
+        if fa_detected and fa_label and fa_label != "none":
+            st.markdown(nx.content_card("Fallacy detected", f"Type: {fa_label}\n\nReason: {fa_reason}", large=False, icon_name="message"), unsafe_allow_html=True)
+            st.markdown(nx.content_card("Evidence / Rule", f"{fa_evidence}\n\nRules: {', '.join(fa_rules)}", large=False, icon_name="layers"), unsafe_allow_html=True)
+        else:
+            st.markdown(nx.content_card("No obvious fallacy detected", "No fallacy flags raised by heuristic checks.", large=False, icon_name="message"), unsafe_allow_html=True)
+
 
     # Diagnostic views
     # Provide a frontend-only hybrid diagnostic override so the displayed

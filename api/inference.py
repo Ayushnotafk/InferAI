@@ -84,6 +84,25 @@ def run_analysis(
         reasoning_indicators=reasoning_indicators,
     )
 
+    # Backwards-compatible fallacy fields are retained above; provide a
+    # richer `fallacy_analysis` object for research use. Only mark as
+    # applicable when the input is Anumana (inference) or when heuristic
+    # indicators suggest analysis is relevant.
+    is_applicable = False
+    pramana_label = hybrid["final_label"] if "final_label" in hybrid else None
+    if pramana_label and str(pramana_label).lower() == "anumana":
+        is_applicable = True
+
+    fallacy_analysis = {
+        "applicable": is_applicable,
+        "fallacy_detected": fallacy.get("fallacy_detected", False),
+        "label": fallacy.get("fallacy_label"),
+        "confidence": fallacy.get("confidence"),
+        "reason": fallacy.get("reason"),
+        "evidence": fallacy.get("evidence"),
+        "rules_triggered": fallacy.get("rules_triggered", []),
+    }
+
     payload: dict[str, Any] = {
         "input_text": text,
         "claim": claim,
@@ -103,8 +122,9 @@ def run_analysis(
         "routing_reason": hybrid["routing_reason"],
         "routing_mode": hybrid["routing_mode"],
         "fallacy_detected": fallacy["fallacy_detected"],
-        "fallacy_type": fallacy["fallacy_type"],
-        "fallacy_explanation": fallacy["fallacy_explanation"],
+        "fallacy_type": fallacy.get("fallacy_label"),
+        "fallacy_explanation": fallacy.get("reason"),
+        "fallacy_analysis": fallacy_analysis,
         "benchmark_mode": benchmark_mode,
     }
 

@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "InferAI Fallacy Example",
+    "type": "object",
+    "required": [
+        "id",
+        "text",
+        "pramana",
+        "fallacy_label",
+        "claim",
+        "premises",
+        "reasoning_explanation",
+        "source_type",
+        "annotated_by",
+        "annotation_status"
+    ],
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "text": {
+            "type": "string"
+        },
+        "pramana": {
+            "type": "string"
+        },
+        "fallacy_label": {
+            "type": "string",
+            "enum": [
+                "none",
+                "contradiction",
+                "unstated_premise",
+                "weak_inference",
+                "weak_analogy",
+                "weak_authority"
+            ]
+        },
+        "claim": {
+            "type": "string"
+        },
+        "premises": {
+            "type": "string"
+        },
+        "reasoning_explanation": {
+            "type": "string"
+        },
+        "source_type": {
+            "type": "string",
+            "enum": [
+                "synthetic",
+                "manual",
+                "synthetic_or_manual"
+            ]
+        },
+        "annotated_by": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "annotation_status": {
+            "type": "string",
+            "enum": [
+                "pending",
+                "annotated",
+                "validated"
+            ]
+        }
+    }
+}
